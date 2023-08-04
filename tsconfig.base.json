@@ -9,11 +9,18 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2015",
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM"],
+    "module": "ES2022",
+    "lib": ["ES2022", "DOM", "ES2022.String"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    // Custom config
+    "downlevelIteration": true,
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    // Custom config
     "paths": {
       "@libs/shared/domain": ["libs/shared/domain/src/index.ts"]
     }
