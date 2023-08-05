@@ -1,17 +1,28 @@
-import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import localePt from '@angular/common/locales/pt';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { appRoutes } from './app.routes';
-import { NxWelcomeComponent } from './nx-welcome.component';
+
+registerLocaleData(localePt, 'pt');
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
+  declarations: [AppComponent],
+  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt',
+    },
+    {
+      provide: DEFAULT_CURRENCY_CODE,
+      useValue: 'BRL',
+    },
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

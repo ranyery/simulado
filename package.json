@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "start:admin": "npx nx serve admin",
+    "build:admin": "npx nx build admin",
     "start:client": "npx nx serve client",
     "build:client": "npx nx build client",
     "start:server": "npx nx serve server",
