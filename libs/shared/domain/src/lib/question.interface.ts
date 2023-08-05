@@ -33,6 +33,7 @@ export const enum EQuestionType {
 export interface IAnswer {
   id: string;
   text: string;
+  image: IImage;
   order: number;
 }
 

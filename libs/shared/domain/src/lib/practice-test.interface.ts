@@ -11,7 +11,7 @@ export interface IPracticeTest {
   pendingQuestionIds: string[]; // Lista de IDs das questões pendentes
   correctQuestionIds: string[]; // Lista de IDs das questões respondidas corretamente
   incorrectQuestionIds: string[]; // Lista de IDs das questões respondidas incorretamente
-  durationInMinutes: number;
+  duration: number; // Duração em minutos
   subject: ISubject; // Matéria
   difficultyLevel: EDifficultyLevel; // Nível de dificuldade do simulado
   startDate: string; // Data de início do período de disponibilidade do simulado

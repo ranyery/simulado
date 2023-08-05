@@ -13,6 +13,8 @@ export interface IUser {
 }
 
 export interface IUserProfile extends IUser {
+  id: string;
+  username: string;
   fullName: string;
   avatar?: string;
   bio?: string; // Biografia ou descrição do usuário
