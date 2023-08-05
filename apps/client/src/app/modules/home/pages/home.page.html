@@ -1,1 +1,27 @@
-<app-question></app-question>
+<div class="header-question">
+  <span>Question 7 of 65</span>
+  <p-button label="Cancelar simulado" styleClass="p-button-danger"></p-button>
+</div>
+
+<div class="middle">
+  <app-question></app-question>
+  <aside>
+    <p-button *ngFor="let item of items; index as i" styleClass="p-button-rounded p-button-success">
+      {{ i + 1 }}
+    </p-button>
+  </aside>
+</div>
+<div class="bottom-question">
+  <p-button icon="pi pi-arrow-left" label="Prev" styleClass="p-button-success"></p-button>
+  <form [formGroup]="form">
+    <label for="check">Marcar para revisão</label>
+    <p-checkbox
+      [binary]="true"
+      inputId="check"
+      formControlName="pending"
+      [value]="form.controls['pending'].value">
+    </p-checkbox>
+  </form>
+  <p-button icon="pi pi-arrow-right" iconPos="right" label="Next" styleClass="p-button-success">
+  </p-button>
+</div>

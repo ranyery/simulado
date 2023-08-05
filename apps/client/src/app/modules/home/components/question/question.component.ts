@@ -39,6 +39,6 @@ export class QuestionComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
       this._changeDetectorRef.detectChanges();
-    }, 2000);
+    }, 1000);
   }
 }

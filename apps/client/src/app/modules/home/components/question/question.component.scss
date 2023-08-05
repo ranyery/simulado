@@ -52,7 +52,6 @@
     display: block;
 
     .icon {
-      margin-right: 8px;
       font-size: 16px;
     }
   }
@@ -81,10 +80,26 @@
     }
 
     p-button {
-      .p-button-secondary {
-        border: #393a42;
-        background: #393a42;
+      .p-button {
+        display: inline-flex;
+        width: 154px;
+        height: 40px;
+        justify-content: space-evenly;
+        padding: 10px 12px;
         font-family: Roboto;
+
+        &.p-button-loading-label-only .p-button-label {
+          margin-left: 0 !important;
+        }
+
+        &.p-button-secondary {
+          border: #393a42;
+          background: #393a42;
+
+          .p-button-label {
+            flex: inherit;
+          }
+        }
       }
     }
   }
