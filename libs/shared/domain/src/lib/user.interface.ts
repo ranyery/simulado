@@ -2,11 +2,10 @@ import { IPracticeTest } from './practice-test.interface';
 
 export interface IUser {
   id: string;
-  username: string;
   email: string;
   password: string;
   role: EUserRole;
-  lastLogin?: string;
+  lastLoginDate?: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

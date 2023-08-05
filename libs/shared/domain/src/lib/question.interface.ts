@@ -12,7 +12,7 @@ export interface IQuestion {
   difficultyLevel: EDifficultyLevel;
   additionalInfo: string;
   subject: ISubject; // Matéria
-  topics: ITopic[]; // Tópico da matéria
+  topics: ITopic[]; // Tópicos da matéria
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
