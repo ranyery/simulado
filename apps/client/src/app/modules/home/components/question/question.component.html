@@ -1,0 +1,34 @@
+<section class="question">
+  <div class="question__topics">
+    Tópicos:
+    <span *ngFor="let topic of topics; last as isLast">{{ topic }}{{ isLast ? '' : ', ' }}</span>
+  </div>
+  <div class="question__title">
+    Uma função f(x) é tal que f(2) = 0,4 e f(3) = -0,6. Admitindo que para x entre 2 e 3 o gráfico
+    seja um segmento de reta, podemos afirmar que o valor de k, tal que f(k) = 0 , é:
+  </div>
+  <form class="question__answers" [formGroup]="form">
+    <ng-container *ngFor="let answer of answers; index as i">
+      <label
+        [ngClass]="{ selected: form.controls['selectedAnswer'].value === answer.title }"
+        [for]="answer.id">
+        <p-radioButton
+          [inputId]="answer.id"
+          [value]="answer.title"
+          formControlName="selectedAnswer">
+        </p-radioButton>
+        <span class="bold">{{ upperLetters[i] }}.</span>
+        <span>{{ answer.title }}</span>
+      </label>
+    </ng-container>
+  </form>
+  <div class="question__show-answer">
+    <p-button
+      styleClass="p-button-secondary"
+      label="Show Answer"
+      [loading]="isLoading"
+      (onClick)="load()">
+      <i *ngIf="!isLoading" class="icon pi pi-eye"></i>
+    </p-button>
+  </div>
+</section>
