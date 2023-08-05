@@ -1,6 +1,8 @@
+// Entidades Pergunta e Resposta
+
 export interface IQuestion {
   id: string;
-  text: string;
+  title: string;
   answers: IAnswer[];
   correctAnswerId: string;
   questionType: EQuestionType;
@@ -11,7 +13,7 @@ export interface IQuestion {
   additionalInfo: string;
   subject: ISubject; // Matéria
   topics: ITopic[]; // Tópico da matéria
-  status: EQuestionStatus;
+  isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -26,12 +28,6 @@ export const enum EQuestionType {
   MULTIPLE_CHOICE = 'Múltipla Escolha',
   TRUE_FALSE = 'Verdadeiro ou Falso',
   FILL_IN_THE_BLANK = 'Preenchimento de Espaço em Branco',
-}
-
-export const enum EQuestionStatus {
-  ACTIVE = 'Ativa',
-  INACTIVE = 'Inativa',
-  UNDER_REVIEW = 'Em Revisão',
 }
 
 export interface IAnswer {
