@@ -9,6 +9,7 @@ export interface IPracticeTest {
   questions: IQuestion[];
   answeredQuestionIds: string[]; // Lista de IDs das questões respondidas
   pendingQuestionIds: string[]; // Lista de IDs das questões pendentes
+  // markForReviewQuestionIds: string[]; // Lista de IDs das questões marcadas para revisão
   correctQuestionIds: string[]; // Lista de IDs das questões respondidas corretamente
   incorrectQuestionIds: string[]; // Lista de IDs das questões respondidas incorretamente
   duration: number; // Duração em minutos
