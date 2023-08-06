@@ -26,7 +26,9 @@
             "prefix": "app",
             "style": "camelCase"
           }
-        ]
+        ],
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-inferrable-types": "off"
       },
       "extends": ["plugin:@nx/angular", "plugin:@angular-eslint/template/process-inline-templates"]
     },
