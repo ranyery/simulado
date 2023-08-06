@@ -5,12 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 
-import { QuestionComponent } from './components/question/question.component';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomePage } from './pages/home.page';
 
 @NgModule({
-  declarations: [HomePage, QuestionComponent],
+  declarations: [HomePage],
   imports: [
     CommonModule,
     HomeRoutingModule,

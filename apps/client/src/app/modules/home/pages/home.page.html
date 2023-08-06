@@ -1,27 +1,68 @@
-<div class="header-question">
-  <span>Question 7 of 65</span>
-  <p-button label="Cancelar simulado" styleClass="p-button-danger"></p-button>
-</div>
+<div class="home-page">
+  <div class="practice-test">
+    <div class="practice-test__header">
+      <span>Question 7 of 65</span>
+      <p-button label="Cancelar simulado" styleClass="p-button-danger"></p-button>
+    </div>
 
-<div class="middle">
-  <app-question></app-question>
-  <aside>
-    <p-button *ngFor="let item of items; index as i" styleClass="p-button-rounded p-button-success">
-      {{ i + 1 }}
-    </p-button>
-  </aside>
-</div>
-<div class="bottom-question">
-  <p-button icon="pi pi-arrow-left" label="Prev" styleClass="p-button-success"></p-button>
-  <form [formGroup]="form">
-    <label for="check">Marcar para revisão</label>
-    <p-checkbox
-      [binary]="true"
-      inputId="check"
-      formControlName="pending"
-      [value]="form.controls['pending'].value">
-    </p-checkbox>
-  </form>
-  <p-button icon="pi pi-arrow-right" iconPos="right" label="Next" styleClass="p-button-success">
-  </p-button>
+    <article class="practice-test__question">
+      <div class="topics">
+        Tópicos:
+        <span *ngFor="let topic of topics; last as isLast">
+          {{ topic }}{{ isLast ? '' : ', ' }}
+        </span>
+      </div>
+      <div class="title">
+        Uma função f(x) é tal que f(2) = 0,4 e f(3) = -0,6. Admitindo que para x entre 2 e 3 o
+        gráfico seja um segmento de reta, podemos afirmar que o valor de k, tal que f(k) = 0, é:
+      </div>
+      <form class="answers" [formGroup]="form">
+        <ng-container *ngFor="let answer of answers; index as i">
+          <label
+            [ngClass]="{ selected: form.controls['selectedAnswer'].value === answer.title }"
+            [for]="answer.id">
+            <p-radioButton
+              [inputId]="answer.id"
+              [value]="answer.title"
+              formControlName="selectedAnswer">
+            </p-radioButton>
+            <span class="bold">{{ upperLetters[i] }}.</span>
+            <span>{{ answer.title }}</span>
+          </label>
+        </ng-container>
+      </form>
+      <p-button
+        styleClass="p-button-secondary"
+        label="Show Answer"
+        [loading]="isLoading"
+        (onClick)="load()">
+        <i *ngIf="!isLoading" class="icon pi pi-eye"></i>
+      </p-button>
+    </article>
+
+    <aside>
+      <p-button
+        *ngFor="let item of items; index as i"
+        styleClass="p-button-rounded p-button-success">
+        {{ i + 1 }}
+      </p-button>
+    </aside>
+
+    <div class="practice-test__footer">
+      <p-button icon="pi pi-arrow-left" label="Anterior" styleClass="p-button-success"></p-button>
+      <label class="checkbox" for="check">
+        <p-checkbox
+          inputId="check"
+          [binary]="true"
+          (onChange)="onCheckboxChange($event)"></p-checkbox>
+        <span>Marcar para revisão</span>
+      </label>
+      <p-button
+        icon="pi pi-arrow-right"
+        iconPos="right"
+        label="Próximo"
+        styleClass="p-button-success">
+      </p-button>
+    </div>
+  </div>
 </div>
