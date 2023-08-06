@@ -1,5 +1,26 @@
+$header-height: 72px;
+$main-height: 100vh;
+$footer-height: 40px;
+
+header {
+  height: $header-height;
+  background-color: #f00;
+}
+
 main {
-  // min-height: calc(100vh - (2 * 24px));
-  min-height: 100vh;
+  min-height: calc($main-height - ($header-height + $footer-height));
   background-color: #fff;
+}
+
+footer {
+  height: $footer-height;
+  background-color: #00f;
+}
+
+// ! TODO: Remover
+header,
+footer {
+  display: grid;
+  font-weight: 700;
+  place-items: center;
 }

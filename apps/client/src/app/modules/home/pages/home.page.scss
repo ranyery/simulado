@@ -1,19 +1,27 @@
 .home-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
 }
 
 .practice-test {
   display: grid;
   border-radius: 8px;
   background-color: #25262e;
-  color: #fff;
   grid-template-areas:
     'header   header'
     'question aside'
     'footer   aside';
+  /* stylelint-disable */
   grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  /* stylelint-enable */
+
+  .bold {
+    font-weight: bold;
+  }
 
   &__header {
     display: flex;
@@ -27,28 +35,14 @@
     &::ng-deep {
       p-button {
         .p-button {
-          width: 160px;
           height: 40px;
-          padding: 8px 12px;
-          font-family: Roboto;
 
-          &.p-button-danger {
-            border: 1px solid var(--red-300);
-            background: var(--red-300);
+          &.p-button-secondary {
+            border: #393a42;
+            background: #393a42;
 
-            &:enabled {
-              &:hover {
-                border-color: var(--red-500);
-                background: var(--red-500);
-              }
-
-              &:focus {
-                box-shadow: none;
-              }
-
-              &:focus-visible {
-                outline: none;
-              }
+            &:enabled:focus {
+              box-shadow: none;
             }
           }
         }
@@ -65,8 +59,6 @@
     grid-area: question;
 
     .topics {
-      font-weight: bold;
-
       span {
         color: #ffffff80;
         font-weight: 400;
@@ -98,10 +90,6 @@
         background-color: #25262e;
         cursor: pointer;
         gap: 8px;
-
-        .bold {
-          font-weight: bold;
-        }
       }
     }
 
@@ -117,13 +105,12 @@
     &::ng-deep {
       p-radiobutton {
         .p-radiobutton {
-          width: 16px;
-          height: 16px;
+          width: 18px;
+          height: 18px;
 
           .p-radiobutton-box {
-            width: 16px;
-            height: 16px;
-            border-radius: 10%;
+            width: 18px;
+            height: 18px;
 
             .p-radiobutton-icon {
               background-color: transparent;
@@ -162,24 +149,62 @@
     }
   }
 
-  aside {
-    display: grid;
-    align-content: baseline;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 16px;
     border-left: 1px solid #37373f;
-    gap: 4px;
+    gap: 32px;
     grid-area: aside;
-    grid-template-columns: repeat(8, 1fr);
+
+    &--hidden {
+      display: none;
+    }
+
+    .items {
+      display: grid;
+      align-content: baseline;
+      gap: 4px;
+      grid-template-columns: repeat(8, 1fr);
+      place-items: center;
+    }
 
     // Custom components
     &::ng-deep {
       p-button {
-        .p-button.p-button-rounded.p-button-success {
-          width: 40px;
+        .p-button {
           height: 40px;
-          justify-content: center;
-          padding: 0;
-          font-family: Roboto;
+
+          &.p-button-rounded.p-button-success {
+            width: 40px;
+            justify-content: center;
+            padding: 0;
+            font-family: Roboto;
+          }
+
+          &.p-button-danger {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--red-300);
+            background: var(--red-300);
+            font-family: Roboto;
+
+            &:enabled {
+              &:hover {
+                border-color: var(--red-500);
+                background: var(--red-500);
+              }
+
+              &:focus {
+                box-shadow: none;
+              }
+
+              &:focus-visible {
+                outline: none;
+              }
+            }
+          }
         }
       }
     }
@@ -193,19 +218,14 @@
     padding: 16px;
     grid-area: footer;
 
-    .checkbox {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
     // Custom components
     &::ng-deep {
       p-button {
         .p-button.p-button-success {
           display: flex;
-          width: 128px;
+          width: 116px;
           height: 40px;
+          padding: 12px 16px;
           font-family: Roboto;
           gap: 4px;
 
@@ -214,6 +234,33 @@
             margin: 0;
           }
         }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    border-radius: 0;
+
+    &__list {
+      .items {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-areas:
+      'header'
+      'question'
+      'footer'
+      'aside';
+
+    &__list {
+      border-left: 0;
+
+      .items {
+        gap: 8px;
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
       }
     }
   }

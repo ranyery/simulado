@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CheckboxChangeEvent } from 'primeng/checkbox';
 
 interface IAnswer {
   id: string;
@@ -14,7 +13,9 @@ interface IAnswer {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
-  public readonly items = Array.from({ length: 100 }).fill(0);
+  public showList: boolean = true;
+
+  public readonly items = Array.from({ length: 65 }).fill(0);
 
   public isLoading: boolean = false;
   public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
@@ -37,15 +38,15 @@ export class HomePage implements OnInit {
     this.topics = ['Matemática Financeira', 'Regra de três', 'Equação de 1º grau'];
   }
 
-  public onCheckboxChange(event: CheckboxChangeEvent): void {
-    console.log('onChangeMarkForReview:', event);
-  }
-
   public load(): void {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
       this._changeDetectorRef.detectChanges();
     }, 1000);
+  }
+
+  public toggleShowList(): void {
+    this.showList = !this.showList;
   }
 }
