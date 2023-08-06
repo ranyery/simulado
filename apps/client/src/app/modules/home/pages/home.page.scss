@@ -1,14 +1,14 @@
 .home-page {
-  display: block;
-
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
+  display: grid;
+  min-height: calc(100vh - 112px);
+  place-items: center;
 }
 
 .practice-test {
   display: grid;
+  max-width: 1440px;
   border-radius: 8px;
+  margin: 16px;
   background-color: #25262e;
   grid-template-areas:
     'header   header'
@@ -239,8 +239,6 @@
   }
 
   @media (max-width: 1024px) {
-    border-radius: 0;
-
     &__list {
       .items {
         grid-template-columns: repeat(6, 1fr);
@@ -249,6 +247,8 @@
   }
 
   @media (max-width: 768px) {
+    border-radius: 0;
+    margin: 16px 0;
     grid-template-areas:
       'header'
       'question'

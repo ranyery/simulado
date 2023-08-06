@@ -4,23 +4,22 @@ $footer-height: 40px;
 
 header {
   height: $header-height;
-  background-color: #f00;
 }
 
 main {
   min-height: calc($main-height - ($header-height + $footer-height));
-  background-color: #fff;
+  background-color: #2e2e34;
 }
 
 footer {
   height: $footer-height;
-  background-color: #00f;
 }
 
 // ! TODO: Remover
 header,
 footer {
   display: grid;
+  background-color: #25262e;
   font-weight: 700;
   place-items: center;
 }
