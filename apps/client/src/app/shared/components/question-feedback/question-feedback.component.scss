@@ -1,0 +1,26 @@
+.question-feedback {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__actions {
+    border-radius: 6px;
+    background-color: #393a42;
+  }
+
+  // Custom components
+  p-button::ng-deep {
+    .p-button {
+      height: 40px;
+
+      &.p-button-secondary {
+        border: #393a42;
+        background: #393a42;
+
+        &:enabled:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
