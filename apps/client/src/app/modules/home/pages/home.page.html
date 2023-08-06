@@ -1,12 +1,16 @@
 <div class="home-page">
   <div class="practice-test">
     <div class="practice-test__header">
-      <span>Question 7 of 65</span>
-      <p-button label="Cancelar simulado" styleClass="p-button-danger"></p-button>
+      <div>Questão: <span class="bold">7</span>/<span>65</span></div>
+      <p-button
+        (onClick)="toggleShowList()"
+        styleClass="p-button-secondary"
+        icon="pi pi-filter-{{ showList ? 'slash' : 'fill' }}">
+      </p-button>
     </div>
 
     <article class="practice-test__question">
-      <div class="topics">
+      <div class="topics bold">
         Tópicos:
         <span *ngFor="let topic of topics; last as isLast">
           {{ topic }}{{ isLast ? '' : ', ' }}
@@ -40,23 +44,19 @@
       </p-button>
     </article>
 
-    <aside>
-      <p-button
-        *ngFor="let item of items; index as i"
-        styleClass="p-button-rounded p-button-success">
-        {{ i + 1 }}
-      </p-button>
+    <aside class="practice-test__list" [ngClass]="{'practice-test__list--hidden': !showList}">
+      <div class="items">
+        <p-button
+          *ngFor="let item of items; index as i"
+          styleClass="p-button-rounded p-button-success">
+          {{ i + 1 }}
+        </p-button>
+      </div>
+      <p-button label="Cancelar simulado" styleClass="p-button-danger"></p-button>
     </aside>
 
     <div class="practice-test__footer">
       <p-button icon="pi pi-arrow-left" label="Anterior" styleClass="p-button-success"></p-button>
-      <label class="checkbox" for="check">
-        <p-checkbox
-          inputId="check"
-          [binary]="true"
-          (onChange)="onCheckboxChange($event)"></p-checkbox>
-        <span>Marcar para revisão</span>
-      </label>
       <p-button
         icon="pi pi-arrow-right"
         iconPos="right"
