@@ -8,16 +8,16 @@
   "rules": {
     "max-line-length": 100,
     "string-quotes": "single",
-    "no-empty-source": null,
-    "max-nesting-depth": null,
-    "selector-class-pattern": null,
-    "property-no-vendor-prefix": null,
     "declaration-empty-line-before": null,
-    "selector-pseudo-element-no-unknown": null,
-    "order/properties-alphabetical-order": null,
-    "scss/dollar-variable-empty-line-before": null,
-    "selector-max-compound-selectors": null,
+    "font-family-no-missing-generic-family-keyword": null,
+    "max-nesting-depth": null,
     "no-descending-specificity": null,
-    "font-family-no-missing-generic-family-keyword": null
+    "no-empty-source": null,
+    "order/properties-alphabetical-order": null,
+    "property-no-vendor-prefix": null,
+    "scss/dollar-variable-empty-line-before": null,
+    "selector-class-pattern": null,
+    "selector-max-compound-selectors": null,
+    "selector-pseudo-element-no-unknown": null
   }
 }
