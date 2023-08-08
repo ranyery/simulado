@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Users {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+
+  role          String    @default("User")
+  isActive      Boolean   @default(true)
+  lastLoginDate DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+
+  @@map("users")
+}
+
+// npx prisma migrate dev --name create-users
+// npx prisma studio
