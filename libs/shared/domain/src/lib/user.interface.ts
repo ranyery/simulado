@@ -47,9 +47,9 @@ export enum ESubject {
 }
 
 export enum EUserRole {
-  USER = 'User',
-  TEACHER = 'Teacher',
-  ADMIN = 'Admin',
+  USER = 'user',
+  TEACHER = 'teacher',
+  ADMIN = 'admin',
 }
 
 export interface IUserAddress {
