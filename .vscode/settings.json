@@ -23,6 +23,7 @@
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "files.exclude": {
     ".angular": true,
+    ".github": true,
     ".husky": true,
     ".vscode": true,
     "node_modules": true,

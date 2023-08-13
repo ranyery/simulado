@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PrismaService } from 'apps/server/src/infra/database/prisma.service';
 import { hash } from 'bcrypt';
 
+import { PrismaService } from '../../../infra/database/prisma.service';
 import { CreateUserDTO } from '../dto/user.dto';
 
 @Injectable()
