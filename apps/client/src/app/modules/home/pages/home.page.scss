@@ -2,6 +2,10 @@
   display: grid;
   min-height: calc(100vh - 112px);
   place-items: center;
+
+  &__feedback {
+    padding: 16px 0;
+  }
 }
 
 .practice-test {
