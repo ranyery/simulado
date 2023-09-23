@@ -4,7 +4,6 @@
 generator client {
   provider = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x", "linux-arm64-openssl-1.1.x", "rhel-openssl-1.0.x"]
-
 }
 
 datasource db {
@@ -19,13 +18,12 @@ model Users {
   email         String    @unique
   password      String
 
-  role          String    @default("user")
-  isActive      Boolean   @default(true)
-  lastLoginDate DateTime  @default(now())
+  role          String    @default("USER")
+  status        String    @default("PENDING_CONFIRMATION")
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now())
 
-  @@map("users")
+  @@map("Users")
 }
 
 // npx prisma migrate dev --name create-users

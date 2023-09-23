@@ -2,51 +2,47 @@
 
 export interface IQuestion {
   id: string;
-  title: string;
-  answers: IAnswer[];
-  correctAnswerId: string;
+  statement: string; // Enunciado => A pergunta ou problema apresentado
+  answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
+  correctAnswerId: string; // Identificador da resposta correta
   questionType: EQuestionType;
   source: ISource;
-  images: IImage[];
-  answerExplanation: string;
   difficultyLevel: EDifficultyLevel;
-  additionalInfo: string;
-  subject: ISubject; // Matéria
-  topics: ITopic[]; // Tópicos da matéria
+  subject: ISubject; // A matéria à qual a questão está relacionada (matemática, história, etc.)
+  relatedTopics: ITopic[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
   isActive: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export const enum EDifficultyLevel {
-  EASY = 'Fácil',
-  MEDIUM = 'Médio',
-  HARD = 'Difícil',
-}
-
-export const enum EQuestionType {
-  MULTIPLE_CHOICE = 'Múltipla Escolha',
-  TRUE_FALSE = 'Verdadeiro ou Falso',
-  FILL_IN_THE_BLANK = 'Preenchimento de Espaço em Branco',
+  // author: string; // O autor da questão, se você desejar rastrear quem criou a questão.
+  // questionStatus: string; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
+  createdAt: string; // A data foi ADICIONADA no sistema
+  updatedAt: string; // A data foi ATUALIZADA no sistema
 }
 
 export interface IAnswer {
   id: string;
   text: string;
-  image: IImage;
-  order: number;
+  explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
+}
+
+export const enum EQuestionType {
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE', // Múltipla Escolha,
+  TRUE_OR_FALSE = 'TRUE_OR_FALSE', // Verdadeiro ou Falso,
+  FILL_IN_THE_BLANK = 'FILL_IN_THE_BLANK', // Preenchimento de Espaço em Branco,
+}
+
+export const enum EDifficultyLevel {
+  EASY = 'EASY', // Fácil,
+  MEDIUM = 'MEDIUM', // Médio,
+  HARD = 'HARD', // Difícil,
 }
 
 export interface ISubject {
   id: string;
   text: string;
-  description: string;
+  description: string; // Descrição sobre a matéria para SEO
 }
 
-export interface ITopic {
-  id: string;
-  text: string;
-  description: string;
+export interface ITopic extends ISubject {
+  subjectId: string;
 }
 
 export interface IImage {
