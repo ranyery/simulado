@@ -1,14 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
 
-import { CreateUserDTO } from '../dto/create-user.dto';
 import { IUsersRepository } from '../repositories/users.repository';
+import { CreateUserRequestDTO } from '../schemas/create-user.schema';
 
 @Injectable()
 export class CreateUserUseCase {
   constructor(private readonly _usersRepository: IUsersRepository) {}
 
-  async execute({ email, password }: CreateUserDTO) {
+  async execute({ email, password }: CreateUserRequestDTO) {
     const user = await this._usersRepository.findByEmail(email);
 
     if (user) {

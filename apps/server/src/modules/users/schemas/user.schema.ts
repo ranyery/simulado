@@ -1,7 +1,7 @@
 import { EUserRole, EUserStatus, IUser } from '@libs/shared/domain';
 import { z } from 'nestjs-zod/z';
 
-export const UserSchema = z.object({
+const UserSchema = z.object({
   id: z.string(),
   email: z.string().email(),
   password: z.string(),
@@ -11,6 +11,6 @@ export const UserSchema = z.object({
   updatedAt: z.date(),
 }) satisfies z.ZodType<IUser>;
 
-// Usar como referência de dados ENVIADO para o Front-End
-export const UserResponseSchemaDTO = UserSchema.omit({ password: true });
-export type UserResponseSchemaDTO = z.infer<typeof UserResponseSchemaDTO>;
+// Usar como referência de dados ENVIADOS para o Front-End
+export const UserResponseDTO = UserSchema.omit({ password: true });
+export type UserResponseDTO = z.infer<typeof UserResponseDTO>;
