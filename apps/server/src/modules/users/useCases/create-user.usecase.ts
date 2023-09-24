@@ -1,3 +1,4 @@
+import { IUser } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hash } from 'bcrypt';
 
@@ -8,7 +9,7 @@ import { CreateUserRequestDTO } from '../schemas/create-user.schema';
 export class CreateUserUseCase {
   constructor(private readonly _usersRepository: IUsersRepository) {}
 
-  async execute({ email, password }: CreateUserRequestDTO) {
+  async execute({ email, password }: CreateUserRequestDTO): Promise<IUser> {
     const user = await this._usersRepository.findByEmail(email);
 
     if (user) {
