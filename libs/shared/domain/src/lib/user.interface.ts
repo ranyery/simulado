@@ -4,10 +4,10 @@ export interface IUser {
   id: string;
   email: string;
   password: string; // Criptografada
-  role: EUserRole;
-  status: EUserStatus;
-  createdAt: string;
-  updatedAt: string;
+  role: string | EUserRole;
+  status: string | EUserStatus;
+  createdAt: string | Date;
+  updatedAt: string | Date;
 }
 
 export const enum EUserRole {
