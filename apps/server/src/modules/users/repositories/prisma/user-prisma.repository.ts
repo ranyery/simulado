@@ -10,7 +10,7 @@ export class UserPrismaRepository implements IUsersRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async findByEmail(email: string): Promise<IUser> {
-    return await this._prismaService.users.findFirst({
+    return await this._prismaService.users.findUnique({
       where: {
         email: email,
       },
