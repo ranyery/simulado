@@ -9,15 +9,19 @@ import { IUsersRepository } from '../users.repository';
 export class UserPrismaRepository implements IUsersRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
-  async findByEmail(email: string): Promise<IUser> {
-    return await this._prismaService.users.findUnique({
-      where: {
-        email: email,
-      },
+  async save(data: CreateUserDTO): Promise<IUser> {
+    return this._prismaService.users.create({ data });
+  }
+
+  async findById(id: string): Promise<IUser> {
+    return this._prismaService.users.findUnique({
+      where: { id },
     });
   }
 
-  async save(data: CreateUserDTO): Promise<IUser> {
-    return await this._prismaService.users.create({ data });
+  async findByEmail(email: string): Promise<IUser> {
+    return this._prismaService.users.findUnique({
+      where: { email },
+    });
   }
 }
