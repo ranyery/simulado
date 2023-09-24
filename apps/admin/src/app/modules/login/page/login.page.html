@@ -1,0 +1,17 @@
+<form class="login" [formGroup]="form">
+  <input
+    id="email"
+    type="text"
+    placeholder="Email"
+    pInputText
+    formControlName="email"
+    [ngClass]="{'ng-invalid': form.controls['email'].invalid}" />
+  <input
+    id="password"
+    type="password"
+    placeholder="password"
+    pInputText
+    formControlName="password"
+    [ngClass]="{'ng-invalid': form.controls['password'].invalid}" />
+  <p-button [disabled]="form.invalid" (click)="onSubmit()" label="Login"></p-button>
+</form>
