@@ -14,14 +14,8 @@ registerLocaleData(localePt, 'pt');
   declarations: [AppComponent],
   imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule, HttpClientModule],
   providers: [
-    {
-      provide: LOCALE_ID,
-      useValue: 'pt',
-    },
-    {
-      provide: DEFAULT_CURRENCY_CODE,
-      useValue: 'BRL',
-    },
+    { provide: LOCALE_ID, useValue: 'pt' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
   ],
   bootstrap: [AppComponent],
 })
