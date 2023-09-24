@@ -13,6 +13,7 @@ datasource db {
   shadowDatabaseUrl = "postgres://default:bg52NSMXZjGs@ep-solitary-firefly-28406931.us-east-1.postgres.vercel-storage.com:5432/verceldb" // used for migrations
 }
 
+// npx prisma migrate dev --name create-users => 23/09/2023 21:00:00
 model Users {
   id            String    @id @default(uuid())
   email         String    @unique
@@ -26,5 +27,4 @@ model Users {
   @@map("Users")
 }
 
-// npx prisma migrate dev --name create-users
 // npx prisma studio
