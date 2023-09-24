@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
 import { IUsersRepository } from '../../users/repositories/users.repository';
-import { SignInDTO } from '../dto/sign-in.dto';
+import { SignInRequestDTO } from '../schemas/sign-in.schema';
 
 @Injectable()
 export class SignInUseCase {
@@ -12,7 +12,7 @@ export class SignInUseCase {
     private readonly _usersRepository: IUsersRepository
   ) {}
 
-  async execute({ email, password }: SignInDTO) {
+  async execute({ email, password }: SignInRequestDTO) {
     const user = await this._usersRepository.findByEmail(email);
 
     if (!user) {
@@ -32,6 +32,6 @@ export class SignInUseCase {
 
     const token = await this._jwtService.signAsync(payload);
 
-    return { token };
+    return { access_token: token };
   }
 }
