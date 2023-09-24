@@ -1,38 +1,43 @@
-// Entidades Pergunta e Resposta
+// Entidade Pergunta
 
 export interface IQuestion {
   id: string;
   statement: string; // Enunciado => A pergunta ou problema apresentado
   answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
-  correctAnswerId: string; // Identificador da resposta correta
+  explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
   questionType: EQuestionType;
-  source: ISource;
+  source: ISource; // Exemplo (ENEM 2022)
   difficultyLevel: EDifficultyLevel;
   subject: ISubject; // A matéria à qual a questão está relacionada (matemática, história, etc.)
   relatedTopics: ITopic[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
-  isActive: boolean;
-  // author: string; // O autor da questão, se você desejar rastrear quem criou a questão.
-  // questionStatus: string; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
+  status: IQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
+  // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
   createdAt: string; // A data foi ADICIONADA no sistema
   updatedAt: string; // A data foi ATUALIZADA no sistema
 }
 
+// Náo é uma entidade
 export interface IAnswer {
-  id: string;
   text: string;
-  explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
+  isCorrect: boolean;
 }
 
 export const enum EQuestionType {
-  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE', // Múltipla Escolha,
-  TRUE_OR_FALSE = 'TRUE_OR_FALSE', // Verdadeiro ou Falso,
-  FILL_IN_THE_BLANK = 'FILL_IN_THE_BLANK', // Preenchimento de Espaço em Branco,
+  MULTIPLE_CHOICE = 'MULTIPLE_CHOICE', // Múltipla Escolha => Default
+  TRUE_OR_FALSE = 'TRUE_OR_FALSE', // Verdadeiro ou Falso
+  FILL_IN_THE_BLANK = 'FILL_IN_THE_BLANK', // Preenchimento de Espaço em Branco
 }
 
 export const enum EDifficultyLevel {
   EASY = 'EASY', // Fácil,
-  MEDIUM = 'MEDIUM', // Médio,
+  MEDIUM = 'MEDIUM', // Médio => Default
   HARD = 'HARD', // Difícil,
+}
+
+export const enum IQuestionStatus {
+  ACTIVE = 'ACTIVE', // Questão ativa e disponível para uso.
+  PENDING_REVIEW = 'PENDING_REVIEW', // Questão aguardando revisão.
+  ARCHIVED = 'ARCHIVED', // Questão arquivada, não é exibida nos simulados atuais.
 }
 
 export interface ISubject {
@@ -41,8 +46,11 @@ export interface ISubject {
   description: string; // Descrição sobre a matéria para SEO
 }
 
-export interface ITopic extends ISubject {
-  subjectId: string;
+export interface ITopic {
+  id: string;
+  text: string;
+  description: string; // Descrição sobre a matéria para SEO
+  subjectId: string | Pick<ISubject, 'id'>;
 }
 
 export interface IImage {

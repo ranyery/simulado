@@ -22,7 +22,13 @@ export interface IPracticeTest {
   attempts?: number; // Número máximo de tentativas permitidas para o simulado
   reviewBeforeSubmit?: boolean; // Revisar respostas antes de enviar o simulado
   featuredImage?: string; // Link para imagem destacada ou capa do simulado
-  isActive: boolean;
+  status: IPracticeTestStatus;
   createdAt: string;
   updatedAt: string;
+}
+
+export const enum IPracticeTestStatus {
+  ACTIVE = 'ACTIVE', // Simulado ativo e disponível para uso
+  PENDING_REVIEW = 'PENDING_REVIEW', // Simulado aguardando revisão
+  ARCHIVED = 'ARCHIVED', // Simulado arquivado
 }
