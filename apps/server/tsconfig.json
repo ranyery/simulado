@@ -1,5 +1,9 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true
+  },
   "files": [],
   "include": [],
   "references": [
@@ -10,7 +14,5 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "compilerOptions": {
-    "esModuleInterop": true
-  }
+  "extends": "../../tsconfig.base.json"
 }

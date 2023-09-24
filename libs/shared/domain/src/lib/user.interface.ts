@@ -10,13 +10,13 @@ export interface IUser {
   updatedAt: string | Date;
 }
 
-export const enum EUserRole {
+export enum EUserRole {
   USER = 'USER',
   TEACHER = 'TEACHER',
   ADMIN = 'ADMIN',
 }
 
-export const enum EUserStatus {
+export enum EUserStatus {
   ACTIVE = 'ACTIVE', // Conta ativa e totalmente funcional.
   PENDING_CONFIRMATION = 'PENDING_CONFIRMATION', // Aguardando confirmação de e-mail.
   SUSPENDED = 'SUSPENDED', // Conta suspensa temporariamente.
@@ -53,17 +53,17 @@ export interface IUserProfile extends IUser {
   accessHistory: IAccessHistory[]; // Histórico de Acessos
 }
 
-export const enum ECountry {
+export enum ECountry {
   USA = 'USA',
   BRAZIL = 'Brazil',
 }
 
-export const enum ELanguage {
+export enum ELanguage {
   ENGLISH = 'ENGLISH',
   PORTUGUESE = 'PORTUGUESE',
 }
 
-export const enum ESubject {
+export enum ESubject {
   MATH = 'MATH',
   ENGLISH = 'ENGLISH',
   SCIENCE = 'SCIENCE',

@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post, Request, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 
 import { AuthGuard } from '../../shared/guards/auth.guard';
-import { CreateUserDTO } from './dto/user.dto';
-import { CreateUserValidationPipe } from './pipes/create-user-validation.pipe';
+import { CreateUserSchemaDTO } from './schemas/create-user.schema';
+import { UserResponseSchemaDTO } from './schemas/user.schema';
 import { CreateUserUseCase } from './useCases/create-user.usecase';
 import { ProfileUserUseCase } from './useCases/profile-user.usecase';
 
@@ -14,14 +14,14 @@ export class UsersController {
   ) {}
 
   @Post()
-  @UsePipes(new CreateUserValidationPipe())
-  async create(@Body() data: CreateUserDTO) {
-    return await this._createUserUseCase.execute(data);
+  async create(@Body() data: CreateUserSchemaDTO) {
+    const user = await this._createUserUseCase.execute(data);
+    return UserResponseSchemaDTO.parse(user);
   }
 
   @Get('/profile')
   @UseGuards(AuthGuard)
-  async profile(@Request() req) {
+  async profile(@Request() req: Record<string, any>) {
     const userId = req['user']['sub'] as string;
     return await this._profileUserUseCase.execute(userId);
   }

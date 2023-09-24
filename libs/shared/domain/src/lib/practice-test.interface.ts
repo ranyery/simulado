@@ -27,7 +27,7 @@ export interface IPracticeTest {
   updatedAt: string;
 }
 
-export const enum IPracticeTestStatus {
+export enum IPracticeTestStatus {
   ACTIVE = 'ACTIVE', // Simulado ativo e disponível para uso
   PENDING_REVIEW = 'PENDING_REVIEW', // Simulado aguardando revisão
   ARCHIVED = 'ARCHIVED', // Simulado arquivado

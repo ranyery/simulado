@@ -41,11 +41,13 @@
     "@prisma/client": "^5.1.1",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.0",
+    "nestjs-zod": "^3.0.0",
     "primeicons": "^6.0.1",
     "primeng": "^16.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
+    "zod": "^3.22.2",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

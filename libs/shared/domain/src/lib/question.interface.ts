@@ -22,19 +22,19 @@ export interface IAnswer {
   isCorrect: boolean;
 }
 
-export const enum EQuestionType {
+export enum EQuestionType {
   MULTIPLE_CHOICE = 'MULTIPLE_CHOICE', // Múltipla Escolha => Default
   TRUE_OR_FALSE = 'TRUE_OR_FALSE', // Verdadeiro ou Falso
   FILL_IN_THE_BLANK = 'FILL_IN_THE_BLANK', // Preenchimento de Espaço em Branco
 }
 
-export const enum EDifficultyLevel {
+export enum EDifficultyLevel {
   EASY = 'EASY', // Fácil,
   MEDIUM = 'MEDIUM', // Médio => Default
   HARD = 'HARD', // Difícil,
 }
 
-export const enum IQuestionStatus {
+export enum IQuestionStatus {
   ACTIVE = 'ACTIVE', // Questão ativa e disponível para uso.
   PENDING_REVIEW = 'PENDING_REVIEW', // Questão aguardando revisão.
   ARCHIVED = 'ARCHIVED', // Questão arquivada, não é exibida nos simulados atuais.

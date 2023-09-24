@@ -2,7 +2,7 @@ import { IUser } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
-import { CreateUserDTO } from '../../dto/user.dto';
+import { CreateUserDTO } from '../../dto/create-user.dto';
 import { IUsersRepository } from '../users.repository';
 
 @Injectable()
@@ -13,13 +13,13 @@ export class UserPrismaRepository implements IUsersRepository {
     return this._prismaService.users.create({ data });
   }
 
-  async findById(id: string): Promise<IUser> {
+  async findById(id: string): Promise<IUser | null> {
     return this._prismaService.users.findUnique({
       where: { id },
     });
   }
 
-  async findByEmail(email: string): Promise<IUser> {
+  async findByEmail(email: string): Promise<IUser | null> {
     return this._prismaService.users.findUnique({
       where: { email },
     });
