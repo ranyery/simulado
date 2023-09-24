@@ -3,14 +3,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "debian-openssl-3.0.x", "linux-arm64-openssl-1.1.x", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  url = "postgres://default:bg52NSMXZjGs@ep-solitary-firefly-28406931-pooler.us-east-1.postgres.vercel-storage.com:5432/verceldb?pgbouncer=true&connect_timeout=15" // uses connection pooling
-  directUrl = "postgres://default:bg52NSMXZjGs@ep-solitary-firefly-28406931.us-east-1.postgres.vercel-storage.com:5432/verceldb" // uses a direct connection
-  shadowDatabaseUrl = "postgres://default:bg52NSMXZjGs@ep-solitary-firefly-28406931.us-east-1.postgres.vercel-storage.com:5432/verceldb" // used for migrations
+  url = env("POSTGRES_PRISMA_URL")
 }
 
 // npx prisma migrate dev --name create-users => 24/09/2023 08:21:45

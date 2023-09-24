@@ -1,0 +1,20 @@
+- Interfaces:
+https://brainly.com.br/materia/matematica
+https://www.kuadro.com.br/gabarito/vunesp/2021/matematica/vunesp-2021-damio-tem-dois-canos-de-cobre-de-compr/67800
+https://www.kuadro.com.br/resumos-enem-vestibulares#matematica
+https://soexercicios.com.br/plataforma/questoes-de-vestibular/FATEC/23656/problemas-envolvendo-porcentagem/3
+
+- Markdown:
+https://www.markdownguide.org/basic-syntax/
+https://ashki23.github.io/markdown-latex.html
+
+- NPM Libs:
+https://www.npmjs.com/package/ngx-editor
+https://www.npmjs.com/package/ngx-markdown
+https://www.npmjs.com/package/ngx-markdown-editor
+
+---
+Como devem ficar as urls (Otimização para SEO):
+simulado.gratis/matematica/exercicios-de-logica
+simulado.gratis/matematica/exercicios-de-funcao-de-primeiro-grau
+simulado.gratis/portugues/exercicios-de-gramatica
