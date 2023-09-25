@@ -13,7 +13,7 @@ async function bootstrap() {
 
   const origins: string[] = environment.production
     ? ['https://www.simulado.gratis', 'https://admin.simulado.gratis']
-    : ['http://localhost:4201'];
+    : ['http://localhost:4200'];
 
   app.enableCors({
     allowedHeaders: '*',
