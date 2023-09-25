@@ -31,5 +31,6 @@
     "**/*.spec.ts": true
   },
   "cSpell.language": "en,pt,pt_BR",
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.preferences.importModuleSpecifier": "relative"
 }

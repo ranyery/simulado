@@ -1,0 +1,68 @@
+.cockpit {
+  display: flex;
+  height: 100vh;
+
+  &__side-menu {
+    display: flex;
+    min-width: 200px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    border-right: 1px solid #000;
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .item {
+        display: grid;
+        list-style-type: none;
+
+        a {
+          display: flex;
+          padding: 16px;
+          border-radius: 8px;
+          color: #000;
+          cursor: pointer;
+          gap: 8px;
+          text-decoration: none;
+
+          &:hover {
+            font-weight: bold;
+          }
+
+          &.active {
+            background-color: #eee;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    .logout {
+      padding: 16px;
+      border: 0;
+      border-radius: 8px;
+      background-color: tomato;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+  &__main {
+    width: 100%;
+
+    .hello {
+      padding: 16px;
+      background-color: #2c62ee;
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .content {
+      padding: 16px;
+    }
+  }
+}
