@@ -2,6 +2,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { environment } from './environments/environment';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,9 +10,16 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.enableShutdownHooks();
-  app.enableCors();
 
-  // TODO: Adicionar validações de ambiente aqui
+  const origins: string[] = environment.production
+    ? ['https://www.simulado.gratis', 'https://admin.simulado.gratis']
+    : ['http://localhost:4201'];
+
+  app.enableCors({
+    allowedHeaders: '*',
+    origin: origins,
+    credentials: true,
+  });
 
   const port = process.env.PORT || 3333;
   await app.listen(port);
