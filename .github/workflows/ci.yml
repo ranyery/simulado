@@ -1,31 +1,31 @@
-name: Node.js CI
+# name: Node.js CI
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-          cache: 'npm'
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Use Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '18.x'
+#           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm install --package-lock-only
+#       - name: Install dependencies
+#         run: npm install --package-lock-only
 
-      - name: Build Admin
-        run: npm run build:admin
+#       - name: Build Admin
+#         run: npm run build:admin
 
-      - name: Build Client
-        run: npm run build:client
+#       - name: Build Client
+#         run: npm run build:client
 
-      - name: Build Server
-        run: npm run build:server
+#       - name: Build Server
+#         run: npm run build:server
