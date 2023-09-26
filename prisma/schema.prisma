@@ -82,7 +82,7 @@ model Question {
   answerOptions   String                    @default("[]")  // ! Json[] => Por causa do cockroachdb
   explanation     String?
   type            EQuestionType             @default(MULTIPLE_CHOICE)
-  source          String                    // ! Json => Por causa do cockroachdb
+  source          String                    // ! Json => Por causa do cockroachdb => Já pode ser atualizado
   difficultyLevel EQuestionDifficultyLevel  @default(MEDIUM)
   subjectId       String
   relatedTopicIds String[]                  @default([])
