@@ -11,16 +11,30 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+enum EUserRole {
+  USER
+  TEACHER
+  ADMIN
+}
+
+enum EUserStatus {
+  ACTIVE
+  PENDING_CONFIRMATION
+  SUSPENDED
+  BANNED
+  CLOSED
+}
+
 // npx prisma migrate dev --name create-users => 24/09/2023 08:21:45
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
+  id            String        @id @default(uuid())
+  email         String        @unique
   password      String
 
-  role          String    @default("USER")
-  status        String    @default("PENDING_CONFIRMATION")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now())
+  role          EUserRole     @default(USER)
+  status        EUserStatus   @default(PENDING_CONFIRMATION)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
 
   @@map("users")
 }
@@ -42,6 +56,42 @@ model Topic {
   subjectId     String
 
   @@map("topics")
+}
+
+enum EQuestionType {
+  MULTIPLE_CHOICE
+  TRUE_OR_FALSE
+  FILL_IN_THE_BLANK
+}
+
+enum EQuestionDifficultyLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum EQuestionStatus {
+  ACTIVE
+  PENDING_REVIEW
+  ARCHIVED
+}
+
+// npx prisma migrate dev --name create-questions => 26/09/2023 00:05:55
+model Question {
+  id              String                    @id @default(uuid())
+  statement       String
+  answerOptions   Json[]                    @default([])
+  explanation     String?
+  type            EQuestionType             @default(MULTIPLE_CHOICE)
+  source          Json
+  difficultyLevel EQuestionDifficultyLevel  @default(MEDIUM)
+  subjectId       String
+  relatedTopicIds String[]                  @default([])
+  status          EQuestionStatus           @default(PENDING_REVIEW)
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @default(now())
+
+  @@map("questions")
 }
 
 // npx prisma studio

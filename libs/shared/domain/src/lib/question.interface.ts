@@ -4,13 +4,13 @@ export interface IQuestion {
   id: string;
   statement: string; // Enunciado => A pergunta ou problema apresentado
   answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
-  explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
-  questionType: EQuestionType;
+  explanation?: string | null; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
+  type: EQuestionType;
   source: ISource; // Exemplo (ENEM 2022)
-  difficultyLevel: EDifficultyLevel;
+  difficultyLevel: EQuestionDifficultyLevel;
   subjectId: string | Pick<ISubject, 'id'>; // A matéria à qual a questão está relacionada (matemática, história, etc.)
-  relatedTopics: ITopic[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
-  status: IQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
+  relatedTopicIds: string[] | Pick<ITopic, 'id'>[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
+  status: EQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
   createdAt: string | Date; // A data foi ADICIONADA no sistema
   updatedAt: string | Date; // A data foi ATUALIZADA no sistema
@@ -28,13 +28,13 @@ export enum EQuestionType {
   FILL_IN_THE_BLANK = 'FILL_IN_THE_BLANK', // Preenchimento de Espaço em Branco
 }
 
-export enum EDifficultyLevel {
+export enum EQuestionDifficultyLevel {
   EASY = 'EASY', // Fácil,
   MEDIUM = 'MEDIUM', // Médio => Default
   HARD = 'HARD', // Difícil,
 }
 
-export enum IQuestionStatus {
+export enum EQuestionStatus {
   ACTIVE = 'ACTIVE', // Questão ativa e disponível para uso.
   PENDING_REVIEW = 'PENDING_REVIEW', // Questão aguardando revisão.
   ARCHIVED = 'ARCHIVED', // Questão arquivada, não é exibida nos simulados atuais.

@@ -1,5 +1,5 @@
 // Entidade Simulado
-import { EDifficultyLevel, IQuestion, ISubject } from './question.interface';
+import { EQuestionDifficultyLevel, IQuestion, ISubject } from './question.interface';
 
 export interface IPracticeTest {
   id: string;
@@ -14,7 +14,7 @@ export interface IPracticeTest {
   incorrectQuestionIds: string[]; // Lista de IDs das questões respondidas incorretamente
   duration: number; // Duração em minutos
   subject: ISubject[]; // Matéria
-  difficultyLevel: EDifficultyLevel; // Nível de dificuldade do simulado
+  difficultyLevel: EQuestionDifficultyLevel; // Nível de dificuldade do simulado
   startDate: string | Date; // Data de início do período de disponibilidade do simulado
   endDate: string | Date; // Data de término do período de disponibilidade do simulado
   isCompleted: boolean;
@@ -22,12 +22,12 @@ export interface IPracticeTest {
   attempts?: number; // Número máximo de tentativas permitidas para o simulado
   reviewBeforeSubmit?: boolean; // Revisar respostas antes de enviar o simulado
   featuredImage?: string; // Link para imagem destacada ou capa do simulado
-  status: IPracticeTestStatus;
+  status: EPracticeTestStatus;
   createdAt: string | Date;
   updatedAt: string | Date;
 }
 
-export enum IPracticeTestStatus {
+export enum EPracticeTestStatus {
   ACTIVE = 'ACTIVE', // Simulado ativo e disponível para uso
   PENDING_REVIEW = 'PENDING_REVIEW', // Simulado aguardando revisão
   ARCHIVED = 'ARCHIVED', // Simulado arquivado
