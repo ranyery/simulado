@@ -21,6 +21,7 @@ export class QuestionsController {
 
   @Get()
   async getAll() {
+    // TODO: Adicionar lógica de paginação => 'top', 'skip', etc
     return await this._findAllQuestionsUseCase.execute();
   }
 
@@ -38,7 +39,6 @@ export class QuestionsController {
   @Put('/:id')
   @UseGuards(AuthGuard)
   async updateById(@Param('id') id: string, @Body() data: PartialQuestionRequestDTO) {
-    // TODO: Se não passar o 'name', retorna status 400
     return await this._updateQuestionByIdUseCase.execute(id, data);
   }
 
