@@ -6,7 +6,7 @@ const CreateTopicRequestSchema = z.object({
   name: z.string(),
   description: z.string().optional().nullable(),
   subjectId: z.string(),
-}) satisfies z.ZodType<Pick<ITopic, 'name' | 'description' | 'subjectId'>>;
+}) satisfies z.ZodType<Omit<ITopic, 'id'>>;
 
 // Usar como referência de dados RECEBIDOS do Front-End
 export class CreateTopicRequestDTO extends createZodDto(CreateTopicRequestSchema) {}
