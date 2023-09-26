@@ -29,8 +29,8 @@ export interface IConfirmationCode {
   userId: string | Pick<IUser, 'id'>; // O ID do usuário associado à confirmação de e-mail.
   code: string; // O código de confirmação enviado por e-mail.
   isConfirmed: boolean; // Indica se foi confirmado com sucesso.
-  createdAt: string; // A data e hora em que a confirmação de e-mail foi criada.
-  updatedAt: string; // A data e hora da última atualização da confirmação de e-mail.
+  createdAt: string | Date; // A data e hora em que a confirmação de e-mail foi criada.
+  updatedAt: string | Date; // A data e hora da última atualização da confirmação de e-mail.
 }
 
 // Interface base para quando for adicionar a funcionalidade/página de perfil do usuário
@@ -40,7 +40,7 @@ export interface IUserProfile extends IUser {
   fullName: string;
   avatar?: string;
   bio?: string; // Biografia ou descrição do usuário
-  birthDate?: string; // Data de nascimento do usuário
+  birthDate?: string | Date; // Data de nascimento do usuário
   address?: IUserAddress; // Endereço do usuário
   phone?: string; // Número de telefone do usuário
   country?: ECountry; // País em que o usuário reside
@@ -88,12 +88,12 @@ export interface IUserSocialMedia {
 export interface IPracticeTestHistory {
   id: string; // ID do simulado realizado
   score: number; // Pontuação obtida no simulado
-  completionDate: string; // Data de conclusão do simulado
+  completionDate: string | Date; // Data de conclusão do simulado
   practiceTestId: string | Pick<IPracticeTest, 'id'>;
 }
 
 export interface IAccessHistory {
-  loginDate: string; // Data e hora do último login do usuário
+  loginDate: string | Date; // Data e hora do último login do usuário
 }
 
 export interface IEducationInfo {

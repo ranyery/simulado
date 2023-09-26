@@ -12,8 +12,8 @@ export interface IQuestion {
   relatedTopics: ITopic[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
   status: IQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
-  createdAt: string; // A data foi ADICIONADA no sistema
-  updatedAt: string; // A data foi ATUALIZADA no sistema
+  createdAt: string | Date; // A data foi ADICIONADA no sistema
+  updatedAt: string | Date; // A data foi ATUALIZADA no sistema
 }
 
 // Náo é uma entidade

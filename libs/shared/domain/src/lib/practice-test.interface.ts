@@ -15,16 +15,16 @@ export interface IPracticeTest {
   duration: number; // Duração em minutos
   subject: ISubject[]; // Matéria
   difficultyLevel: EDifficultyLevel; // Nível de dificuldade do simulado
-  startDate: string; // Data de início do período de disponibilidade do simulado
-  endDate: string; // Data de término do período de disponibilidade do simulado
+  startDate: string | Date; // Data de início do período de disponibilidade do simulado
+  endDate: string | Date; // Data de término do período de disponibilidade do simulado
   isCompleted: boolean;
   passingScore?: number; // Pontuação mínima para aprovação no simulado
   attempts?: number; // Número máximo de tentativas permitidas para o simulado
   reviewBeforeSubmit?: boolean; // Revisar respostas antes de enviar o simulado
   featuredImage?: string; // Link para imagem destacada ou capa do simulado
   status: IPracticeTestStatus;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: string | Date;
+  updatedAt: string | Date;
 }
 
 export enum IPracticeTestStatus {
