@@ -12,7 +12,7 @@ datasource db {
 }
 
 // npx prisma migrate dev --name create-users => 24/09/2023 08:21:45
-model Users {
+model User {
   id            String    @id @default(uuid())
   email         String    @unique
   password      String
@@ -26,7 +26,7 @@ model Users {
 }
 
 // npx prisma migrate dev --name create-subjects => 25/09/2023 19:08:21
-model Subjects {
+model Subject {
   id            String    @id @default(uuid())
   name          String
   description   String?
@@ -35,35 +35,3 @@ model Subjects {
 }
 
 // npx prisma studio
-
-// model Questions {
-//   id              String    @id @default(uuid())
-//   statement       String
-//   answerOptions   String[]  @default([])
-//   explanation     String?
-//   questionType    String    @default("MULTIPLE_CHOICE")
-//   source          Json
-//   difficultyLevel String    @default("MEDIUM")
-//   subject
-
-
-//   @@map("questions")
-// }
-
-
-
-
-// export interface IQuestion {
-//   // statement: string; // Enunciado => A pergunta ou problema apresentado
-//   // answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
-//   // explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
-//   // questionType: EQuestionType;
-//   // source: ISource; // Exemplo (ENEM 2022)
-//   // difficultyLevel: EDifficultyLevel;
-//   subject: ISubject; // A matéria à qual a questão está relacionada (matemática, história, etc.)
-//   relatedTopics: ITopic[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
-//   status: IQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
-//   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
-//   createdAt: string; // A data foi ADICIONADA no sistema
-//   updatedAt: string; // A data foi ATUALIZADA no sistema
-// }
