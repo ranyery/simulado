@@ -1,0 +1,14 @@
+<aside class="side-menu">
+  <ul class="side-menu__list">
+    <li class="side-menu__item" *ngFor="let item of menuItems">
+      <a
+        class="side-menu__link"
+        [routerLink]="item.route"
+        routerLinkActive="side-menu__link--active">
+        <span class="pi {{ item.icon }}"></span>
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+  <button class="side-menu__logout" (click)="logout()">Logout</button>
+</aside>

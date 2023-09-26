@@ -1,17 +1,1 @@
-<div class="cockpit">
-  <aside class="cockpit__side-menu">
-    <ul class="menu">
-      <li class="item" *ngFor="let item of items">
-        <a [routerLink]="item.route" routerLinkActive="active">
-          <span class="pi {{ item.icon }}"></span>
-          <span>{{ item.label }}</span>
-        </a>
-      </li>
-    </ul>
-    <button (click)="logout()" class="logout">Logout</button>
-  </aside>
-  <main class="cockpit__main">
-    <div class="hello">Olá, Administrador!</div>
-    <div class="content">Conteúdos a serem apresentados aqui...</div>
-  </main>
-</div>
+<section class="cockpit">cockpit works!</section>

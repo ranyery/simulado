@@ -1,0 +1,47 @@
+.side-menu {
+  display: flex;
+  min-width: 256px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  border-right: 1px solid #000;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__item {
+    list-style-type: none;
+  }
+
+  &__link {
+    display: flex;
+    padding: 16px;
+    border-radius: 8px;
+    color: #000;
+    gap: 8px;
+    text-decoration: none;
+
+    &--active {
+      background-color: #eee;
+      font-weight: bold;
+    }
+
+    &:hover {
+      font-weight: bold;
+    }
+  }
+
+  &__logout {
+    padding: 16px;
+    border: 0;
+    border-radius: 8px;
+    background-color: tomato;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
