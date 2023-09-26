@@ -18,7 +18,6 @@
     "scss/dollar-variable-empty-line-before": null,
     "selector-class-pattern": null,
     "selector-max-compound-selectors": null,
-    "selector-pseudo-element-no-unknown": null,
-    "color-named": null
+    "selector-pseudo-element-no-unknown": null
   }
 }
