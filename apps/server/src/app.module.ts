@@ -4,10 +4,11 @@ import { ZodValidationPipe } from 'nestjs-zod';
 
 import { LoginModule } from './modules/login/login.module';
 import { SubjectsModule } from './modules/subjects/subjects.module';
+import { TopicsModule } from './modules/topics/topics.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
-  imports: [UsersModule, LoginModule, SubjectsModule],
+  imports: [UsersModule, LoginModule, SubjectsModule, TopicsModule],
   controllers: [],
   providers: [
     {

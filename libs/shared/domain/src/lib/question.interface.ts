@@ -49,7 +49,7 @@ export interface ISubject {
 export interface ITopic {
   id: string;
   name: string;
-  description: string; // Descrição sobre a matéria para SEO
+  description?: string | null; // Descrição sobre a matéria para SEO
   subjectId: string | Pick<ISubject, 'id'>;
 }
 

@@ -10,17 +10,17 @@ export class UserPrismaRepository implements IUsersRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async save(data: CreateUserRequestDTO): Promise<IUser> {
-    return this._prismaService.users.create({ data });
+    return this._prismaService.user.create({ data });
   }
 
   async findById(id: string): Promise<IUser | null> {
-    return this._prismaService.users.findUnique({
+    return this._prismaService.user.findUnique({
       where: { id },
     });
   }
 
   async findByEmail(email: string): Promise<IUser | null> {
-    return this._prismaService.users.findUnique({
+    return this._prismaService.user.findUnique({
       where: { email },
     });
   }

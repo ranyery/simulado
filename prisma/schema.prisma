@@ -34,4 +34,14 @@ model Subject {
   @@map("subjects")
 }
 
+// npx prisma migrate dev --name create-topics => 25/09/2023 22:56:34
+model Topic {
+  id            String    @id @default(uuid())
+  name          String
+  description   String?
+  subjectId     String
+
+  @@map("topics")
+}
+
 // npx prisma studio
