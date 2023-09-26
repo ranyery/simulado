@@ -6,9 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
 enum EUserRole {
@@ -80,10 +79,10 @@ enum EQuestionStatus {
 model Question {
   id              String                    @id @default(uuid())
   statement       String
-  answerOptions   Json[]                    @default([])
+  answerOptions   String                    @default("[]")  // ! Json[] => Por causa do cockroachdb
   explanation     String?
   type            EQuestionType             @default(MULTIPLE_CHOICE)
-  source          Json
+  source          String                    // ! Json => Por causa do cockroachdb
   difficultyLevel EQuestionDifficultyLevel  @default(MEDIUM)
   subjectId       String
   relatedTopicIds String[]                  @default([])

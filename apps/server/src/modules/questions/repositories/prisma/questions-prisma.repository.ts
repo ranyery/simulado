@@ -11,24 +11,72 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async findAll(): Promise<IQuestion[]> {
-    return this._prismaService.question.findMany() as unknown as IQuestion[];
+    const questions = await this._prismaService.question.findMany();
+
+    return questions.map((question) => {
+      return {
+        ...question,
+        answerOptions: JSON.parse(question.answerOptions),
+        source: JSON.parse(question.source),
+      } as IQuestion;
+    });
   }
 
   async findById(id: string): Promise<IQuestion | null> {
-    return this._prismaService.question.findUnique({
+    const question = await this._prismaService.question.findUnique({
       where: { id },
-    }) as unknown as IQuestion | null;
+    });
+
+    if (!question) {
+      return null;
+    }
+
+    return {
+      ...question,
+      answerOptions: JSON.parse(question.answerOptions),
+      source: JSON.parse(question.source),
+    } as IQuestion;
   }
 
   async create(data: CreateQuestionRequestDTO): Promise<IQuestion> {
-    return this._prismaService.question.create({ data }) as unknown as IQuestion;
+    const { answerOptions, source } = data;
+    const parsedData = {
+      ...data,
+      answerOptions: JSON.stringify(answerOptions),
+      source: JSON.stringify(source),
+    };
+
+    const question = await this._prismaService.question.create({ data: parsedData });
+
+    return {
+      ...question,
+      answerOptions: JSON.parse(question.answerOptions),
+      source: JSON.parse(question.source),
+    } as IQuestion;
   }
 
   async updateById(id: string, data: PartialQuestionRequestDTO): Promise<IQuestion | null> {
-    return this._prismaService.question.update({
+    const { answerOptions, source } = data;
+    const parsedData = {
+      ...data,
+      answerOptions: JSON.stringify(answerOptions),
+      source: JSON.stringify(source),
+    };
+
+    const question = await this._prismaService.question.update({
       where: { id },
-      data,
-    }) as unknown as IQuestion | null;
+      data: parsedData,
+    });
+
+    if (!question) {
+      return null;
+    }
+
+    return {
+      ...question,
+      answerOptions: JSON.parse(question.answerOptions),
+      source: JSON.parse(question.source),
+    } as IQuestion;
   }
 
   async deleteById(id: string): Promise<IQuestion | null> {
