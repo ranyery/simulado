@@ -2,6 +2,7 @@ import { ISubject } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
+import { CreateSubjectRequestDTO } from '../../schemas/create-subject.schema';
 import { PartialSubjectRequestDTO } from '../../schemas/partial-subject.schema';
 import { ISubjectsRepository } from '../subjects.repository';
 
@@ -17,7 +18,7 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
     return this._prismaService.subject.findUnique({ where: { id } });
   }
 
-  async create(data: PartialSubjectRequestDTO): Promise<ISubject> {
+  async create(data: CreateSubjectRequestDTO): Promise<ISubject> {
     return this._prismaService.subject.create({ data });
   }
 

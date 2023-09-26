@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 
 import { AuthGuard } from '../../shared/guards/auth.guard';
+import { CreateSubjectRequestDTO } from './schemas/create-subject.schema';
 import { PartialSubjectRequestDTO } from './schemas/partial-subject.schema';
 import { CreateSubjectUseCase } from './useCases/create-subject.usecase';
 import { DeleteSubjectByIdUseCase } from './useCases/delete-subject-by-id.usecase';
@@ -30,14 +31,13 @@ export class SubjectsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async save(@Body() data: PartialSubjectRequestDTO) {
+  async save(@Body() data: CreateSubjectRequestDTO) {
     return await this._createSubjectUseCase.execute(data);
   }
 
   @Put('/:id')
   @UseGuards(AuthGuard)
   async updateById(@Param('id') id: string, @Body() data: PartialSubjectRequestDTO) {
-    // TODO: Se não passar o 'name', retorna status 400
     return await this._updateSubjectByIdUseCase.execute(id, data);
   }
 

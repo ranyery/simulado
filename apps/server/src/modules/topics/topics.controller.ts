@@ -38,7 +38,6 @@ export class TopicsController {
   @Put('/:id')
   @UseGuards(AuthGuard)
   async updateById(@Param('id') id: string, @Body() data: PartialTopicRequestDTO) {
-    // TODO: Se não passar o 'name', retorna status 400
     return await this._updateTopicByIdUseCase.execute(id, data);
   }
 
