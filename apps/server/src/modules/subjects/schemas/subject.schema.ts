@@ -3,7 +3,7 @@ import { z } from 'nestjs-zod/z';
 
 const SubjectSchema = z.object({
   id: z.string(),
-  text: z.string(),
+  name: z.string(),
   description: z.string().optional().nullable(),
 }) satisfies z.ZodType<ISubject>;
 

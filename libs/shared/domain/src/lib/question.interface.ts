@@ -42,13 +42,13 @@ export enum IQuestionStatus {
 
 export interface ISubject {
   id: string;
-  text: string;
+  name: string;
   description?: string | null; // Descrição sobre a matéria para SEO
 }
 
 export interface ITopic {
   id: string;
-  text: string;
+  name: string;
   description: string; // Descrição sobre a matéria para SEO
   subjectId: string | Pick<ISubject, 'id'>;
 }

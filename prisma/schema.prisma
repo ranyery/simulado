@@ -28,7 +28,7 @@ model Users {
 // npx prisma migrate dev --name create-subjects => 25/09/2023 19:08:21
 model Subjects {
   id            String    @id @default(uuid())
-  text          String
+  name          String
   description   String?
 
   @@map("subjects")
