@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 
-import { PrismaService } from '../../infra/database/prisma.service';
 import { SubjectsPrismaRepository } from '../subjects/repositories/prisma/subjects-prisma.repository';
 import { ISubjectsRepository } from '../subjects/repositories/subjects.repository';
 import { TopicsPrismaRepository } from './repositories/prisma/topics-prisma.repository';
@@ -16,7 +15,6 @@ import { UpdateTopicByIdUseCase } from './useCases/update-topic-by-id.usecase';
   imports: [],
   controllers: [TopicsController],
   providers: [
-    PrismaService,
     FindAllTopicsUseCase,
     FindTopicByIdUseCase,
     CreateTopicUseCase,

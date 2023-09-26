@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 
-import { PrismaService } from '../../infra/database/prisma.service';
 import { QuestionsController } from './questions.controller';
 import { QuestionsPrismaRepository } from './repositories/prisma/questions-prisma.repository';
 import { IQuestionsRepository } from './repositories/questions.repository';
@@ -14,7 +13,6 @@ import { UpdateQuestionByIdUseCase } from './useCases/update-question-by-id.usec
   imports: [],
   controllers: [QuestionsController],
   providers: [
-    PrismaService,
     FindAllQuestionsUseCase,
     FindQuestionByIdUseCase,
     CreateQuestionUseCase,
