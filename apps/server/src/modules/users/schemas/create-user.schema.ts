@@ -1,11 +1,8 @@
-import { IUser } from '@libs/shared/domain';
 import { createZodDto } from 'nestjs-zod';
-import { z } from 'nestjs-zod/z';
 
-const CreateUserRequestSchema = z.object({
-  email: z.string().email(),
-  password: z.string({ required_error: 'Password is required' }),
-}) satisfies z.ZodType<Pick<IUser, 'email' | 'password'>>;
+import { UserSchema } from './user.schema';
+
+const CreateUserRequestSchema = UserSchema.pick({ email: true, password: true });
 
 // Usar como referência de dados RECEBIDOS do Front-End
 export class CreateUserRequestDTO extends createZodDto(CreateUserRequestSchema) {}
