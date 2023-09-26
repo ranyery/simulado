@@ -8,7 +8,7 @@ export interface IQuestion {
   questionType: EQuestionType;
   source: ISource; // Exemplo (ENEM 2022)
   difficultyLevel: EDifficultyLevel;
-  subject: ISubject; // A matéria à qual a questão está relacionada (matemática, história, etc.)
+  subjectId: string | Pick<ISubject, 'id'>; // A matéria à qual a questão está relacionada (matemática, história, etc.)
   relatedTopics: ITopic[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
   status: IQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
