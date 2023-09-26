@@ -10,6 +10,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
   app.enableShutdownHooks();
+  app.getHttpAdapter().getInstance().disable('x-powered-by');
 
   const origins: string[] = environment.production
     ? ['https://www.simulado.gratis', 'https://admin.simulado.gratis']
