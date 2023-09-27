@@ -1,19 +1,35 @@
-<form class="login" [formGroup]="form">
-  <input
-    id="email"
-    type="text"
-    autocomplete="on"
-    placeholder="Email"
-    pInputText
-    formControlName="email"
-    [ngClass]="{'ng-invalid': form.controls['email'].invalid}" />
-  <input
-    id="password"
-    type="password"
-    autocomplete="current-password"
-    placeholder="password"
-    pInputText
-    formControlName="password"
-    [ngClass]="{'ng-invalid': form.controls['password'].invalid}" />
-  <p-button [disabled]="form.invalid" (click)="onSubmit()" label="Login"></p-button>
-</form>
+<section class="login">
+  <form class="login__form" [formGroup]="form">
+    <span class="p-input-icon-left">
+      <i class="pi pi-user"></i>
+      <input
+        id="email"
+        type="text"
+        autocomplete="on"
+        placeholder="Email"
+        pInputText
+        formControlName="email"
+        [ngClass]="{'ng-invalid': form.controls['email'].invalid}" />
+    </span>
+
+    <span class="p-input-icon-left">
+      <i class="pi pi-lock"></i>
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="password"
+        pInputText
+        formControlName="password"
+        [ngClass]="{'ng-invalid': form.controls['password'].invalid}" />
+    </span>
+
+    <p-button
+      styleClass="w-full"
+      [loading]="isLoading"
+      [disabled]="form.invalid"
+      (click)="onSubmit()"
+      label="Login">
+    </p-button>
+  </form>
+</section>

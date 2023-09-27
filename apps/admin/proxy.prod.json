@@ -1,6 +1,8 @@
 {
   "/api/*": {
     "target": "https://api.simulado.gratis",
-    "secure": false
+    "secure": true,
+    "logLevel": "error",
+    "changeOrigin": true
   }
 }

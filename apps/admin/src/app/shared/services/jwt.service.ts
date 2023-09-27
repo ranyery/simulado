@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import jwtDecode from 'jwt-decode';
 
-import { ESessionStorage } from '../constants/storage.enum';
+import { ESessionStorage } from '../constants/session-storage.enum';
 import { IJwt } from '../interfaces/jwt.interface';
 import { SessionStorageService } from './session-storage.service';
 

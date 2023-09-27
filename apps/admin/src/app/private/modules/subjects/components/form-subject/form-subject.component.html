@@ -6,7 +6,7 @@
     </div>
 
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Nome</label>
+      <label class="label" htmlFor="name">Nome *</label>
       <input pInputText id="name" formControlName="name" />
     </div>
 
@@ -17,7 +17,15 @@
     </div>
   </form>
   <div class="form-subject__actions">
-    <app-button (click)="cancel()" title="Cancelar" color="YELLOW"></app-button>
-    <app-button (click)="confirm()" title="Confirmar" color="GREEN"></app-button>
+    <p-button
+      (click)="cancel()"
+      label="Cancelar"
+      styleClass="w-full p-button-sm p-button-raised p-button-warning">
+    </p-button>
+    <p-button
+      (click)="confirm()"
+      label="Confirmar"
+      styleClass="w-full p-button-sm p-button-raised p-button-success">
+    </p-button>
   </div>
 </div>

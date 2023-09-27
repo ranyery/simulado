@@ -1,6 +1,10 @@
 <section class="subjects">
   <div class="subjects__header">
-    <app-button (click)="editSubject()" title="Adicionar" color="GREEN"></app-button>
+    <p-button
+      (click)="editSubject()"
+      label="Adicionar"
+      styleClass="p-button-raised p-button-success">
+    </p-button>
   </div>
   <p-table
     [value]="subjects"
@@ -24,16 +28,17 @@
         <td class="overflow">{{ subject.name }}</td>
         <td class="overflow">{{ subject.description || '-' }}</td>
         <td style="display: flex; gap: 16px">
-          <app-button
+          <p-button
             (click)="editSubject(subject)"
-            title="Editar"
-            size="SMALL"
-            color="YELLOW"></app-button>
-          <app-button
+            label="Editar"
+            styleClass="p-button-sm p-button-warning">
+          </p-button>
+
+          <p-button
             (click)="deleteSubject(subject.id)"
-            title="Excluir"
-            size="SMALL"
-            color="RED"></app-button>
+            label="Excluir"
+            styleClass="p-button-sm p-button-danger">
+          </p-button>
         </td>
       </tr>
     </ng-template>

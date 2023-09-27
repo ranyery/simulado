@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { ESessionStorage } from '../constants/storage.enum';
+import { ESessionStorage } from '../constants/session-storage.enum';
 import { ILoginResponse } from '../interfaces/login.interface';
 import { JwtService } from './jwt.service';
 import { SessionStorageService } from './session-storage.service';
