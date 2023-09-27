@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ISubject } from '@libs/shared/domain';
-import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize } from 'rxjs';
 
@@ -14,7 +13,6 @@ import { FormSubjectComponent } from '../components/form-subject/form-subject.co
 })
 export class SubjectsPage implements OnInit {
   private readonly _subjectsService = inject(SubjectsService);
-  private readonly _messageService = inject(MessageService);
 
   private readonly _dialogService = inject(DialogService);
   private _dynamicDialogRef = inject(DynamicDialogRef);
