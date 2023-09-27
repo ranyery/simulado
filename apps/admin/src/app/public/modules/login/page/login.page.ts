@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
     password: new FormControl<string>('', [Validators.required]),
   });
 
-  private currentLoginAttempts = 0;
+  private _currentLoginAttempts = 0;
   private readonly MAX_LOGIN_ATTEMPTS = 3;
 
   constructor() {}
@@ -38,14 +38,14 @@ export class LoginPage implements OnInit {
   public onSubmit(): void {
     if (this.form.invalid) return;
 
-    if (this.currentLoginAttempts === this.MAX_LOGIN_ATTEMPTS) {
+    if (this._currentLoginAttempts === this.MAX_LOGIN_ATTEMPTS) {
       this._messageService.clear();
       this._showIPBlockedAlert();
       return;
     }
 
     this.isLoading = true;
-    this.currentLoginAttempts += 1;
+    this._currentLoginAttempts += 1;
     const { email, password } = this.form.value as ILoginRequest;
     this._authService
       .login(email, password)
@@ -69,7 +69,7 @@ export class LoginPage implements OnInit {
           });
           this._localStorageService.setItem(
             ELocalStorage.LOGIN_ATTEMPTS,
-            this.currentLoginAttempts
+            this._currentLoginAttempts
           );
         },
       });
@@ -78,7 +78,7 @@ export class LoginPage implements OnInit {
   private _getLoginAttempts(): void {
     const value = this._localStorageService.getItem(ELocalStorage.LOGIN_ATTEMPTS) || '';
     const parsedValue = parseInt(value);
-    this.currentLoginAttempts = !isNaN(parsedValue) ? parsedValue : 0;
+    this._currentLoginAttempts = !isNaN(parsedValue) ? parsedValue : 0;
   }
 
   private _showIPBlockedAlert(): void {
