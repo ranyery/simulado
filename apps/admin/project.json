@@ -2,7 +2,7 @@
   "name": "admin",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "simulado",
+  "prefix": "app",
   "sourceRoot": "apps/admin/src",
   "tags": ["type:app", "scope:client"],
   "targets": {
@@ -19,6 +19,7 @@
         "styles": [
           "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
           "node_modules/primeng/resources/primeng.min.css",
+          "node_modules/primeflex/primeflex.css",
           "apps/admin/src/styles.scss"
         ],
         "scripts": []

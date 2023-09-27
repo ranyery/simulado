@@ -20,15 +20,12 @@ export class SubjectsService {
     return this._httpClient.get<ISubject>(`${this._baseUrl}/${id}`);
   }
 
-  public create(subject: Omit<ISubject, 'id'>): Observable<ISubject> {
+  public create(subject: Partial<Omit<ISubject, 'id'>>): Observable<ISubject> {
     return this._httpClient.post<ISubject>(`${this._baseUrl}`, subject);
   }
 
-  public updateById(
-    id: string,
-    subjectPartial: Partial<Omit<ISubject, 'id'>>
-  ): Observable<ISubject> {
-    return this._httpClient.put<ISubject>(`${this._baseUrl}/${id}`, subjectPartial);
+  public updateById(subjectPartial: ISubject): Observable<ISubject> {
+    return this._httpClient.put<ISubject>(`${this._baseUrl}/${subjectPartial.id}`, subjectPartial);
   }
 
   public deleteById(id: string): Observable<void> {

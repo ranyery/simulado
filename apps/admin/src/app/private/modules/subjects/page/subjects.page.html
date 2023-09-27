@@ -1,1 +1,41 @@
-<section class="subjects">subjects works!</section>
+<section class="subjects">
+  <div class="subjects__header">
+    <app-button (click)="editSubject()" title="Adicionar" color="GREEN"></app-button>
+  </div>
+  <p-table
+    [value]="subjects"
+    [scrollable]="true"
+    [loading]="isLoading"
+    scrollHeight="600px"
+    [resizableColumns]="true"
+    styleClass="p-datatable-gridlines"
+    [tableStyle]="{'min-width': '100%'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 20%" pResizableColumn>Id</th>
+        <th style="width: 30%" pResizableColumn>Nome</th>
+        <th style="width: 100%" pResizableColumn>Descrição</th>
+        <th style="max-width: 200px" pResizableColumn>Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-subject>
+      <tr>
+        <td class="overflow">{{ subject.id }}</td>
+        <td class="overflow">{{ subject.name }}</td>
+        <td class="overflow">{{ subject.description || '-' }}</td>
+        <td style="display: flex; gap: 16px">
+          <app-button
+            (click)="editSubject(subject)"
+            title="Editar"
+            size="SMALL"
+            color="YELLOW"></app-button>
+          <app-button
+            (click)="deleteSubject(subject.id)"
+            title="Excluir"
+            size="SMALL"
+            color="RED"></app-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

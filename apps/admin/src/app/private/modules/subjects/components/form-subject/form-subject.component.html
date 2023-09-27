@@ -1,0 +1,23 @@
+<div class="form-subject">
+  <form class="form-subject__form" [formGroup]="form">
+    <div class="flex flex-column gap-1">
+      <label class="label">Id</label>
+      <input pInputText formControlName="id" />
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label" htmlFor="name">Nome</label>
+      <input pInputText id="name" formControlName="name" />
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label" htmlFor="name">Descrição</label>
+      <textarea rows="5" cols="50" pInputTextarea [autoResize]="true" formControlName="description">
+      </textarea>
+    </div>
+  </form>
+  <div class="form-subject__actions">
+    <app-button (click)="cancel()" title="Cancelar" color="YELLOW"></app-button>
+    <app-button (click)="confirm()" title="Confirmar" color="GREEN"></app-button>
+  </div>
+</div>
