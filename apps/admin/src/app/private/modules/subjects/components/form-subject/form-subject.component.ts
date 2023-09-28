@@ -13,6 +13,7 @@ export class FormSubjectComponent implements OnInit {
   private readonly _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
 
+  private _subjectState?: ISubject;
   private _operationType: string = 'UPDATE';
 
   public form = new FormGroup({
@@ -30,14 +31,17 @@ export class FormSubjectComponent implements OnInit {
       return;
     }
 
+    this._subjectState = subject;
     this.form.controls['name'].setValue(subject.name, { emitEvent: false });
     this.form.controls['description'].setValue(subject.description, { emitEvent: false });
   }
 
   public confirm(): void {
-    // TODO: Validar se é necessário adicionar o Id no retorno
-    const subject = this.form.getRawValue() as ISubject;
-    this._dynamicDialogRef.close({ type: this._operationType, subject });
+    const subject = {
+      ...this.form.getRawValue(),
+      id: this._subjectState?.id ?? undefined,
+    } as ISubject;
+    this._dynamicDialogRef.close({ type: this._operationType, subject: subject });
   }
 
   public cancel(): void {
