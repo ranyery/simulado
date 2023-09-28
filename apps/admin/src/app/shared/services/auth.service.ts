@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
 import { ESessionStorage } from '../constants/session-storage.enum';
 import { ILoginResponse } from '../interfaces/login.interface';
 import { JwtService } from './jwt.service';
+import { PermissionsService } from './permissions.service';
 import { SessionStorageService } from './session-storage.service';
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +15,7 @@ export class AuthService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _router = inject(Router);
   private readonly _jwtService = inject(JwtService);
+  private readonly _permissionsService = inject(PermissionsService);
   private readonly _sessionStorageService = inject(SessionStorageService);
 
   public isLoggedIn: boolean = false;
@@ -37,6 +39,7 @@ export class AuthService {
         tap(({ access_token }) => {
           this.token = access_token;
           this.isLoggedIn = true;
+          this._updateUserPermissions();
         })
       );
   }
@@ -49,13 +52,14 @@ export class AuthService {
     if (this.isLoggedIn) return of(true);
 
     return this._httpClient.post<void>(`${environment.apiUrl}/users/validate-token`, null).pipe(
-      map(() => {
-        this.isLoggedIn = true;
-        return true;
-      }),
       catchError(() => {
         this.logout();
         return of(false);
+      }),
+      map(() => {
+        this.isLoggedIn = true;
+        this._updateUserPermissions();
+        return true;
       })
     );
   }
@@ -64,6 +68,14 @@ export class AuthService {
     this._clearToken();
     this.isLoggedIn = false;
     this._redirectToLoginPage();
+  }
+
+  private _updateUserPermissions(): void {
+    const decodedToken = this._jwtService.decodeToken();
+    if (decodedToken) {
+      const { permissions } = decodedToken;
+      this._permissionsService.setUserPermissions(permissions);
+    }
   }
 
   private _clearToken(): void {
