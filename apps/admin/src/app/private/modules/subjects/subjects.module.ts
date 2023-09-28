@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
 import {
   DialogService,
@@ -27,6 +28,7 @@ import { SubjectsRoutingModule } from './subjects-routing.module';
     ReactiveFormsModule,
     InputTextModule,
     InputTextareaModule,
+    NgStringPipesModule,
   ],
   providers: [DialogService, DynamicDialogConfig, DynamicDialogRef],
 })
