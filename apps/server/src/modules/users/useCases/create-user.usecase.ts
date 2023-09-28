@@ -18,6 +18,6 @@ export class CreateUserUseCase {
 
     const hashedPassword = await hash(password, 10);
 
-    return await this._usersRepository.save({ email, password: hashedPassword });
+    return await this._usersRepository.create({ email, password: hashedPassword });
   }
 }

@@ -31,6 +31,7 @@ model User {
   password      String
 
   role          EUserRole     @default(USER)
+  permissions   String        @default("[]")  // ! Json => Por causa do cockroachdb
   status        EUserStatus   @default(PENDING_CONFIRMATION)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @default(now())

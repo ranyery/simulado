@@ -5,6 +5,7 @@ export interface IUser {
   email: string;
   password: string; // Criptografada
   role: string | EUserRole;
+  permissions: IEntityPermission[];
   status: string | EUserStatus;
   createdAt: string | Date;
   updatedAt: string | Date;
@@ -15,6 +16,15 @@ export enum EUserRole {
   ADMIN = 'ADMIN', // Pode fazer tudo no sistema
   TEACHER = 'TEACHER', // Pode criar novos simulados
   MODERATOR = 'MODERATOR', // Permissões limitadas => Deve buscar permissões dentro do array permissions
+}
+
+// Entidade serve exclusivamente para a área administrativa, assim é possível limitar o acesso ao que pode ser feito
+export interface IEntityPermission {
+  entity: string; // No da entidade no banco de dados
+  read: boolean; // Permissão para visualizar informações de [Matérias, Tópicos, Perguntas, etc...]
+  create: boolean; // Permissão para criar novos(as) [Matérias, Tópicos, Perguntas, etc...]
+  update: boolean; // Permissão para editar informações de [Matérias, Tópicos, Perguntas, etc...]
+  delete: boolean; // Permissão para excluir [Matérias, Tópicos, Perguntas, etc...]
 }
 
 export enum EUserStatus {
