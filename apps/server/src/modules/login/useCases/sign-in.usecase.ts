@@ -28,6 +28,7 @@ export class SignInUseCase {
     const payload = {
       sub: user.id,
       email: user.email,
+      permissions: user.permissions,
     };
 
     const token = await this._jwtService.signAsync(payload);
