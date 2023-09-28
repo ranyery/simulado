@@ -48,20 +48,16 @@ export class AuthService {
 
     if (this.isLoggedIn) return of(true);
 
-    return this._httpClient
-      .post<void>(`${environment.apiUrl}/users/validate-token`, null, {
-        headers: { Authorization: `Bearer ${this.token}` },
+    return this._httpClient.post<void>(`${environment.apiUrl}/users/validate-token`, null).pipe(
+      map(() => {
+        this.isLoggedIn = true;
+        return true;
+      }),
+      catchError(() => {
+        this.logout();
+        return of(false);
       })
-      .pipe(
-        map(() => {
-          this.isLoggedIn = true;
-          return true;
-        }),
-        catchError(() => {
-          this.logout();
-          return of(false);
-        })
-      );
+    );
   }
 
   public logout(): void {
