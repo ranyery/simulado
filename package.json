@@ -17,7 +17,7 @@
     "lint:styles": "npx stylelint apps/**/*.scss --fix",
     "lint:all-projects": "npx nx lint admin && npx nx lint client && npx nx lint server",
     "format": "npx prettier --loglevel warn apps/**/*.{html,scss,json,js,ts} --write && npx nx format:write --all",
-    "purge-css:admin": "npx purgecss -css dist/apps/admin/*.css --content dist/apps/admin/index.html dist/apps/admin/*.js --safelist p-toast-message-success p-toast-message-error -o dist/apps/admin/",
+    "purge-css:admin": "npx purgecss -css dist/apps/admin/*.css --content dist/apps/admin/index.html dist/apps/admin/*.js --safelist p-toast-message-success p-toast-message-warn p-toast-message-error -o dist/apps/admin/",
     "purge-css:client": "npx purgecss -css dist/apps/client/*.css --content dist/apps/client/index.html dist/apps/client/*.js -o dist/apps/client/",
     "install:clean": "rm -rf node_modules/ && npm cache clean --force && npm ci",
     "prepare": "husky install"
