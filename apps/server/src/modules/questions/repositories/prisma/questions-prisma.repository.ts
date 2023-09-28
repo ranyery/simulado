@@ -1,4 +1,4 @@
-import { IQuestion } from '@libs/shared/domain';
+import { EQuestionStatus, IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
@@ -23,9 +23,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
   }
 
   async findById(id: string): Promise<IQuestion | null> {
-    const question = await this._prismaService.question.findUnique({
-      where: { id },
-    });
+    const question = await this._prismaService.question.findUnique({ where: { id } });
 
     if (!question) {
       return null;
@@ -65,7 +63,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
 
     const question = await this._prismaService.question.update({
       where: { id },
-      data: parsedData,
+      data: { ...parsedData, updatedAt: new Date() },
     });
 
     if (!question) {
@@ -80,6 +78,9 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
   }
 
   async deleteById(id: string): Promise<IQuestion | null> {
-    return this._prismaService.question.delete({ where: { id } }) as unknown as IQuestion | null;
+    return this._prismaService.question.update({
+      where: { id },
+      data: { status: EQuestionStatus.ARCHIVED, updatedAt: new Date() },
+    }) as unknown as IQuestion | null;
   }
 }
