@@ -15,6 +15,10 @@ const routes: Routes = [
         component: DashboardPage,
       },
       {
+        path: 'users',
+        loadChildren: () => import('./modules/users/users.module').then((m) => m.UsersModule),
+      },
+      {
         path: 'subjects',
         loadChildren: () =>
           import('./modules/subjects/subjects.module').then((m) => m.SubjectsModule),

@@ -19,6 +19,7 @@ export class SideMenuComponent implements OnInit {
 
   public readonly menuItems: ReadonlyArray<IMenuItem> = [
     { icon: 'pi-home', label: 'Dashboard', route: 'dashboard' },
+    { icon: 'pi-users', label: 'Usuários', route: 'users' },
     { icon: 'pi-book', label: 'Matérias', route: 'subjects' },
   ];
 
