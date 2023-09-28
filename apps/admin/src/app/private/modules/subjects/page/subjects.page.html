@@ -27,7 +27,7 @@
         <td class="overflow">{{ subject.id | shorten: 8 : '...' }}</td>
         <td class="overflow">{{ subject.name }}</td>
         <td class="overflow">
-          {{ subject.description ? (subject.description | shorten: 40 : '...') : '' }}
+          {{ !!subject.description ? (subject.description | shorten: 40 : '...') : '' }}
         </td>
         <td style="display: flex; gap: 16px">
           <p-button
