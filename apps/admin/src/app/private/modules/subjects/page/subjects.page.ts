@@ -1,9 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize } from 'rxjs';
 
 import { SubjectsService } from '../../../../shared/services/subjects.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
 
 @Component({
@@ -12,10 +14,10 @@ import { FormSubjectComponent } from '../components/form-subject/form-subject.co
   styleUrls: ['./subjects.page.scss'],
 })
 export class SubjectsPage implements OnInit {
-  private readonly _subjectsService = inject(SubjectsService);
-
-  private readonly _dialogService = inject(DialogService);
   private _dynamicDialogRef = inject(DynamicDialogRef);
+  private readonly _dialogService = inject(DialogService);
+  private readonly _subjectsService = inject(SubjectsService);
+  private readonly _toastService = inject(ToastService);
 
   public isLoading: boolean = true;
   public hasError: boolean = false;
@@ -47,10 +49,22 @@ export class SubjectsPage implements OnInit {
   }
 
   public deleteSubject(subjectId: string): void {
-    const subject = this.subjects.find((s) => s.id === subjectId);
-
-    this._dynamicDialogRef = this._dialogService.open(FormSubjectComponent, { data: { subject } });
-    this._dynamicDialogRef.onClose.subscribe(console.log);
+    this._subjectsService.deleteById(subjectId).subscribe({
+      next: () => {
+        this.subjects = this.subjects.filter((subject) => subject.id !== subjectId);
+        this._toastService.open({
+          type: 'success',
+          message: 'Disciplina excluída com sucesso.',
+        });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+        this._toastService.open({
+          type: 'error',
+          message: 'Erro ao tentar excluir a disciplina. Verifique os detalhes no console.',
+        });
+      },
+    });
   }
 
   private _fetchAllSubjects(): void {

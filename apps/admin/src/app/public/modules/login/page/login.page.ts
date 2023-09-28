@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
 
 import { ELocalStorage } from '../../../../shared/constants/local-storage.enum';
 import { ILoginRequest } from '../../../../shared/interfaces/login.interface';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { ToastService } from '../../../../shared/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +17,7 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
 export class LoginPage implements OnInit {
   private readonly _router = inject(Router);
   private readonly _authService = inject(AuthService);
-  private readonly _messageService = inject(MessageService);
+  private readonly _toastService = inject(ToastService);
   private readonly _localStorageService = inject(LocalStorageService);
 
   public isLoading: boolean = false;
@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
     if (this.form.invalid) return;
 
     if (this._currentLoginAttempts === this.MAX_LOGIN_ATTEMPTS) {
-      this._messageService.clear();
+      this._toastService.close();
       this._showIPBlockedAlert();
       return;
     }
@@ -52,19 +52,17 @@ export class LoginPage implements OnInit {
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: () => {
-          this._messageService.add({
-            severity: 'success',
-            summary: 'Sucesso!',
-            detail: 'Login realizado com sucesso.',
+          this._toastService.open({
+            type: 'success',
+            message: 'Login realizado com sucesso.',
           });
           this._localStorageService.removeItem(ELocalStorage.LOGIN_ATTEMPTS);
           this._router.navigate(['/', 'cockpit']);
         },
         error: () => {
-          this._messageService.add({
-            severity: 'error',
-            summary: 'Erro!',
-            detail: 'Credenciais inválidas. Por favor, verifique seu email e senha.',
+          this._toastService.open({
+            type: 'error',
+            message: 'Credenciais inválidas. Por favor, verifique seu email e senha.',
             life: 5000,
           });
           this._localStorageService.setItem(
@@ -82,10 +80,9 @@ export class LoginPage implements OnInit {
   }
 
   private _showIPBlockedAlert(): void {
-    this._messageService.add({
-      severity: 'error',
-      summary: 'Erro!',
-      detail:
+    this._toastService.open({
+      type: 'warn',
+      message:
         'Seu IP foi bloqueado temporariamente devido a várias tentativas de login malsucedidas.',
       life: 10000,
     });

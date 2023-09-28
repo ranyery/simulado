@@ -27,7 +27,7 @@
     <p-button
       styleClass="w-full"
       [loading]="isLoading"
-      [disabled]="form.invalid"
+      [disabled]="form.invalid || isLoading"
       (click)="onSubmit()"
       label="Login">
     </p-button>

@@ -16,7 +16,6 @@ export class FormSubjectComponent implements OnInit {
   private _operationType: string = 'UPDATE';
 
   public form = new FormGroup({
-    id: new FormControl<string>({ value: '', disabled: true }, [Validators.required]),
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string | undefined>(''),
   });
@@ -31,12 +30,12 @@ export class FormSubjectComponent implements OnInit {
       return;
     }
 
-    this.form.controls['id'].setValue(subject.id, { emitEvent: false });
     this.form.controls['name'].setValue(subject.name, { emitEvent: false });
     this.form.controls['description'].setValue(subject.description, { emitEvent: false });
   }
 
   public confirm(): void {
+    // TODO: Validar se é necessário adicionar o Id no retorno
     const subject = this.form.getRawValue() as ISubject;
     this._dynamicDialogRef.close({ type: this._operationType, subject });
   }
