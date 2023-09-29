@@ -24,7 +24,7 @@ export class SideMenuComponent implements OnInit {
 
   public readonly menuItems: ReadonlyArray<IMenuItem> = [
     {
-      icon: 'pi-home',
+      icon: 'pi-chart-bar',
       label: 'Dashboard',
       route: EPrivateRoutes.DASHBOARD,
       isEnabled: true,
@@ -40,6 +40,12 @@ export class SideMenuComponent implements OnInit {
       label: 'Matérias',
       route: EPrivateRoutes.SUBJECTS,
       isEnabled: this._permissionsService.canRead(EEntity.SUBJECTS),
+    },
+    {
+      icon: 'pi-tags',
+      label: 'Tópicos',
+      route: EPrivateRoutes.TOPICS,
+      isEnabled: this._permissionsService.canRead(EEntity.TOPICS),
     },
   ];
 

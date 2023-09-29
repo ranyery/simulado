@@ -21,4 +21,10 @@ export const UserSchema = z.object({
 }) satisfies z.ZodType<IUser>;
 
 // Usar como referência de dados ENVIADOS para o Front-End
-export const UserResponseDTO = UserSchema.omit({ password: true });
+export const UserResponseDTO = UserSchema.omit({
+  password: true,
+  role: true,
+  permissions: true,
+  createdAt: true,
+  updatedAt: true,
+});

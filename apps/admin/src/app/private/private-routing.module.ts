@@ -8,6 +8,7 @@ export const enum EPrivateRoutes {
   DASHBOARD = 'dashboard',
   USERS = 'users',
   SUBJECTS = 'subjects',
+  TOPICS = 'topics',
 }
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
         path: EPrivateRoutes.SUBJECTS,
         loadChildren: () =>
           import('./modules/subjects/subjects.module').then((m) => m.SubjectsModule),
+      },
+      {
+        path: EPrivateRoutes.TOPICS,
+        loadChildren: () => import('./modules/topics/topics.module').then((m) => m.TopicsModule),
       },
     ],
   },

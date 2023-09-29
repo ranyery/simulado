@@ -9,9 +9,9 @@ import { finalize, switchMap } from 'rxjs';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { PermissionsService } from '../../../../shared/services/permissions.service';
-import { SubjectsService } from '../../../../shared/services/subjects.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
+import { SubjectsService } from '../services/subjects.service';
 
 export const enum ESubjectActions {
   CREATE = 'CREATE',

@@ -38,6 +38,7 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
     await this._prismaService.subject.update({
       where: { id },
       data: { status: ESubjectStatus.ARCHIVED, updatedAt: new Date() },
+      include: { topics: true },
     });
   }
 }

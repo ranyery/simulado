@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ISubject } from '@libs/shared/domain';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class SubjectsService {
