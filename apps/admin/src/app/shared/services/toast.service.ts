@@ -7,6 +7,7 @@ interface IToastProps {
   type: IToastType;
   message: string;
   life?: number;
+  closable?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -26,7 +27,8 @@ export class ToastService {
       severity: props.type,
       summary: this._titleMap[props.type],
       detail: props.message,
-      life: props.life || 3000,
+      life: props.life ?? 3000,
+      closable: props.closable ?? true,
     });
   }
 

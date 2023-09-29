@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   private readonly _localStorageService = inject(LocalStorageService);
 
   public isLoading: boolean = false;
+  public isLoginButtonDisabled = false;
   public form = new FormGroup({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', [Validators.required]),
@@ -39,6 +40,7 @@ export class LoginPage implements OnInit {
     if (this.form.invalid) return;
 
     if (this._currentLoginAttempts === this.MAX_LOGIN_ATTEMPTS) {
+      this.isLoginButtonDisabled = true;
       this._toastService.close();
       this._showIPBlockedAlert();
       return;
@@ -84,7 +86,8 @@ export class LoginPage implements OnInit {
       type: 'warn',
       message:
         'Seu IP foi bloqueado temporariamente devido a várias tentativas de login malsucedidas.',
-      life: 10000,
+      life: 60000,
+      closable: false,
     });
   }
 }
