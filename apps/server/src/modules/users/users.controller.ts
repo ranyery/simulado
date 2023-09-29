@@ -1,10 +1,10 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 
 import { AuthGuard } from '../../shared/guards/auth.guard';
+import { ValidateTokenUseCase } from '../login/useCases/validate-token.usecase';
 import { CreateUserRequestDTO } from './schemas/create-user.schema';
 import { UserResponseDTO } from './schemas/user.schema';
 import { CreateUserUseCase } from './useCases/create-user.usecase';
-import { ValidateTokenUseCase } from './useCases/validate-token.usecase';
 
 @Controller('/users')
 export class UsersController {

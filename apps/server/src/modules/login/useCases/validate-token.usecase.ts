@@ -1,7 +1,7 @@
 import { IUser } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
-import { IUsersRepository } from '../repositories/users.repository';
+import { IUsersRepository } from '../../users/repositories/users.repository';
 
 @Injectable()
 export class ValidateTokenUseCase {
