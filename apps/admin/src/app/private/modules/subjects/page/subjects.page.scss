@@ -1,16 +1,22 @@
 .subjects {
   display: flex;
+  height: 100%;
   flex-direction: column;
   gap: 16px;
-  height: 100%;
 
   &__header {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
     padding: 16px;
     border-radius: 8px;
     background-color: #f4f4f4;
     gap: 16px;
+  }
+
+  &__title {
+    font-size: 32px;
+    font-weight: bold;
   }
 
   &__table {

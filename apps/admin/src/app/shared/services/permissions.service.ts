@@ -16,22 +16,22 @@ export class PermissionsService {
   }
 
   public canRead(entity: EEntity): boolean {
-    return this.hasPermission(entity, 'read');
+    return this._hasPermission(entity, 'read');
   }
 
   public canCreate(entity: EEntity): boolean {
-    return this.hasPermission(entity, 'create');
+    return this._hasPermission(entity, 'create');
   }
 
   public canUpdate(entity: EEntity): boolean {
-    return this.hasPermission(entity, 'update');
+    return this._hasPermission(entity, 'update');
   }
 
   public canDelete(entity: EEntity): boolean {
-    return this.hasPermission(entity, 'delete');
+    return this._hasPermission(entity, 'delete');
   }
 
-  public hasPermission(entity: EEntity, action: actionTypes): boolean {
+  private _hasPermission(entity: EEntity, action: actionTypes): boolean {
     if (this._userPermissions.length === 0) false;
 
     const entityPermission = this._userPermissions.find(

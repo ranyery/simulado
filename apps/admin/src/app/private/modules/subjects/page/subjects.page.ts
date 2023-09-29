@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { ISubject } from '@libs/shared/domain';
+import { EEntity, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { finalize } from 'rxjs';
 
+import { AuthService } from '../../../../shared/services/auth.service';
+import { PermissionsService } from '../../../../shared/services/permissions.service';
 import { SubjectsService } from '../../../../shared/services/subjects.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
@@ -18,15 +20,31 @@ export class SubjectsPage implements OnInit {
   private readonly _dialogService = inject(DialogService);
   private readonly _subjectsService = inject(SubjectsService);
   private readonly _toastService = inject(ToastService);
+  private readonly _permissionsService = inject(PermissionsService);
+  private readonly _authService = inject(AuthService);
 
+  public subjects: ISubject[] = [];
   public isLoading: boolean = true;
   public hasError: boolean = false;
 
-  public subjects: ISubject[] = [];
+  public canRead: boolean = false;
+  public canCreate: boolean = false;
+  public canUpdate: boolean = false;
+  public canDelete: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {
+    this.canRead = this._permissionsService.canRead(EEntity.SUBJECTS);
+
+    if (!this.canRead) {
+      this._authService.logout();
+      return;
+    }
+
+    this.canCreate = this._permissionsService.canCreate(EEntity.SUBJECTS);
+    this.canUpdate = this._permissionsService.canUpdate(EEntity.SUBJECTS);
+    this.canDelete = this._permissionsService.canDelete(EEntity.SUBJECTS);
     this._fetchAllSubjects();
   }
 

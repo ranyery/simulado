@@ -15,7 +15,11 @@ const routes: Routes = [
     path: '',
     component: ShellPage,
     children: [
-      { path: '', pathMatch: 'full', redirectTo: EPrivateRoutes.DASHBOARD },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: EPrivateRoutes.DASHBOARD,
+      },
       {
         path: EPrivateRoutes.DASHBOARD,
         component: DashboardPage,

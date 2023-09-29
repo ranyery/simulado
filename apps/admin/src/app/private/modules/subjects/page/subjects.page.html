@@ -1,6 +1,11 @@
 <section class="subjects">
   <div class="subjects__header">
-    <p-button (click)="editSubject()" label="Adicionar" styleClass="p-button-sm p-button-success">
+    <div class="subjects__title">Lista de Matérias</div>
+    <p-button
+      [disabled]="!canCreate"
+      (onClick)="editSubject()"
+      label="Adicionar"
+      styleClass="p-button-sm p-button-success">
     </p-button>
   </div>
   <p-table
@@ -16,7 +21,7 @@
         <th pResizableColumn>Id</th>
         <th pResizableColumn>Nome</th>
         <th style="width: 100%" pResizableColumn>Descrição</th>
-        <th pResizableColumn>Ações</th>
+        <th pResizableColumn *ngIf="canUpdate || canDelete">Ações</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-subject>
@@ -26,15 +31,17 @@
         <td class="overflow">
           {{ !!subject.description ? (subject.description | shorten: 40 : '...') : '' }}
         </td>
-        <td style="display: flex; gap: 16px">
+        <td style="display: flex; gap: 16px" *ngIf="canUpdate || canDelete">
           <p-button
-            (click)="editSubject(subject)"
+            [disabled]="!canUpdate"
+            (onClick)="editSubject(subject)"
             label="Editar"
             styleClass="p-button-sm p-button-warning">
           </p-button>
 
           <p-button
-            (click)="deleteSubject(subject.id)"
+            [disabled]="!canDelete"
+            (onClick)="deleteSubject(subject.id)"
             label="Excluir"
             styleClass="p-button-sm p-button-danger">
           </p-button>
