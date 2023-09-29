@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { EEntity, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Table } from 'primeng/table';
 import { finalize } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
@@ -22,6 +23,8 @@ export class SubjectsPage implements OnInit {
   private readonly _toastService = inject(ToastService);
   private readonly _permissionsService = inject(PermissionsService);
   private readonly _authService = inject(AuthService);
+
+  @ViewChild('pTable') pTable?: Table;
 
   public subjects: ISubject[] = [];
   public isLoading: boolean = true;
@@ -46,6 +49,22 @@ export class SubjectsPage implements OnInit {
     this.canUpdate = this._permissionsService.canUpdate(EEntity.SUBJECTS);
     this.canDelete = this._permissionsService.canDelete(EEntity.SUBJECTS);
     this._fetchAllSubjects();
+  }
+
+  private _fetchAllSubjects(): void {
+    this.isLoading = true;
+    this.hasError = false;
+
+    this._subjectsService
+      .getAll()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (subjects) => {
+          this.subjects = subjects;
+          this.hasError = false;
+        },
+        error: () => (this.hasError = true),
+      });
   }
 
   public editSubject(subject?: ISubject): void {
@@ -85,22 +104,6 @@ export class SubjectsPage implements OnInit {
     });
   }
 
-  private _fetchAllSubjects(): void {
-    this.isLoading = true;
-    this.hasError = false;
-
-    this._subjectsService
-      .getAll()
-      .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe({
-        next: (subjects) => {
-          this.subjects = subjects;
-          this.hasError = false;
-        },
-        error: () => (this.hasError = true),
-      });
-  }
-
   private _createSubject(subject: Partial<ISubject>): void {
     this._subjectsService.create(subject).subscribe({
       next: (data) => {
@@ -123,5 +126,13 @@ export class SubjectsPage implements OnInit {
       },
       error: () => {},
     });
+  }
+
+  public clearFilterTable(): void {
+    this.pTable?.clear();
+  }
+
+  public applyFilterGlobal($event: any, stringVal: string): void {
+    this.pTable?.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 }

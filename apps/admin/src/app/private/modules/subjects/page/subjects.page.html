@@ -9,18 +9,37 @@
     </p-button>
   </div>
   <p-table
+    #pTable
     [value]="subjects"
     [scrollable]="true"
     [loading]="isLoading"
     scrollHeight="600px"
     [resizableColumns]="true"
     styleClass="p-datatable-gridlines"
-    [tableStyle]="{'min-width': '100%'}">
+    [tableStyle]="{'min-width': '100%'}"
+    [globalFilterFields]="['id', 'name', 'description', 'status']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Pesquisar..." />
+        </span>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th pResizableColumn>Id</th>
-        <th pResizableColumn>Nome</th>
-        <th style="width: 100%" pResizableColumn>Descrição</th>
+        <th pSortableColumn="name" pResizableColumn>Nome <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="description" style="width: 100%" pResizableColumn>
+          Descrição <p-sortIcon field="description"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status" pResizableColumn>
+          Status <p-sortIcon field="status"></p-sortIcon>
+        </th>
         <th pResizableColumn *ngIf="canUpdate || canDelete">Ações</th>
       </tr>
     </ng-template>
@@ -29,8 +48,9 @@
         <td class="overflow">{{ subject.id | shorten: 8 : '...' }}</td>
         <td class="overflow">{{ subject.name }}</td>
         <td class="overflow">
-          {{ !!subject.description ? (subject.description | shorten: 40 : '...') : '' }}
+          {{ !!subject.description ? (subject.description | shorten: 30 : '...') : '' }}
         </td>
+        <td class="overflow">{{ subject.status }}</td>
         <td style="display: flex; gap: 16px" *ngIf="canUpdate || canDelete">
           <p-button
             [disabled]="!canUpdate"
