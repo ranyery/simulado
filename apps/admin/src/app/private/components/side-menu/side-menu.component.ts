@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { EEntity } from '@libs/shared/domain';
 
 import { EPrivateRoutes } from '../../../private/private-routing.module';
-import { AuthService } from '../../services/auth.service';
-import { PermissionsService } from '../../services/permissions.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { PermissionsService } from '../../../shared/services/permissions.service';
 
 interface IMenuItem {
   icon: string;

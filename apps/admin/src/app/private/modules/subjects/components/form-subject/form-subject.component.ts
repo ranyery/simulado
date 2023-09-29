@@ -4,6 +4,7 @@ import { ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { UtilsService } from '../../../../../shared/services/utils.service';
 import { ESubjectActions } from '../../page/subjects.page';
 
 interface ISubjectStatus {
@@ -26,6 +27,7 @@ export class FormSubjectComponent implements OnInit {
   private readonly _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
+  private readonly _utilsService = inject(UtilsService);
 
   public readonly subjectStatus: ISubjectStatus[] = [
     { name: 'Revisão pendente', code: ESubjectStatus.PENDING_REVIEW },
@@ -34,10 +36,10 @@ export class FormSubjectComponent implements OnInit {
   ];
 
   public form = new FormGroup({
-    id: new FormControl<string>('', [Validators.required]),
+    id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string | undefined>(undefined),
-    status: new FormControl<ISubjectStatus | undefined>(undefined, [Validators.required]),
+    status: new FormControl<ISubjectStatus | undefined>(undefined),
   });
 
   constructor() {}
@@ -66,12 +68,12 @@ export class FormSubjectComponent implements OnInit {
     const subjectId = subject.id ?? undefined;
     const subjectStatus = formSubjectValues.status?.code ?? ESubjectStatus.PENDING_REVIEW;
 
-    const updatedSubject = {
+    const updatedSubject = this._utilsService.removeNullOrUndefinedOrEmptyProperties<ISubject>({
       ...subject,
       ...formSubjectValues,
       id: subjectId,
       status: subjectStatus,
-    } as ISubject;
+    });
 
     this._confirmDialogService.confirm(
       {

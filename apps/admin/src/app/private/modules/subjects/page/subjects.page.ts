@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { EEntity, ISubject } from '@libs/shared/domain';
+import { EEntity, ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
@@ -32,7 +32,8 @@ export class SubjectsPage implements OnInit {
   private readonly _permissionsService = inject(PermissionsService);
   private readonly _authService = inject(AuthService);
 
-  @ViewChild('pTable') pTable?: Table;
+  @ViewChild('pTable')
+  private readonly _pTable?: Table;
 
   public subjects: ISubject[] = [];
   public isLoading: boolean = true;
@@ -78,6 +79,7 @@ export class SubjectsPage implements OnInit {
   public createSubject(): void {
     this._dynamicDialogRef = this._dialogService.open(FormSubjectComponent, {
       data: { actionType: ESubjectActions.CREATE, subject: {} },
+      closable: false,
     });
 
     this._dynamicDialogRef.onClose
@@ -100,14 +102,18 @@ export class SubjectsPage implements OnInit {
   public updateSubject(subject: ISubject): void {
     this._dynamicDialogRef = this._dialogService.open(FormSubjectComponent, {
       data: { actionType: ESubjectActions.UPDATE, subject },
+      closable: false,
     });
 
     this._dynamicDialogRef.onClose
       .pipe(switchMap(({ subject }) => this._subjectsService.updateById(subject)))
       .subscribe({
         next: (subject) => {
-          const index = this.subjects.findIndex((s) => s.id === subject.id);
-          this.subjects[index] = { ...this.subjects[index], ...subject };
+          this.subjects = this.subjects.map((sub) => {
+            if (sub.id !== subject.id) return sub;
+            return { ...sub, ...subject };
+          });
+
           this._toastService.open({ type: 'success', message: 'Matéria atualizada com sucesso.' });
         },
         error: (error: HttpErrorResponse) => {
@@ -120,37 +126,38 @@ export class SubjectsPage implements OnInit {
       });
   }
 
-  public deleteSubject(subject: ISubject): void {
+  public archiveSubject(subject: ISubject): void {
     this._confirmDialogService.confirm(
-      {
-        title: 'Atenção!',
-        message: `Deseja confirmar a exclusão da matéria <b>${subject.name}</b>?`,
-      },
-      () => this._deleteSubjectById(subject.id)
+      { title: 'Atenção!', message: `Deseja arquivar a matéria <b>${subject.name}</b>?` },
+      () => this._archiveSubjectById(subject)
     );
   }
 
-  private _deleteSubjectById(subjectId: string): void {
-    this._subjectsService.deleteById(subjectId).subscribe({
+  private _archiveSubjectById(subject: ISubject): void {
+    this._subjectsService.deleteById(subject.id).subscribe({
       next: () => {
-        this.subjects = this.subjects.filter((subject) => subject.id !== subjectId);
-        this._toastService.open({ type: 'success', message: 'Matéria excluída com sucesso.' });
+        this.subjects = this.subjects.map((sub) => {
+          if (sub.id !== subject.id) return sub;
+          return { ...sub, status: ESubjectStatus.ARCHIVED };
+        });
+
+        this._toastService.open({ type: 'success', message: 'Matéria arquivada com sucesso.' });
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
         this._toastService.open({
           type: 'error',
-          message: 'Erro ao tentar excluir a matéria. Verifique os detalhes no console.',
+          message: 'Erro ao tentar arquivar a matéria. Verifique os detalhes no console.',
         });
       },
     });
   }
 
   public clearFilterTable(): void {
-    this.pTable?.clear();
+    this._pTable?.clear();
   }
 
   public applyFilterGlobal($event: any, value: string): void {
-    this.pTable?.filterGlobal(($event.target as HTMLInputElement).value, value);
+    this._pTable?.filterGlobal(($event.target as HTMLInputElement).value, value);
   }
 }

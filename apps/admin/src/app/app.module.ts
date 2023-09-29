@@ -38,8 +38,8 @@ registerLocaleData(localePt, 'pt');
       useClass: AuthErrorInterceptor,
       multi: true,
     },
-    MessageService,
-    ConfirmationService,
+    MessageService, // p-toast
+    ConfirmationService, // p-confirmDialog
   ],
   bootstrap: [AppComponent],
 })

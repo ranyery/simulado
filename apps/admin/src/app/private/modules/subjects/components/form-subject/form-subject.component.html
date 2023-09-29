@@ -6,7 +6,7 @@
     </div>
 
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Status *</label>
+      <label class="label" htmlFor="name">Status</label>
       <p-dropdown
         formControlName="status"
         [options]="subjectStatus"
@@ -21,17 +21,18 @@
       <textarea rows="5" cols="50" pInputTextarea [autoResize]="true" formControlName="description">
       </textarea>
     </div>
+    <div class="form-subject__actions">
+      <p-button
+        (onClick)="cancel()"
+        label="Cancelar"
+        styleClass="w-full p-button-sm p-button-warning">
+      </p-button>
+      <p-button
+        (onClick)="confirm()"
+        [disabled]="form.invalid"
+        label="Confirmar"
+        styleClass="w-full p-button-sm p-button-success">
+      </p-button>
+    </div>
   </form>
-  <div class="form-subject__actions">
-    <p-button
-      (onClick)="cancel()"
-      label="Cancelar"
-      styleClass="w-full p-button-sm p-button-warning">
-    </p-button>
-    <p-button
-      (onClick)="confirm()"
-      label="Confirmar"
-      styleClass="w-full p-button-sm p-button-success">
-    </p-button>
-  </div>
 </div>
