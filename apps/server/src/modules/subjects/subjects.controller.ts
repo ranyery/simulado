@@ -3,6 +3,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { AuthGuard } from '../../shared/guards/auth.guard';
 import { CreateSubjectRequestDTO } from './schemas/create-subject.schema';
 import { PartialSubjectRequestDTO } from './schemas/partial-subject.schema';
+import { SubjectResponseDTO } from './schemas/subject.schema';
 import { CreateSubjectUseCase } from './useCases/create-subject.usecase';
 import { DeleteSubjectByIdUseCase } from './useCases/delete-subject-by-id.usecase';
 import { FindAllSubjectsUseCase } from './useCases/find-all-subjects.usecase';
@@ -21,24 +22,32 @@ export class SubjectsController {
 
   @Get()
   async getAll() {
-    return await this._findAllSubjectsUseCase.execute();
+    const subjects = await this._findAllSubjectsUseCase.execute();
+    const subjectsDTO = subjects.map((subject) => SubjectResponseDTO.parse(subject));
+    return subjectsDTO;
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {
-    return await this._findSubjectByIdUseCase.execute(id);
+    const subject = await this._findSubjectByIdUseCase.execute(id);
+    const subjectDTO = SubjectResponseDTO.parse(subject);
+    return subjectDTO;
   }
 
   @Post()
   @UseGuards(AuthGuard)
   async create(@Body() data: CreateSubjectRequestDTO) {
-    return await this._createSubjectUseCase.execute(data);
+    const subject = await this._createSubjectUseCase.execute(data);
+    const subjectDTO = SubjectResponseDTO.parse(subject);
+    return subjectDTO;
   }
 
   @Put('/:id')
   @UseGuards(AuthGuard)
   async updateById(@Param('id') id: string, @Body() data: PartialSubjectRequestDTO) {
-    return await this._updateSubjectByIdUseCase.execute(id, data);
+    const subject = await this._updateSubjectByIdUseCase.execute(id, data);
+    const subjectDTO = SubjectResponseDTO.parse(subject);
+    return subjectDTO;
   }
 
   @Delete('/:id')

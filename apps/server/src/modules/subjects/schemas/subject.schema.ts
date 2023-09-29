@@ -9,3 +9,6 @@ export const SubjectSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
 }) satisfies z.ZodType<ISubject>;
+
+// Usar como referência de dados ENVIADOS para o Front-End
+export const SubjectResponseDTO = SubjectSchema.omit({ createdAt: true, updatedAt: true });
