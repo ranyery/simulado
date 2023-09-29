@@ -22,7 +22,7 @@ export class FormSubjectComponent implements OnInit {
   private _operationType: string = 'UPDATE';
 
   public readonly subjectStatus: ISubjectStatus[] = [
-    { name: 'Pendente para revisão', code: ESubjectStatus.PENDING_REVIEW },
+    { name: 'Revisão pendente', code: ESubjectStatus.PENDING_REVIEW },
     { name: 'Ativo', code: ESubjectStatus.ACTIVE },
     { name: 'Arquivado', code: ESubjectStatus.ARCHIVED },
   ];
