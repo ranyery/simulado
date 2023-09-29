@@ -1,5 +1,3 @@
-import { IPracticeTest } from './practice-test.interface';
-
 export interface IUser {
   id: string;
   email: string;
@@ -37,7 +35,7 @@ export enum EUserStatus {
 
 export interface IConfirmationCode {
   id: string; // Um identificador único para a confirmação de e-mail.
-  userId: string | Pick<IUser, 'id'>; // O ID do usuário associado à confirmação de e-mail.
+  userId: string; // IUser => O ID do usuário associado à confirmação de e-mail.
   code: string; // O código de confirmação enviado por e-mail.
   isConfirmed: boolean; // Indica se foi confirmado com sucesso.
   createdAt: string | Date; // A data e hora em que a confirmação de e-mail foi criada.
@@ -100,7 +98,7 @@ export interface IPracticeTestHistory {
   id: string; // ID do simulado realizado
   score: number; // Pontuação obtida no simulado
   completionDate: string | Date; // Data de conclusão do simulado
-  practiceTestId: string | Pick<IPracticeTest, 'id'>;
+  practiceTestId: string; // IPracticeTest
 }
 
 export interface IAccessHistory {

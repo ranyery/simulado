@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class AuthErrorInterceptor implements HttpInterceptor {
+export class HttpErrorInterceptor implements HttpInterceptor {
   private readonly _authService = inject(AuthService);
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

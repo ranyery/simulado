@@ -10,8 +10,8 @@ import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthErrorInterceptor } from './shared/interceptors/auth-error.interceptor';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 
 registerLocaleData(localePt, 'pt');
 
@@ -35,7 +35,7 @@ registerLocaleData(localePt, 'pt');
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthErrorInterceptor,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
     MessageService, // p-toast

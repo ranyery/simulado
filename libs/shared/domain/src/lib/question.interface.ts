@@ -1,5 +1,4 @@
 // Entidade Pergunta
-import { ISubject } from './subject.interface';
 
 export interface IQuestion {
   id: string;
@@ -9,8 +8,8 @@ export interface IQuestion {
   type: EQuestionType;
   source: ISource; // Exemplo (ENEM 2022)
   difficultyLevel: EQuestionDifficultyLevel;
-  subjectId: string | Pick<ISubject, 'id'>; // A matéria à qual a questão está relacionada (matemática, história, etc.)
-  relatedTopicIds: string[] | Pick<ITopic, 'id'>[]; // Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
+  subjectId: string; // ISubject => A matéria à qual a questão está relacionada (matemática, história, etc.)
+  relatedTopicIds: string[]; // ITopic[] => Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
   status: EQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
   createdAt: string | Date; // A data foi ADICIONADA no sistema
@@ -39,13 +38,6 @@ export enum EQuestionStatus {
   ACTIVE = 'ACTIVE', // Questão ativa e disponível para uso.
   PENDING_REVIEW = 'PENDING_REVIEW', // Questão aguardando revisão.
   ARCHIVED = 'ARCHIVED', // Questão arquivada, não é exibida nos simulados atuais.
-}
-
-export interface ITopic {
-  id: string;
-  name: string;
-  description?: string | null; // Descrição sobre a matéria para SEO
-  subjectId: string | Pick<ISubject, 'id'>;
 }
 
 export interface IImage {
