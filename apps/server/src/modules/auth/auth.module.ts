@@ -3,25 +3,26 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { UserPrismaRepository } from '../users/repositories/prisma/user-prisma.repository';
 import { IUsersRepository } from '../users/repositories/users.repository';
-import { LoginController } from './login.controller';
+import { AuthController } from './auth.controller';
+import { secret } from './constants/jwt';
 import { TokenService } from './services/token.service';
+import { LoginUseCase } from './useCases/login.usecase';
 import { RefreshTokenUseCase } from './useCases/refresh-token.usecase';
-import { SignInUseCase } from './useCases/sign-in.usecase';
 import { ValidateTokenUseCase } from './useCases/validate-token.usecase';
 
 @Module({
   imports: [
     JwtModule.register({
       global: true,
-      secret: 'NESTJS',
+      secret: secret,
       signOptions: {
         expiresIn: '8h',
       },
     }),
   ],
-  controllers: [LoginController],
+  controllers: [AuthController],
   providers: [
-    SignInUseCase,
+    LoginUseCase,
     RefreshTokenUseCase,
     ValidateTokenUseCase,
     TokenService,
@@ -31,4 +32,4 @@ import { ValidateTokenUseCase } from './useCases/validate-token.usecase';
     },
   ],
 })
-export class LoginModule {}
+export class AuthModule {}

@@ -3,14 +3,14 @@ import { APP_PIPE } from '@nestjs/core';
 import { ZodValidationPipe } from 'nestjs-zod';
 
 import { PrismaModule } from './infra/database/prisma.module';
-import { LoginModule } from './modules/login/login.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { SubjectsModule } from './modules/subjects/subjects.module';
 import { TopicsModule } from './modules/topics/topics.module';
 import { UsersModule } from './modules/users/users.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, LoginModule, SubjectsModule, TopicsModule, QuestionsModule],
+  imports: [PrismaModule, UsersModule, AuthModule, SubjectsModule, TopicsModule, QuestionsModule],
   controllers: [],
   providers: [
     {

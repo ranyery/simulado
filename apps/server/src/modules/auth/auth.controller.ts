@@ -1,22 +1,22 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 
 import { AuthGuard } from '../../shared/guards/auth.guard';
-import { SignInRequestDTO } from './schemas/sign-in.schema';
+import { LoginRequestDTO } from './schemas/login.schema';
+import { LoginUseCase } from './useCases/login.usecase';
 import { RefreshTokenUseCase } from './useCases/refresh-token.usecase';
-import { SignInUseCase } from './useCases/sign-in.usecase';
 import { ValidateTokenUseCase } from './useCases/validate-token.usecase';
 
 @Controller()
-export class LoginController {
+export class AuthController {
   constructor(
-    private readonly _signInUseCase: SignInUseCase,
+    private readonly _loginUseCase: LoginUseCase,
     private readonly _validateTokenUseCase: ValidateTokenUseCase,
     private readonly _refreshTokenUseCase: RefreshTokenUseCase
   ) {}
 
   @Post('/login')
-  async login(@Body() signInDTO: SignInRequestDTO) {
-    const token = await this._signInUseCase.execute(signInDTO);
+  async login(@Body() loginDTO: LoginRequestDTO) {
+    const token = await this._loginUseCase.execute(loginDTO);
     return { access_token: token };
   }
 

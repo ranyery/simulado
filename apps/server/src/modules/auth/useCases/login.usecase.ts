@@ -2,17 +2,17 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { compare } from 'bcrypt';
 
 import { IUsersRepository } from '../../users/repositories/users.repository';
-import { SignInRequestDTO } from '../schemas/sign-in.schema';
+import { LoginRequestDTO } from '../schemas/login.schema';
 import { TokenService } from '../services/token.service';
 
 @Injectable()
-export class SignInUseCase {
+export class LoginUseCase {
   constructor(
     private readonly _tokenService: TokenService,
     private readonly _usersRepository: IUsersRepository
   ) {}
 
-  async execute({ email, password }: SignInRequestDTO): Promise<string> {
+  async execute({ email, password }: LoginRequestDTO): Promise<string> {
     const user = await this._usersRepository.findByEmail(email);
 
     if (!user) {
