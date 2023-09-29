@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 type IToastType = 'success' | 'error' | 'warn';
+type IToastPosition = 'top-left' | 'top-center' | 'top-right' | 'bottom-center';
 
 interface IToastProps {
   type: IToastType;
@@ -20,6 +21,8 @@ export class ToastService {
     warn: 'Aviso!',
   };
 
+  public position: IToastPosition = 'top-right';
+
   constructor() {}
 
   public open(props: IToastProps): void {
@@ -34,5 +37,9 @@ export class ToastService {
 
   public close(): void {
     this._messageService.clear();
+  }
+
+  public setPosition(position: IToastPosition): void {
+    this.position = position;
   }
 }

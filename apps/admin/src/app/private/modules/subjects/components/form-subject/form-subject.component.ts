@@ -3,9 +3,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
+import { ESubjectActions } from '../../page/subjects.page';
+
 interface ISubjectStatus {
   name: string;
   code: ESubjectStatus;
+}
+
+interface ISubjectActionData {
+  actionType: ESubjectActions;
+  subject: ISubject;
 }
 
 @Component({
@@ -18,9 +25,6 @@ export class FormSubjectComponent implements OnInit {
   private readonly _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
 
-  private _subjectState?: ISubject;
-  private _operationType: string = 'UPDATE';
-
   public readonly subjectStatus: ISubjectStatus[] = [
     { name: 'Revisão pendente', code: ESubjectStatus.PENDING_REVIEW },
     { name: 'Ativo', code: ESubjectStatus.ACTIVE },
@@ -28,40 +32,46 @@ export class FormSubjectComponent implements OnInit {
   ];
 
   public form = new FormGroup({
+    id: new FormControl<string>('', [Validators.required]),
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string | undefined>(undefined),
-    status: new FormControl<ISubjectStatus | undefined>(undefined),
+    status: new FormControl<ISubjectStatus | undefined>(undefined, [Validators.required]),
   });
 
   constructor() {}
 
   ngOnInit(): void {
-    const { subject } = this._dynamicDialogConfig.data;
+    const { actionType, subject } = this._dynamicDialogConfig.data as ISubjectActionData;
 
-    if (!subject) {
-      this._operationType = 'CREATE';
+    if (actionType === ESubjectActions.CREATE) {
       return;
     }
 
-    this._subjectState = subject as ISubject;
-    const subjectStatus = this.subjectStatus.find((s) => s.code === subject?.status);
-    this.form.controls['name'].setValue(subject.name, { emitEvent: false });
-    this.form.controls['status'].setValue(subjectStatus, { emitEvent: false });
-    this.form.controls['description'].setValue(subject.description, { emitEvent: false });
+    if (actionType === ESubjectActions.UPDATE) {
+      const subjectStatus = this.subjectStatus.find((s) => s.code === subject.status);
+
+      this.form.controls['id'].setValue(subject.id, { emitEvent: false });
+      this.form.controls['name'].setValue(subject.name, { emitEvent: false });
+      this.form.controls['status'].setValue(subjectStatus, { emitEvent: false });
+      this.form.controls['description'].setValue(subject.description, { emitEvent: false });
+    }
   }
 
   public confirm(): void {
-    const subjectRawValues = this.form.getRawValue();
-    const subjectId = this._subjectState?.id ?? undefined;
-    const subjectStatus = this.form.controls['status'].value?.code ?? ESubjectStatus.PENDING_REVIEW;
+    const formSubjectValues = this.form.value;
+    const { subject } = this._dynamicDialogConfig.data as ISubjectActionData;
 
-    const subject = {
-      ...subjectRawValues,
+    const subjectId = subject.id ?? undefined;
+    const subjectStatus = formSubjectValues.status?.code ?? ESubjectStatus.PENDING_REVIEW;
+
+    const updatedSubject = {
+      ...subject,
+      ...formSubjectValues,
       id: subjectId,
       status: subjectStatus,
     } as ISubject;
 
-    this._dynamicDialogRef.close({ type: this._operationType, subject: subject });
+    this._dynamicDialogRef.close({ subject: updatedSubject });
   }
 
   public cancel(): void {
