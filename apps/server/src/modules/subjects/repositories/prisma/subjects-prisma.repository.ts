@@ -11,21 +11,25 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async findAll(): Promise<ISubject[]> {
-    return this._prismaService.subject.findMany();
+    return this._prismaService.subject.findMany({ include: { topics: true } });
   }
 
   async findById(id: string): Promise<ISubject | null> {
-    return this._prismaService.subject.findUnique({ where: { id } });
+    return this._prismaService.subject.findUnique({ where: { id }, include: { topics: true } });
   }
 
   async create(data: CreateSubjectRequestDTO): Promise<ISubject> {
-    return this._prismaService.subject.create({ data });
+    return this._prismaService.subject.create({
+      data,
+      include: { topics: true },
+    });
   }
 
   async updateById(id: string, data: PartialSubjectRequestDTO): Promise<ISubject | null> {
     return this._prismaService.subject.update({
       where: { id },
       data: { ...data, updatedAt: new Date() },
+      include: { topics: true },
     });
   }
 

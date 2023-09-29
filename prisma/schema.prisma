@@ -52,16 +52,27 @@ model Subject {
   status        ESubjectStatus    @default(PENDING_REVIEW)
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @default(now())
+  topics        Topic[]
 
   @@map("subjects")
 }
 
+enum ETopicStatus {
+  ACTIVE
+  PENDING_REVIEW
+  ARCHIVED
+}
+
 // npx prisma migrate dev --name create-topics => 25/09/2023 22:56:34
 model Topic {
-  id            String    @id @default(uuid())
+  id            String          @id @default(uuid())
   name          String
   description   String?
+  status        ETopicStatus    @default(PENDING_REVIEW)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @default(now())
   subjectId     String
+  subject       Subject         @relation(fields: [subjectId], references: [id])
 
   @@map("topics")
 }
