@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ESubjectActions } from '../../page/subjects.page';
 
 interface ISubjectStatus {
@@ -24,6 +25,7 @@ interface ISubjectActionData {
 export class FormSubjectComponent implements OnInit {
   private readonly _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
+  private readonly _confirmDialogService = inject(ConfirmDialogService);
 
   public readonly subjectStatus: ISubjectStatus[] = [
     { name: 'Revisão pendente', code: ESubjectStatus.PENDING_REVIEW },
@@ -71,7 +73,15 @@ export class FormSubjectComponent implements OnInit {
       status: subjectStatus,
     } as ISubject;
 
-    this._dynamicDialogRef.close({ subject: updatedSubject });
+    this._confirmDialogService.confirm(
+      {
+        title: 'Atenção!',
+        message: `Deseja confirmar a criação da matéria <b>${updatedSubject.name}</b>?`,
+        type: 'info',
+      },
+      () => this._dynamicDialogRef.close({ subject: updatedSubject }),
+      () => this.cancel()
+    );
   }
 
   public cancel(): void {

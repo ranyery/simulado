@@ -4,7 +4,8 @@ import localePt from '@angular/common/locales/pt';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,7 @@ registerLocaleData(localePt, 'pt');
     HttpClientModule,
     AppRoutingModule,
     ToastModule,
+    ConfirmDialogModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
@@ -37,6 +39,7 @@ registerLocaleData(localePt, 'pt');
       multi: true,
     },
     MessageService,
+    ConfirmationService,
   ],
   bootstrap: [AppComponent],
 })

@@ -62,6 +62,7 @@ export class LoginPage implements OnInit {
           this._router.navigate(['/', 'cockpit']);
         },
         error: () => {
+          this._toastService.close();
           this._toastService.open({
             type: 'error',
             message: 'Credenciais inválidas. Por favor, verifique seu email e senha.',

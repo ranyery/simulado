@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { EEntity, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
+import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { PermissionsService } from '../../../../shared/services/permissions.service';
 import { SubjectsService } from '../../../../shared/services/subjects.service';
 import { ToastService } from '../../../../shared/services/toast.service';
@@ -22,11 +23,12 @@ export const enum ESubjectActions {
   templateUrl: './subjects.page.html',
   styleUrls: ['./subjects.page.scss'],
 })
-export class SubjectsPage implements OnInit, OnDestroy {
+export class SubjectsPage implements OnInit {
   private _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dialogService = inject(DialogService);
   private readonly _subjectsService = inject(SubjectsService);
   private readonly _toastService = inject(ToastService);
+  private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _permissionsService = inject(PermissionsService);
   private readonly _authService = inject(AuthService);
 
@@ -44,7 +46,6 @@ export class SubjectsPage implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    this._toastService.position = 'top-center';
     this.canRead = this._permissionsService.canRead(EEntity.SUBJECTS);
 
     if (!this.canRead) {
@@ -119,7 +120,17 @@ export class SubjectsPage implements OnInit, OnDestroy {
       });
   }
 
-  public deleteSubject(subjectId: string): void {
+  public deleteSubject(subject: ISubject): void {
+    this._confirmDialogService.confirm(
+      {
+        title: 'Atenção!',
+        message: `Deseja confirmar a exclusão da matéria <b>${subject.name}</b>?`,
+      },
+      () => this._deleteSubjectById(subject.id)
+    );
+  }
+
+  private _deleteSubjectById(subjectId: string): void {
     this._subjectsService.deleteById(subjectId).subscribe({
       next: () => {
         this.subjects = this.subjects.filter((subject) => subject.id !== subjectId);
@@ -141,9 +152,5 @@ export class SubjectsPage implements OnInit, OnDestroy {
 
   public applyFilterGlobal($event: any, value: string): void {
     this.pTable?.filterGlobal(($event.target as HTMLInputElement).value, value);
-  }
-
-  ngOnDestroy(): void {
-    this._toastService.position = 'top-right';
   }
 }
