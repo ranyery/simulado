@@ -51,7 +51,7 @@ export class AuthService {
 
     if (this.isLoggedIn) return of(true);
 
-    return this._httpClient.post<void>(`${environment.apiUrl}/users/validate-token`, null).pipe(
+    return this._httpClient.post<void>(`${environment.apiUrl}/validate-token`, null).pipe(
       map(() => {
         this.isLoggedIn = true;
         this._updateUserPermissions();
