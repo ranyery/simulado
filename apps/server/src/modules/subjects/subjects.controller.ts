@@ -31,7 +31,7 @@ export class SubjectsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async save(@Body() data: CreateSubjectRequestDTO) {
+  async create(@Body() data: CreateSubjectRequestDTO) {
     return await this._createSubjectUseCase.execute(data);
   }
 
@@ -43,7 +43,7 @@ export class SubjectsController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard)
-  async deleteById(@Param('id') id: string) {
-    return await this._deleteSubjectByIdUseCase.execute(id);
+  async deleteById(@Param('id') id: string): Promise<void> {
+    await this._deleteSubjectByIdUseCase.execute(id);
   }
 }

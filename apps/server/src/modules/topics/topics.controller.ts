@@ -31,7 +31,7 @@ export class TopicsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async save(@Body() data: CreateTopicRequestDTO) {
+  async create(@Body() data: CreateTopicRequestDTO) {
     return await this._createTopicUseCase.execute(data);
   }
 
@@ -43,7 +43,7 @@ export class TopicsController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard)
-  async deleteById(@Param('id') id: string) {
-    return await this._deleteTopicByIdUseCase.execute(id);
+  async deleteById(@Param('id') id: string): Promise<void> {
+    await this._deleteTopicByIdUseCase.execute(id);
   }
 }

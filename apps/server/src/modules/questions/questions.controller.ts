@@ -32,7 +32,7 @@ export class QuestionsController {
 
   @Post()
   @UseGuards(AuthGuard)
-  async save(@Body() data: CreateQuestionRequestDTO) {
+  async create(@Body() data: CreateQuestionRequestDTO) {
     return await this._createQuestionUseCase.execute(data);
   }
 
@@ -44,7 +44,7 @@ export class QuestionsController {
 
   @Delete('/:id')
   @UseGuards(AuthGuard)
-  async deleteById(@Param('id') id: string) {
-    return await this._deleteQuestionByIdUseCase.execute(id);
+  async deleteById(@Param('id') id: string): Promise<void> {
+    await this._deleteQuestionByIdUseCase.execute(id);
   }
 }

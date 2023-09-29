@@ -26,7 +26,11 @@ export class TopicsPrismaRepository implements ITopicsRepository {
     return this._prismaService.topic.update({ where: { id }, data });
   }
 
-  async deleteById(id: string): Promise<ITopic | null> {
-    return this._prismaService.topic.delete({ where: { id } });
+  async deleteById(id: string): Promise<void> {
+    await this._prismaService.topic.delete({ where: { id } });
+    // await this._prismaService.topic.update({
+    //   where: { id },
+    //   data: { status: ETopicStatus.ARCHIVED, updatedAt: new Date() },
+    // });
   }
 }

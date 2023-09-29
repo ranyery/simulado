@@ -8,5 +8,5 @@ export abstract class ISubjectsRepository {
   abstract findById(id: string): Promise<ISubject | null>;
   abstract create(data: CreateSubjectRequestDTO): Promise<ISubject>;
   abstract updateById(id: string, data: PartialSubjectRequestDTO): Promise<ISubject | null>;
-  abstract deleteById(id: string): Promise<ISubject | null>;
+  abstract deleteById(id: string): Promise<void>;
 }

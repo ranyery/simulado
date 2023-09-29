@@ -1,4 +1,3 @@
-import { ITopic } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { ITopicsRepository } from '../repositories/topics.repository';
@@ -7,10 +6,9 @@ import { ITopicsRepository } from '../repositories/topics.repository';
 export class DeleteTopicByIdUseCase {
   constructor(private readonly _topicsRepository: ITopicsRepository) {}
 
-  async execute(id: string): Promise<ITopic | null> {
+  async execute(id: string): Promise<void> {
     try {
       await this._topicsRepository.deleteById(id);
-      return null;
     } catch {
       throw new HttpException('Topic does not exist!', HttpStatus.BAD_REQUEST);
     }

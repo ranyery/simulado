@@ -77,10 +77,11 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
     } as IQuestion;
   }
 
-  async deleteById(id: string): Promise<IQuestion | null> {
-    return this._prismaService.question.update({
+  async deleteById(id: string): Promise<void> {
+    // await this._prismaService.question.delete({ where: { id } });
+    await this._prismaService.question.update({
       where: { id },
       data: { status: EQuestionStatus.ARCHIVED, updatedAt: new Date() },
-    }) as unknown as IQuestion | null;
+    });
   }
 }

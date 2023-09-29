@@ -8,5 +8,5 @@ export abstract class IQuestionsRepository {
   abstract findById(id: string): Promise<IQuestion | null>;
   abstract create(data: CreateQuestionRequestDTO): Promise<IQuestion>;
   abstract updateById(id: string, data: PartialQuestionRequestDTO): Promise<IQuestion | null>;
-  abstract deleteById(id: string): Promise<IQuestion | null>;
+  abstract deleteById(id: string): Promise<void>;
 }
