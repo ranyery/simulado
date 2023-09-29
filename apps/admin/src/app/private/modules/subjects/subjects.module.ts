@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 import {
   DialogService,
   DynamicDialogConfig,
@@ -28,6 +29,7 @@ import { SubjectsRoutingModule } from './subjects-routing.module';
     ReactiveFormsModule,
     InputTextModule,
     InputTextareaModule,
+    DropdownModule,
     NgStringPipesModule,
   ],
   providers: [DialogService, DynamicDialogConfig, DynamicDialogRef],
