@@ -14,6 +14,12 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
+    /**
+     * TODO!
+     * Validar se token está expirado antes de prosseguir,
+     * Se estiver expirado => retornar 401 (UnauthorizedException)
+     */
+
     try {
       const payload = await this._jwtService.verifyAsync(token, { secret: 'NESTJS' });
       request['user'] = payload;

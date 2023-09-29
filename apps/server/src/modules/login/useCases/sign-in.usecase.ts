@@ -1,18 +1,18 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { compare } from 'bcrypt';
 
 import { IUsersRepository } from '../../users/repositories/users.repository';
 import { SignInRequestDTO } from '../schemas/sign-in.schema';
+import { TokenService } from '../services/token.service';
 
 @Injectable()
 export class SignInUseCase {
   constructor(
-    private readonly _jwtService: JwtService,
+    private readonly _tokenService: TokenService,
     private readonly _usersRepository: IUsersRepository
   ) {}
 
-  async execute({ email, password }: SignInRequestDTO) {
+  async execute({ email, password }: SignInRequestDTO): Promise<string> {
     const user = await this._usersRepository.findByEmail(email);
 
     if (!user) {
@@ -25,14 +25,6 @@ export class SignInUseCase {
       throw new UnauthorizedException();
     }
 
-    const payload = {
-      sub: user.id,
-      email: user.email,
-      permissions: user.permissions,
-    };
-
-    const token = await this._jwtService.signAsync(payload);
-
-    return { access_token: token };
+    return this._tokenService.create(user);
   }
 }
