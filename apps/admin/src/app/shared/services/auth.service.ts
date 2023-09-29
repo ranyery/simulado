@@ -52,14 +52,14 @@ export class AuthService {
     if (this.isLoggedIn) return of(true);
 
     return this._httpClient.post<void>(`${environment.apiUrl}/users/validate-token`, null).pipe(
-      catchError(() => {
-        this.logout();
-        return of(false);
-      }),
       map(() => {
         this.isLoggedIn = true;
         this._updateUserPermissions();
         return true;
+      }),
+      catchError(() => {
+        this.logout();
+        return of(false);
       })
     );
   }
