@@ -1,4 +1,5 @@
 // Entidade Pergunta
+import { ISubject } from './subject.interface';
 
 export interface IQuestion {
   id: string;
@@ -38,12 +39,6 @@ export enum EQuestionStatus {
   ACTIVE = 'ACTIVE', // Questão ativa e disponível para uso.
   PENDING_REVIEW = 'PENDING_REVIEW', // Questão aguardando revisão.
   ARCHIVED = 'ARCHIVED', // Questão arquivada, não é exibida nos simulados atuais.
-}
-
-export interface ISubject {
-  id: string;
-  name: string;
-  description?: string | null; // Descrição sobre a matéria para SEO
 }
 
 export interface ITopic {

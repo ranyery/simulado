@@ -1,5 +1,6 @@
 // Entidade Simulado
-import { EQuestionDifficultyLevel, IQuestion, ISubject } from './question.interface';
+import { EQuestionDifficultyLevel, IQuestion } from './question.interface';
+import { ISubject } from './subject.interface';
 
 export interface IPracticeTest {
   id: string;

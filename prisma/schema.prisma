@@ -29,7 +29,6 @@ model User {
   id            String        @id @default(uuid())
   email         String        @unique
   password      String
-
   role          EUserRole     @default(USER)
   permissions   String        @default("[]")  // ! Json => Por causa do cockroachdb
   status        EUserStatus   @default(PENDING_CONFIRMATION)
@@ -39,11 +38,20 @@ model User {
   @@map("users")
 }
 
+enum ESubjectStatus {
+  ACTIVE
+  PENDING_REVIEW
+  ARCHIVED
+}
+
 // npx prisma migrate dev --name create-subjects => 25/09/2023 19:08:21
 model Subject {
-  id            String    @id @default(uuid())
+  id            String            @id @default(uuid())
   name          String
   description   String?
+  status        ESubjectStatus    @default(PENDING_REVIEW)
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @default(now())
 
   @@map("subjects")
 }
