@@ -39,7 +39,7 @@ export class AuthService {
         tap(({ access_token }) => {
           this.token = access_token;
           this.isLoggedIn = true;
-          this._updateUserPermissions();
+          this._permissionsService.updateUserPermissions();
         })
       );
   }
@@ -54,7 +54,7 @@ export class AuthService {
     return this._httpClient.post<void>(`${environment.apiUrl}/validate-token`, null).pipe(
       map(() => {
         this.isLoggedIn = true;
-        this._updateUserPermissions();
+        this._permissionsService.updateUserPermissions();
         return true;
       }),
       catchError(() => {
@@ -64,18 +64,15 @@ export class AuthService {
     );
   }
 
+  public refreshToken(): void {
+    // TODO: Implementar
+    throw new Error('Method not implemented!');
+  }
+
   public logout(): void {
     this._clearToken();
     this.isLoggedIn = false;
     this._redirectToLoginPage();
-  }
-
-  private _updateUserPermissions(): void {
-    const decodedToken = this._jwtService.decodeToken();
-    if (decodedToken) {
-      const { permissions } = decodedToken;
-      this._permissionsService.setUserPermissions(permissions);
-    }
   }
 
   private _clearToken(): void {

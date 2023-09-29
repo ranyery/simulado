@@ -1,10 +1,14 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { EEntity, IEntityPermission } from '@libs/shared/domain';
+
+import { JwtService } from './jwt.service';
 
 type actionTypes = 'read' | 'create' | 'update' | 'delete';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsService {
+  private readonly _jwtService = inject(JwtService);
+
   private _userPermissions: IEntityPermission[] = [];
 
   public setUserPermissions(permissions: IEntityPermission[]): void {
@@ -13,6 +17,14 @@ export class PermissionsService {
 
   public getUserPermissions(): IEntityPermission[] {
     return this._userPermissions;
+  }
+
+  public updateUserPermissions(): void {
+    const decodedToken = this._jwtService.decodeToken();
+    if (decodedToken) {
+      const { permissions } = decodedToken;
+      this.setUserPermissions(permissions);
+    }
   }
 
   public canRead(entity: EEntity): boolean {
