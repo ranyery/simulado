@@ -45,7 +45,15 @@
     </ng-template>
     <ng-template pTemplate="body" let-subject>
       <tr>
-        <td class="overflow">{{ subject.id | shorten: 8 : '...' }}</td>
+        <td
+          class="overflow"
+          style="cursor: pointer"
+          pTooltip="Clique para copiar"
+          tooltipPosition="top"
+          tooltipEvent="hover"
+          (click)="copyToClipboard(subject.id)">
+          {{ subject.id | shorten: 8 : '...' }}
+        </td>
         <td class="overflow">{{ subject.name }}</td>
         <td class="overflow">
           {{ !!subject.description ? (subject.description | shorten: 30 : '...') : '' }}

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
-type IToastType = 'success' | 'error' | 'warn';
+type IToastType = 'success' | 'error' | 'warn' | 'info';
 
 interface IToastProps {
   type: IToastType;
@@ -18,6 +18,7 @@ export class ToastService {
     success: 'Sucesso!',
     error: 'Erro!',
     warn: 'Aviso!',
+    info: 'Info',
   };
 
   constructor() {}

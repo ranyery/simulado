@@ -8,6 +8,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { FormSubjectComponent } from './components/form-subject/form-subject.component';
 import { SubjectsPage } from './page/subjects.page';
@@ -25,6 +26,7 @@ import { SubjectsRoutingModule } from './subjects-routing.module';
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
+    TooltipModule,
     NgStringPipesModule,
   ],
 })
