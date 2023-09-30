@@ -58,7 +58,7 @@
         </td>
         <td class="overflow">{{ subject.name }}</td>
         <td class="overflow">
-          {{ !!subject.description ? (subject.description | shorten: 30 : '...') : '' }}
+          {{ subject.description ? (subject.description | shorten: 30 : '...') : '' }}
         </td>
         <td class="overflow">{{ subject.status }}</td>
         <td style="display: flex; gap: 16px" *ngIf="canUpdate || canDelete">
@@ -71,8 +71,8 @@
 
           <p-button
             [disabled]="!canDelete"
-            (onClick)="archiveSubject(subject)"
-            label="Arquivar"
+            (onClick)="deleteSubject(subject)"
+            label="Excluir"
             styleClass="p-button-sm p-button-danger">
           </p-button>
         </td>

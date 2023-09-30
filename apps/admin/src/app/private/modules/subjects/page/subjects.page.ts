@@ -1,7 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { EEntity, ESubjectStatus, ISubject } from '@libs/shared/domain';
+import { EEntity, ESubjectStatus, EUserRole, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
@@ -10,6 +10,7 @@ import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { UserPermissionsService } from '../../../../shared/services/user-permissions.service';
+import { UserRolesService } from '../../../../shared/services/user-roles.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
 import { SubjectsService } from '../services/subjects.service';
 import { SubjectsState } from '../state/subjects.state';
@@ -35,6 +36,7 @@ export class SubjectsPage implements OnInit {
   private readonly _userPermissionsService = inject(UserPermissionsService);
   private readonly _authService = inject(AuthService);
   private readonly _clipboard = inject(Clipboard);
+  private readonly _userRolesService = inject(UserRolesService);
 
   @ViewChild('pTable')
   private readonly _pTable?: Table;
@@ -47,6 +49,9 @@ export class SubjectsPage implements OnInit {
   public canCreate: boolean = false;
   public canUpdate: boolean = false;
   public canDelete: boolean = false;
+
+  // Apenas 'ADMIN' e 'MODERATOR' podem acessar, se o user em questão não é ADMIN, então é 'MODERATOR'
+  public isAdmin: boolean = false;
 
   constructor() {}
 
@@ -61,6 +66,8 @@ export class SubjectsPage implements OnInit {
     this.canCreate = this._userPermissionsService.canCreate(EEntity.SUBJECTS);
     this.canUpdate = this._userPermissionsService.canUpdate(EEntity.SUBJECTS);
     this.canDelete = this._userPermissionsService.canDelete(EEntity.SUBJECTS);
+
+    this.isAdmin = this._userRolesService.hasRole(EUserRole.ADMIN);
 
     this._fetchAllSubjects();
   }
@@ -140,7 +147,7 @@ export class SubjectsPage implements OnInit {
       });
   }
 
-  public archiveSubject(subject: ISubject): void {
+  public deleteSubject(subject: ISubject): void {
     this._confirmDialogService.confirm(
       { title: 'Atenção!', message: `Deseja arquivar a matéria <b>${subject.name}</b>?` },
       () => this._archiveSubjectById(subject)
