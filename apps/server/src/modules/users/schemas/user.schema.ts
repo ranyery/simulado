@@ -4,7 +4,7 @@ import { z } from 'nestjs-zod/z';
 export const UserSchema = z.object({
   id: z.string().trim().uuid(),
   email: z.string({ required_error: 'Email is required' }).trim().email(),
-  password: z.string({ required_error: 'Password is required' }).trim().min(3),
+  password: z.string({ required_error: 'Password is required' }).trim().min(6),
   role: z.nativeEnum(EUserRole),
   permissions: z
     .object({

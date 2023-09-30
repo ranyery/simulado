@@ -8,21 +8,21 @@ import { z } from 'nestjs-zod/z';
 
 export const QuestionSchema = z.object({
   id: z.string().trim().uuid(),
-  statement: z.string().trim().min(1),
+  statement: z.string().trim(),
   answerOptions: z
     .object({
-      text: z.string().trim().min(1),
+      text: z.string().trim(),
       isCorrect: z.boolean(),
     })
     .array()
     .min(2)
     .max(5),
-  explanation: z.string().trim().min(1).optional().nullable(),
+  explanation: z.string().trim().optional().nullable(),
   type: z.nativeEnum(EQuestionType),
   source: z.object({
     institution: z.object({
       id: z.string().trim().uuid(),
-      name: z.string().trim().min(1),
+      name: z.string().trim(),
     }),
     year: z.number().positive(),
   }),
