@@ -7,15 +7,17 @@ import { environment } from '../../../environments/environment';
 import { ESessionStorage } from '../constants/session-storage.enum';
 import { ILoginResponse } from '../interfaces/login.interface';
 import { JwtService } from './jwt.service';
-import { PermissionsService } from './permissions.service';
 import { SessionStorageService } from './session-storage.service';
+import { UserPermissionsService } from './user-permissions.service';
+import { UserRolesService } from './user-roles.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _router = inject(Router);
   private readonly _jwtService = inject(JwtService);
-  private readonly _permissionsService = inject(PermissionsService);
+  private readonly _userPermissionsService = inject(UserPermissionsService);
+  private readonly _userRolesService = inject(UserRolesService);
   private readonly _sessionStorageService = inject(SessionStorageService);
 
   public isLoggedIn: boolean = false;
@@ -39,7 +41,8 @@ export class AuthService {
         tap(({ access_token }) => {
           this.token = access_token;
           this.isLoggedIn = true;
-          this._permissionsService.updateUserPermissions();
+          this._userPermissionsService.updatePermissions();
+          this._userRolesService.updateRoles();
         })
       );
   }
@@ -54,7 +57,8 @@ export class AuthService {
     return this._httpClient.post<void>(`${environment.apiUrl}/validate-token`, null).pipe(
       map(() => {
         this.isLoggedIn = true;
-        this._permissionsService.updateUserPermissions();
+        this._userPermissionsService.updatePermissions();
+        this._userRolesService.updateRoles();
         return true;
       }),
       catchError(() => {

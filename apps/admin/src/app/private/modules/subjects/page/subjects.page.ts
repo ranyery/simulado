@@ -8,8 +8,8 @@ import { finalize, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
-import { PermissionsService } from '../../../../shared/services/permissions.service';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { UserPermissionsService } from '../../../../shared/services/user-permissions.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
 import { SubjectsService } from '../services/subjects.service';
 import { SubjectsState } from '../state/subjects.state';
@@ -32,7 +32,7 @@ export class SubjectsPage implements OnInit {
   private readonly _subjectsState = inject(SubjectsState);
   private readonly _toastService = inject(ToastService);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
-  private readonly _permissionsService = inject(PermissionsService);
+  private readonly _userPermissionsService = inject(UserPermissionsService);
   private readonly _authService = inject(AuthService);
   private readonly _clipboard = inject(Clipboard);
 
@@ -51,16 +51,16 @@ export class SubjectsPage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.canRead = this._permissionsService.canRead(EEntity.SUBJECTS);
+    this.canRead = this._userPermissionsService.canRead(EEntity.SUBJECTS);
 
     if (!this.canRead) {
       this._authService.logout();
       return;
     }
 
-    this.canCreate = this._permissionsService.canCreate(EEntity.SUBJECTS);
-    this.canUpdate = this._permissionsService.canUpdate(EEntity.SUBJECTS);
-    this.canDelete = this._permissionsService.canDelete(EEntity.SUBJECTS);
+    this.canCreate = this._userPermissionsService.canCreate(EEntity.SUBJECTS);
+    this.canUpdate = this._userPermissionsService.canUpdate(EEntity.SUBJECTS);
+    this.canDelete = this._userPermissionsService.canDelete(EEntity.SUBJECTS);
 
     this._fetchAllSubjects();
   }

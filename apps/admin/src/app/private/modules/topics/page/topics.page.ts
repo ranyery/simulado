@@ -8,8 +8,8 @@ import { finalize, forkJoin, iif, of, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
-import { PermissionsService } from '../../../../shared/services/permissions.service';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { UserPermissionsService } from '../../../../shared/services/user-permissions.service';
 import { SubjectsService } from '../../subjects/services/subjects.service';
 import { SubjectsState } from '../../subjects/state/subjects.state';
 import { FormTopicComponent } from '../components/form-topic/form-topic.component';
@@ -35,7 +35,7 @@ export class TopicsPage implements OnInit {
 
   private readonly _clipboard = inject(Clipboard);
   private readonly _authService = inject(AuthService);
-  private readonly _permissionsService = inject(PermissionsService);
+  private readonly _userPermissionsService = inject(UserPermissionsService);
 
   private readonly _topicsState = inject(TopicsState);
   private readonly _topicsService = inject(TopicsService);
@@ -60,16 +60,16 @@ export class TopicsPage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.canRead = this._permissionsService.canRead(EEntity.TOPICS);
+    this.canRead = this._userPermissionsService.canRead(EEntity.TOPICS);
 
     if (!this.canRead) {
       this._authService.logout();
       return;
     }
 
-    this.canCreate = this._permissionsService.canCreate(EEntity.TOPICS);
-    this.canUpdate = this._permissionsService.canUpdate(EEntity.TOPICS);
-    this.canDelete = this._permissionsService.canDelete(EEntity.TOPICS);
+    this.canCreate = this._userPermissionsService.canCreate(EEntity.TOPICS);
+    this.canUpdate = this._userPermissionsService.canUpdate(EEntity.TOPICS);
+    this.canDelete = this._userPermissionsService.canDelete(EEntity.TOPICS);
 
     this._fetchTopicsAndSubjects();
   }

@@ -6,24 +6,20 @@ import { JwtService } from './jwt.service';
 type actionTypes = 'read' | 'create' | 'update' | 'delete';
 
 @Injectable({ providedIn: 'root' })
-export class PermissionsService {
+export class UserPermissionsService {
   private readonly _jwtService = inject(JwtService);
 
   private _userPermissions: IEntityPermission[] = [];
-
-  public setUserPermissions(permissions: IEntityPermission[]): void {
-    this._userPermissions = permissions || [];
-  }
 
   public getUserPermissions(): IEntityPermission[] {
     return this._userPermissions;
   }
 
-  public updateUserPermissions(): void {
+  public updatePermissions(): void {
     const decodedToken = this._jwtService.decodeToken();
     if (decodedToken) {
       const { permissions } = decodedToken;
-      this.setUserPermissions(permissions);
+      this._userPermissions = permissions || [];
     }
   }
 

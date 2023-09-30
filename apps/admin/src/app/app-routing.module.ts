@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { authGuard } from './shared/guards/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'cockpit',
     loadChildren: () => import('./private/private.module').then((m) => m.PrivateModule),
-    canMatch: [authGuard],
+    canMatch: [AuthGuard],
   },
   { path: '**', redirectTo: 'login' },
 ];
