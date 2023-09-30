@@ -35,6 +35,8 @@ export class FormTopicComponent implements OnInit {
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _utilsService = inject(UtilsService);
 
+  private _actionType?: ETopicActions;
+
   public readonly topicStatus: ITopicStatus[] = [
     { name: 'Revisão pendente', code: ETopicStatus.PENDING_REVIEW },
     { name: 'Ativo', code: ETopicStatus.ACTIVE },
@@ -56,6 +58,7 @@ export class FormTopicComponent implements OnInit {
   ngOnInit(): void {
     const { actionType, topic, subjects } = this._dynamicDialogConfig.data as ITopicActionData;
     this.subjectOptions = subjects.map<ISubjectOption>((s) => ({ name: s.name, code: s.id }));
+    this._actionType = actionType;
 
     if (actionType === ETopicActions.CREATE) {
       this.form.controls['subjectId'].setValue(this.subjectOptions[0], { emitEvent: false });
@@ -93,7 +96,9 @@ export class FormTopicComponent implements OnInit {
     this._confirmDialogService.confirm(
       {
         title: 'Atenção!',
-        message: `Deseja confirmar a criação do tópico <b>${updatedTopic.name}</b> para a matéria de <b>${subject?.name}</b>?`,
+        message: `Deseja confirmar a ${
+          this._actionType === ETopicActions.CREATE ? 'criação' : 'atualização'
+        } do tópico <b>${updatedTopic.name}</b> para a matéria de <b>${subject?.name}</b>?`,
         type: 'info',
       },
       () => this._dynamicDialogRef.close({ topic: updatedTopic }),

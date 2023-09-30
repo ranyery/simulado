@@ -29,6 +29,8 @@ export class FormSubjectComponent implements OnInit {
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _utilsService = inject(UtilsService);
 
+  private _actionType?: ESubjectActions;
+
   public readonly subjectStatus: ISubjectStatus[] = [
     { name: 'Revisão pendente', code: ESubjectStatus.PENDING_REVIEW },
     { name: 'Ativo', code: ESubjectStatus.ACTIVE },
@@ -46,6 +48,7 @@ export class FormSubjectComponent implements OnInit {
 
   ngOnInit(): void {
     const { actionType, subject } = this._dynamicDialogConfig.data as ISubjectActionData;
+    this._actionType = actionType;
 
     if (actionType === ESubjectActions.CREATE) {
       return;
@@ -65,7 +68,7 @@ export class FormSubjectComponent implements OnInit {
     const formSubjectValues = this.form.value;
     const { subject } = this._dynamicDialogConfig.data as ISubjectActionData;
 
-    const subjectId = subject.id ?? undefined;
+    const subjectId = subject.id;
     const subjectStatus = formSubjectValues.status?.code ?? ESubjectStatus.PENDING_REVIEW;
 
     const updatedSubject = this._utilsService.removeNullOrUndefinedOrEmptyProperties<ISubject>({
@@ -78,7 +81,9 @@ export class FormSubjectComponent implements OnInit {
     this._confirmDialogService.confirm(
       {
         title: 'Atenção!',
-        message: `Deseja confirmar a criação da matéria <b>${updatedSubject.name}</b>?`,
+        message: `Deseja confirmar a ${
+          this._actionType === ESubjectActions.CREATE ? 'criação' : 'atualização'
+        } da matéria <b>${updatedSubject.name}</b>?`,
         type: 'info',
       },
       () => this._dynamicDialogRef.close({ subject: updatedSubject }),
