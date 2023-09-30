@@ -5,7 +5,7 @@ export const UserSchema = z.object({
   id: z.string().trim().uuid(),
   email: z.string({ required_error: 'Email is required' }).trim().email(),
   password: z.string({ required_error: 'Password is required' }).trim().min(6),
-  role: z.nativeEnum(EUserRole),
+  roles: z.nativeEnum(EUserRole).array().min(1),
   permissions: z
     .object({
       entity: z.string(),
@@ -23,7 +23,7 @@ export const UserSchema = z.object({
 // Usar como referência de dados ENVIADOS para o Front-End
 export const UserResponseDTO = UserSchema.omit({
   password: true,
-  role: true,
+  roles: true,
   permissions: true,
   createdAt: true,
   updatedAt: true,

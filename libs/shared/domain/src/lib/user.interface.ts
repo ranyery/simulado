@@ -2,7 +2,7 @@ export interface IUser {
   id: string;
   email: string;
   password: string; // Criptografada
-  role: string | EUserRole;
+  roles: string[] | EUserRole[];
   permissions: IEntityPermission[];
   status: string | EUserStatus;
   createdAt: string | Date;

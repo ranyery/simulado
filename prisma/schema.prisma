@@ -13,6 +13,7 @@ datasource db {
 enum EUserRole {
   USER
   TEACHER
+  MODERATOR
   ADMIN
 }
 
@@ -29,7 +30,7 @@ model User {
   id            String        @id @default(uuid())
   email         String        @unique
   password      String
-  role          EUserRole     @default(USER)
+  roles         EUserRole[]   @default([USER])
   permissions   String        @default("[]")  // ! Json => Por causa do cockroachdb
   status        EUserStatus   @default(PENDING_CONFIRMATION)
   createdAt     DateTime      @default(now())

@@ -1,0 +1,2 @@
+-- AlterEnum
+ALTER TYPE "EUserRole" ADD VALUE 'MODERATOR';
