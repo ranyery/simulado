@@ -4,7 +4,7 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { EEntity, ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { finalize, switchMap } from 'rxjs';
+import { finalize, iif, of, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
@@ -12,6 +12,7 @@ import { PermissionsService } from '../../../../shared/services/permissions.serv
 import { ToastService } from '../../../../shared/services/toast.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
 import { SubjectsService } from '../services/subjects.service';
+import { SubjectsState } from '../state/subjects.state';
 
 export const enum ESubjectActions {
   CREATE = 'CREATE',
@@ -28,6 +29,7 @@ export class SubjectsPage implements OnInit {
   private _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dialogService = inject(DialogService);
   private readonly _subjectsService = inject(SubjectsService);
+  private readonly _subjectsState = inject(SubjectsState);
   private readonly _toastService = inject(ToastService);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _permissionsService = inject(PermissionsService);
@@ -59,6 +61,7 @@ export class SubjectsPage implements OnInit {
     this.canCreate = this._permissionsService.canCreate(EEntity.SUBJECTS);
     this.canUpdate = this._permissionsService.canUpdate(EEntity.SUBJECTS);
     this.canDelete = this._permissionsService.canDelete(EEntity.SUBJECTS);
+
     this._fetchAllSubjects();
   }
 
@@ -66,12 +69,16 @@ export class SubjectsPage implements OnInit {
     this.isLoading = true;
     this.hasError = false;
 
-    this._subjectsService
-      .getAll()
+    iif(
+      () => this._subjectsState.isEmpty(),
+      this._subjectsService.getAll(),
+      of(this._subjectsState.get())
+    )
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (subjects) => {
           this.subjects = subjects;
+          this._subjectsState.set(subjects);
           this.hasError = false;
         },
         error: () => (this.hasError = true),
@@ -89,6 +96,7 @@ export class SubjectsPage implements OnInit {
       .subscribe({
         next: (data) => {
           this.subjects = [...this.subjects, data];
+          this._subjectsState.set(this.subjects);
           this._toastService.open({ type: 'success', message: 'Matéria criada com sucesso.' });
         },
         error: (error: HttpErrorResponse) => {
@@ -115,6 +123,7 @@ export class SubjectsPage implements OnInit {
             if (sub.id !== subject.id) return sub;
             return { ...sub, ...subject };
           });
+          this._subjectsState.set(this.subjects);
 
           this._toastService.open({ type: 'success', message: 'Matéria atualizada com sucesso.' });
         },
@@ -148,6 +157,7 @@ export class SubjectsPage implements OnInit {
           if (sub.id !== subject.id) return sub;
           return { ...sub, status: ESubjectStatus.ARCHIVED };
         });
+        this._subjectsState.set(this.subjects);
 
         this._toastService.open({ type: 'success', message: 'Matéria arquivada com sucesso.' });
       },
