@@ -12,5 +12,10 @@ export const SubjectSchema = z.object({
   updatedAt: z.date(),
 }) satisfies z.ZodType<ISubject>;
 
+const cleanTopicsDTO = z.array(TopicSchema.pick({ id: true, name: true }));
+
 // Usar como referência de dados ENVIADOS para o Front-End
-export const SubjectResponseDTO = SubjectSchema.omit({ createdAt: true, updatedAt: true });
+export const SubjectResponseDTO = SubjectSchema.omit({
+  createdAt: true,
+  updatedAt: true,
+}).extend({ topics: cleanTopicsDTO });

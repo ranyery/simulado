@@ -3,6 +3,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { AuthGuard } from '../../shared/guards/auth.guard';
 import { CreateTopicRequestDTO } from './schemas/create-topic.schema';
 import { PartialTopicRequestDTO } from './schemas/partial-topic.schema';
+import { TopicResponseDTO } from './schemas/topic.schema';
 import { CreateTopicUseCase } from './useCases/create-topic.usecase';
 import { DeleteTopicByIdUseCase } from './useCases/delete-topic-by-id.usecase';
 import { FindAllTopicsUseCase } from './useCases/find-all-topics.usecase';
@@ -21,24 +22,32 @@ export class TopicsController {
 
   @Get()
   async getAll() {
-    return await this._findAllTopicsUseCase.execute();
+    const topics = await this._findAllTopicsUseCase.execute();
+    const topicsDTO = topics.map((topic) => TopicResponseDTO.parse(topic));
+    return topicsDTO;
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {
-    return await this._findTopicByIdUseCase.execute(id);
+    const topic = await this._findTopicByIdUseCase.execute(id);
+    const topicDTO = TopicResponseDTO.parse(topic);
+    return topicDTO;
   }
 
   @Post()
   @UseGuards(AuthGuard)
   async create(@Body() data: CreateTopicRequestDTO) {
-    return await this._createTopicUseCase.execute(data);
+    const topic = await this._createTopicUseCase.execute(data);
+    const topicDTO = TopicResponseDTO.parse(topic);
+    return topicDTO;
   }
 
   @Put('/:id')
   @UseGuards(AuthGuard)
   async updateById(@Param('id') id: string, @Body() data: PartialTopicRequestDTO) {
-    return await this._updateTopicByIdUseCase.execute(id, data);
+    const topic = await this._updateTopicByIdUseCase.execute(id, data);
+    const topicDTO = TopicResponseDTO.parse(topic);
+    return topicDTO;
   }
 
   @Delete('/:id')

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ETopicStatus, ITopic } from '@libs/shared/domain';
+import { ETopicStatus, ISubject, ITopic } from '@libs/shared/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
@@ -12,7 +12,7 @@ interface ITopicStatus {
   code: ETopicStatus;
 }
 
-interface ISubjectStatus {
+interface ISubjectOption {
   name: string;
   code: string;
 }
@@ -20,6 +20,7 @@ interface ISubjectStatus {
 interface ITopicActionData {
   actionType: ETopicActions;
   topic: ITopic;
+  subjects: ISubject[];
 }
 
 @Component({
@@ -40,38 +41,36 @@ export class FormTopicComponent implements OnInit {
     { name: 'Arquivado', code: ETopicStatus.ARCHIVED },
   ];
 
-  public readonly subjectList: ISubjectStatus[] = [
-    { name: 'Matemática', code: '41961452-b607-4b88-bfcd-fe2d889f6dc6' },
-    { name: 'Português', code: '8e3f8045-ca53-40e9-a6b8-4b01340d88f6' },
-    { name: 'Geografia', code: '9d683442-2a1b-416a-8fa5-c657f03cf883' },
-  ];
+  public subjectOptions: ISubjectOption[] = [];
 
   public form = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string | undefined>(undefined),
-    status: new FormControl<ITopicStatus | undefined>(undefined),
-    subjectId: new FormControl<ISubjectStatus>(this.subjectList[0], [Validators.required]),
+    status: new FormControl<ITopicStatus | undefined>(this.topicStatus[0]),
+    subjectId: new FormControl<ISubjectOption | undefined>(undefined, [Validators.required]),
   });
 
   constructor() {}
 
   ngOnInit(): void {
-    const { actionType, topic } = this._dynamicDialogConfig.data as ITopicActionData;
+    const { actionType, topic, subjects } = this._dynamicDialogConfig.data as ITopicActionData;
+    this.subjectOptions = subjects.map<ISubjectOption>((s) => ({ name: s.name, code: s.id }));
 
     if (actionType === ETopicActions.CREATE) {
+      this.form.controls['subjectId'].setValue(this.subjectOptions[0], { emitEvent: false });
       return;
     }
 
     if (actionType === ETopicActions.UPDATE) {
       const topicStatus = this.topicStatus.find((s) => s.code === topic.status);
-      const subjectList = this.subjectList.find((s) => s.code === topic.status);
+      const selectedSubject = this.subjectOptions.find((s) => s.code === topic.subjectId);
 
-      this.form.controls['id'].setValue(topic.id);
-      this.form.controls['name'].setValue(topic.name);
-      this.form.controls['status'].setValue(topicStatus);
-      this.form.controls['subjectId'].setValue(subjectList!);
-      this.form.controls['description'].setValue(topic.description);
+      this.form.controls['id'].setValue(topic.id, { emitEvent: false });
+      this.form.controls['name'].setValue(topic.name, { emitEvent: false });
+      this.form.controls['description'].setValue(topic.description, { emitEvent: false });
+      this.form.controls['status'].setValue(topicStatus, { emitEvent: false });
+      this.form.controls['subjectId'].setValue(selectedSubject, { emitEvent: false });
     }
   }
 
@@ -79,22 +78,22 @@ export class FormTopicComponent implements OnInit {
     const formTopicValues = this.form.value;
     const { topic } = this._dynamicDialogConfig.data as ITopicActionData;
 
-    const topicId = topic.id ?? undefined;
-    const subjectId = topic.subjectId ?? this.subjectList[0].code;
+    const topicId = topic.id;
+    const subject = formTopicValues.subjectId;
     const topicStatus = formTopicValues.status?.code ?? ETopicStatus.PENDING_REVIEW;
 
     const updatedTopic = this._utilsService.removeNullOrUndefinedOrEmptyProperties<ITopic>({
       ...topic,
       ...formTopicValues,
       id: topicId,
+      subjectId: subject?.code,
       status: topicStatus,
-      subjectId: subjectId,
     });
 
     this._confirmDialogService.confirm(
       {
         title: 'Atenção!',
-        message: `Deseja confirmar a criação do tópico <b>${updatedTopic.name}</b>?`,
+        message: `Deseja confirmar a criação do tópico <b>${updatedTopic.name}</b> para a matéria de <b>${subject?.name}</b>?`,
         type: 'info',
       },
       () => this._dynamicDialogRef.close({ topic: updatedTopic }),

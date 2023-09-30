@@ -38,8 +38,8 @@ export class FormSubjectComponent implements OnInit {
   public form = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string>('', [Validators.required]),
+    status: new FormControl<ISubjectStatus | undefined>(this.subjectStatus[0]),
     description: new FormControl<string | undefined>(undefined),
-    status: new FormControl<ISubjectStatus | undefined>(undefined),
   });
 
   constructor() {}

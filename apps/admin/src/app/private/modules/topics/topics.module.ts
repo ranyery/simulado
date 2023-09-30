@@ -12,10 +12,11 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { FormTopicComponent } from './components/form-topic/form-topic.component';
 import { TopicsPage } from './page/topics.page';
+import { FindSubjectByIdPipe } from './pipes/find-subject-by-id.pipe';
 import { TopicsRoutingModule } from './topics-routing.module';
 
 @NgModule({
-  declarations: [TopicsPage, FormTopicComponent],
+  declarations: [TopicsPage, FormTopicComponent, FindSubjectByIdPipe],
   imports: [
     CommonModule,
     TopicsRoutingModule,

@@ -1,17 +1,20 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { EEntity, ETopicStatus, ITopic } from '@libs/shared/domain';
+import { EEntity, ETopicStatus, ISubject, ITopic } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { finalize, switchMap } from 'rxjs';
+import { finalize, forkJoin, iif, of, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { PermissionsService } from '../../../../shared/services/permissions.service';
 import { ToastService } from '../../../../shared/services/toast.service';
+import { SubjectsService } from '../../subjects/services/subjects.service';
+import { SubjectsState } from '../../subjects/state/subjects.state';
 import { FormTopicComponent } from '../components/form-topic/form-topic.component';
 import { TopicsService } from '../services/topics.service';
+import { TopicsState } from '../state/topics.state';
 
 export const enum ETopicActions {
   CREATE = 'CREATE',
@@ -27,12 +30,20 @@ export const enum ETopicActions {
 export class TopicsPage implements OnInit {
   private _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dialogService = inject(DialogService);
-  private readonly _topicsService = inject(TopicsService);
   private readonly _toastService = inject(ToastService);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
-  private readonly _permissionsService = inject(PermissionsService);
-  private readonly _authService = inject(AuthService);
+
   private readonly _clipboard = inject(Clipboard);
+  private readonly _authService = inject(AuthService);
+  private readonly _permissionsService = inject(PermissionsService);
+
+  private readonly _topicsState = inject(TopicsState);
+  private readonly _topicsService = inject(TopicsService);
+
+  private readonly _subjectsState = inject(SubjectsState);
+  private readonly _subjectsService = inject(SubjectsService);
+
+  public subjectList: ISubject[] = [];
 
   @ViewChild('pTable')
   private readonly _pTable?: Table;
@@ -59,19 +70,35 @@ export class TopicsPage implements OnInit {
     this.canCreate = this._permissionsService.canCreate(EEntity.TOPICS);
     this.canUpdate = this._permissionsService.canUpdate(EEntity.TOPICS);
     this.canDelete = this._permissionsService.canDelete(EEntity.TOPICS);
-    this._fetchAllTopics();
+
+    this._fetchTopicsAndSubjects();
   }
 
-  private _fetchAllTopics(): void {
+  private _fetchTopicsAndSubjects(): void {
+    const topicsObservable = iif(
+      () => this._topicsState.isEmpty(),
+      this._topicsService.getAll(),
+      of(this._topicsState.get())
+    );
+
+    const subjectsObservable = iif(
+      () => this._subjectsState.isEmpty(),
+      this._subjectsService.getAll(),
+      of(this._subjectsState.get())
+    );
+
     this.isLoading = true;
     this.hasError = false;
 
-    this._topicsService
-      .getAll()
+    forkJoin([topicsObservable, subjectsObservable])
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
-        next: (topics) => {
+        next: ([topics, subjects]) => {
           this.topics = topics;
+          this.subjectList = subjects;
+
+          this._topicsState.set(topics);
+          this._subjectsState.set(subjects);
           this.hasError = false;
         },
         error: () => (this.hasError = true),
@@ -80,7 +107,7 @@ export class TopicsPage implements OnInit {
 
   public createTopic(): void {
     this._dynamicDialogRef = this._dialogService.open(FormTopicComponent, {
-      data: { actionType: ETopicActions.CREATE, topic: {} },
+      data: { actionType: ETopicActions.CREATE, topic: {}, subjects: this.subjectList },
       closable: false,
     });
 
@@ -89,6 +116,8 @@ export class TopicsPage implements OnInit {
       .subscribe({
         next: (data) => {
           this.topics = [...this.topics, data];
+          this._topicsState.set(this.topics);
+
           this._toastService.open({ type: 'success', message: 'Tópico criado com sucesso.' });
         },
         error: (error: HttpErrorResponse) => {
@@ -103,7 +132,7 @@ export class TopicsPage implements OnInit {
 
   public updateTopic(topic: ITopic): void {
     this._dynamicDialogRef = this._dialogService.open(FormTopicComponent, {
-      data: { actionType: ETopicActions.UPDATE, topic: topic },
+      data: { actionType: ETopicActions.UPDATE, topic: topic, subjects: this.subjectList },
       closable: false,
     });
 
@@ -115,6 +144,7 @@ export class TopicsPage implements OnInit {
             if (sub.id !== topic.id) return sub;
             return { ...sub, ...topic };
           });
+          this._topicsState.set(this.topics);
 
           this._toastService.open({ type: 'success', message: 'Tópico atualizado com sucesso.' });
         },
@@ -148,6 +178,7 @@ export class TopicsPage implements OnInit {
           if (sub.id !== topic.id) return sub;
           return { ...sub, status: ETopicStatus.ARCHIVED };
         });
+        this._topicsState.set(this.topics);
 
         this._toastService.open({ type: 'success', message: 'Tópico arquivado com sucesso.' });
       },

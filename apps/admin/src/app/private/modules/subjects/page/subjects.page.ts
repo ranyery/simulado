@@ -4,7 +4,7 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { EEntity, ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { finalize, iif, of, switchMap } from 'rxjs';
+import { finalize, switchMap } from 'rxjs';
 
 import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
@@ -66,14 +66,17 @@ export class SubjectsPage implements OnInit {
   }
 
   private _fetchAllSubjects(): void {
+    if (!this._subjectsState.isEmpty()) {
+      this.subjects = this._subjectsState.get();
+      this.isLoading = false;
+      return;
+    }
+
     this.isLoading = true;
     this.hasError = false;
 
-    iif(
-      () => this._subjectsState.isEmpty(),
-      this._subjectsService.getAll(),
-      of(this._subjectsState.get())
-    )
+    this._subjectsService
+      .getAll()
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (subjects) => {
