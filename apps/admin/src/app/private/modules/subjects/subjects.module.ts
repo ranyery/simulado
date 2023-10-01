@@ -10,6 +10,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { PermissionsDirectivesModule } from '../../directives/permissions/permissions-directives.module';
 import { FormSubjectComponent } from './components/form-subject/form-subject.component';
 import { SubjectsPage } from './page/subjects.page';
 import { SubjectsRoutingModule } from './subjects-routing.module';
@@ -28,6 +29,7 @@ import { SubjectsRoutingModule } from './subjects-routing.module';
     DropdownModule,
     TooltipModule,
     NgStringPipesModule,
+    PermissionsDirectivesModule,
   ],
 })
 export class SubjectsModule {}

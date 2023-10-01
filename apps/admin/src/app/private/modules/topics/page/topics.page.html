@@ -1,8 +1,8 @@
-<section class="topics">
+<section class="topics" *ifCanRead>
   <div class="topics__header">
     <div class="topics__title">Lista de Tópicos</div>
     <p-button
-      [disabled]="!canCreate"
+      *ifCanCreate
       (onClick)="createTopic()"
       label="Adicionar"
       styleClass="p-button-sm p-button-success">
@@ -45,7 +45,7 @@
         <th pSortableColumn="status" style="min-width: 162px" pResizableColumn>
           Status <p-sortIcon field="status"></p-sortIcon>
         </th>
-        <th pResizableColumn *ngIf="canUpdate || canDelete">Ações</th>
+        <th pResizableColumn *ifCanUpdate>Ações</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-topic>
@@ -65,16 +65,15 @@
           {{ topic.description ? (topic.description | shorten: 30 : '...') : '' }}
         </td>
         <td class="overflow">{{ topic.status }}</td>
-        <td style="display: flex; gap: 16px" *ngIf="canUpdate || canDelete">
+        <td style="display: flex; gap: 16px" *ifCanUpdate>
           <p-button
-            [disabled]="!canUpdate"
             (onClick)="updateTopic(topic)"
             label="Editar"
             styleClass="p-button-sm p-button-warning">
           </p-button>
 
           <p-button
-            *ngIf="isAdmin"
+            *ifCanDelete
             (onClick)="deleteTopic(topic)"
             label="Excluir"
             styleClass="p-button-sm p-button-danger">

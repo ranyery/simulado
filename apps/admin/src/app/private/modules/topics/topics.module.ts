@@ -10,6 +10,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { PermissionsDirectivesModule } from '../../directives/permissions/permissions-directives.module';
 import { FormTopicComponent } from './components/form-topic/form-topic.component';
 import { TopicsPage } from './page/topics.page';
 import { FindSubjectByIdPipe } from './pipes/find-subject-by-id.pipe';
@@ -29,6 +30,7 @@ import { TopicsRoutingModule } from './topics-routing.module';
     DropdownModule,
     TooltipModule,
     NgStringPipesModule,
+    PermissionsDirectivesModule,
   ],
 })
 export class TopicsModule {}

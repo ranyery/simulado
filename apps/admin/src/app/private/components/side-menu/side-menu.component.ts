@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { EUserRole } from '@libs/shared/domain';
+import { EEntity, EUserRole } from '@libs/shared/domain';
 
-import { EPrivateRoutes } from '../../../private/private-routing.module';
 import { AuthService } from '../../../shared/services/auth.service';
 import { UserRolesService } from '../../../shared/services/user-roles.service';
 
 interface IMenuItem {
   icon: string;
   label: string;
-  route: EPrivateRoutes;
+  route: string | EEntity;
   isEnabled: boolean;
 }
 
@@ -26,25 +25,25 @@ export class SideMenuComponent implements OnInit {
     {
       label: 'Dashboard',
       icon: 'pi-chart-bar',
-      route: EPrivateRoutes.DASHBOARD,
+      route: 'dashboard',
       isEnabled: true,
     },
     {
       label: 'Usuários',
       icon: 'pi-users',
-      route: EPrivateRoutes.USERS,
+      route: EEntity.USERS,
       isEnabled: this._userHasAllowedRole(),
     },
     {
       label: 'Matérias',
       icon: 'pi-book',
-      route: EPrivateRoutes.SUBJECTS,
+      route: EEntity.SUBJECTS,
       isEnabled: this._userHasAllowedRole(),
     },
     {
       label: 'Tópicos',
       icon: 'pi-tags',
-      route: EPrivateRoutes.TOPICS,
+      route: EEntity.TOPICS,
       isEnabled: this._userHasAllowedRole(),
     },
   ];

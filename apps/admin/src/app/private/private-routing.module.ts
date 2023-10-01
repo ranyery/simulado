@@ -1,17 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EUserRole } from '@libs/shared/domain';
+import { EEntity, EUserRole } from '@libs/shared/domain';
 
 import { RolesGuard } from '../shared/guards/roles.guard';
 import { DashboardPage } from './modules/dashboard/page/dashboard.page';
 import { ShellPage } from './shell/shell.page';
-
-export const enum EPrivateRoutes {
-  DASHBOARD = 'dashboard',
-  USERS = 'users',
-  SUBJECTS = 'subjects',
-  TOPICS = 'topics',
-}
 
 const allowedRoles = [EUserRole.ADMIN, EUserRole.MODERATOR];
 
@@ -23,27 +16,30 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: EPrivateRoutes.DASHBOARD,
+        redirectTo: 'dashboard',
       },
       {
-        path: EPrivateRoutes.DASHBOARD,
+        path: 'dashboard',
         component: DashboardPage,
       },
       {
-        path: EPrivateRoutes.USERS,
+        path: EEntity.USERS,
         loadChildren: () => import('./modules/users/users.module').then((m) => m.UsersModule),
         canMatch: [() => RolesGuard(allowedRoles)],
+        data: { entity: EEntity.USERS },
       },
       {
-        path: EPrivateRoutes.SUBJECTS,
+        path: EEntity.SUBJECTS,
         loadChildren: () =>
           import('./modules/subjects/subjects.module').then((m) => m.SubjectsModule),
         canMatch: [() => RolesGuard(allowedRoles)],
+        data: { entity: EEntity.SUBJECTS },
       },
       {
-        path: EPrivateRoutes.TOPICS,
+        path: EEntity.TOPICS,
         loadChildren: () => import('./modules/topics/topics.module').then((m) => m.TopicsModule),
         canMatch: [() => RolesGuard(allowedRoles)],
+        data: { entity: EEntity.TOPICS },
       },
     ],
   },

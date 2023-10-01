@@ -1,16 +1,13 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { EEntity, ETopicStatus, EUserRole, ISubject, ITopic } from '@libs/shared/domain';
+import { ETopicStatus, ISubject, ITopic } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, forkJoin, iif, of, switchMap } from 'rxjs';
 
-import { AuthService } from '../../../../shared/services/auth.service';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../shared/services/toast.service';
-import { UserPermissionsService } from '../../../../shared/services/user-permissions.service';
-import { UserRolesService } from '../../../../shared/services/user-roles.service';
 import { SubjectsService } from '../../subjects/services/subjects.service';
 import { SubjectsState } from '../../subjects/state/subjects.state';
 import { FormTopicComponent } from '../components/form-topic/form-topic.component';
@@ -35,9 +32,6 @@ export class TopicsPage implements OnInit {
   private readonly _confirmDialogService = inject(ConfirmDialogService);
 
   private readonly _clipboard = inject(Clipboard);
-  private readonly _authService = inject(AuthService);
-  private readonly _userPermissionsService = inject(UserPermissionsService);
-  private readonly _userRolesService = inject(UserRolesService);
 
   private readonly _topicsState = inject(TopicsState);
   private readonly _topicsService = inject(TopicsService);
@@ -54,30 +48,9 @@ export class TopicsPage implements OnInit {
   public isLoading: boolean = true;
   public hasError: boolean = false;
 
-  public canRead: boolean = false;
-  public canCreate: boolean = false;
-  public canUpdate: boolean = false;
-  public canDelete: boolean = false;
-
-  // Apenas 'ADMIN' e 'MODERATOR' podem acessar, se o user em questão não é ADMIN, então é 'MODERATOR'
-  public isAdmin: boolean = false;
-
   constructor() {}
 
   ngOnInit(): void {
-    this.canRead = this._userPermissionsService.canRead(EEntity.TOPICS);
-
-    if (!this.canRead) {
-      this._authService.logout();
-      return;
-    }
-
-    this.canCreate = this._userPermissionsService.canCreate(EEntity.TOPICS);
-    this.canUpdate = this._userPermissionsService.canUpdate(EEntity.TOPICS);
-    this.canDelete = this._userPermissionsService.canDelete(EEntity.TOPICS);
-
-    this.isAdmin = this._userRolesService.hasRole(EUserRole.ADMIN);
-
     this._fetchTopicsAndSubjects();
   }
 
