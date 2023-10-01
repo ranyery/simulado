@@ -5,6 +5,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { ESessionStorage } from '../constants/session-storage.enum';
+import { NotImplemented } from '../decorators/not-implemented.decorator';
 import { ILoginResponse } from '../interfaces/login.interface';
 import { JwtService } from './jwt.service';
 import { SessionStorageService } from './session-storage.service';
@@ -41,8 +42,8 @@ export class AuthService {
         tap(({ access_token }) => {
           this.token = access_token;
           this.isLoggedIn = true;
-          this._userPermissionsService.updatePermissions();
           this._userRolesService.updateRoles();
+          this._userPermissionsService.updatePermissions();
         })
       );
   }
@@ -57,8 +58,8 @@ export class AuthService {
     return this._httpClient.post<void>(`${environment.apiUrl}/validate-token`, null).pipe(
       map(() => {
         this.isLoggedIn = true;
-        this._userPermissionsService.updatePermissions();
         this._userRolesService.updateRoles();
+        this._userPermissionsService.updatePermissions();
         return true;
       }),
       catchError(() => {
@@ -68,10 +69,8 @@ export class AuthService {
     );
   }
 
-  public refreshToken(): void {
-    // TODO: Implementar
-    throw new Error('Method not implemented!');
-  }
+  @NotImplemented
+  public refreshToken(): void {}
 
   public logout(): void {
     this._clearToken();
