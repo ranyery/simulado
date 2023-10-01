@@ -5,12 +5,12 @@ export interface IQuestion {
   statement: string; // Enunciado => A pergunta ou problema apresentado
   answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
   explanation?: string | null; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
-  type: EQuestionType;
+  type: string | EQuestionType;
   source: ISource; // Exemplo (ENEM 2022)
-  difficultyLevel: EQuestionDifficultyLevel;
+  difficultyLevel: string | EQuestionDifficultyLevel;
   subjectId: string; // ISubject => A matéria à qual a questão está relacionada (matemática, história, etc.)
   relatedTopicIds: string[]; // ITopic[] => Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
-  status: EQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
+  status: string | EQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
   createdAt: string | Date; // A data foi ADICIONADA no sistema
   updatedAt: string | Date; // A data foi ATUALIZADA no sistema

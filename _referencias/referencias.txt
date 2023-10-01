@@ -18,3 +18,9 @@ Como devem ficar as urls (Otimização para SEO):
 simulado.gratis/matematica/exercicios-de-logica
 simulado.gratis/matematica/exercicios-de-funcao-de-primeiro-grau
 simulado.gratis/portugues/exercicios-de-gramatica
+
+---
+
+Telas:
+- Confirmação de e-mail: https://dribbble.com/search/confirm-email
+- Confirmação de e-mail: https://dribbble.com/search/confirmation
