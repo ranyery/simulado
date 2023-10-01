@@ -1,4 +1,4 @@
-import { EQuestionStatus, IQuestion } from '@libs/shared/domain';
+import { IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
@@ -78,10 +78,10 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
   }
 
   async deleteById(id: string): Promise<void> {
-    // await this._prismaService.question.delete({ where: { id } });
-    await this._prismaService.question.update({
-      where: { id },
-      data: { status: EQuestionStatus.ARCHIVED, updatedAt: new Date() },
-    });
+    await this._prismaService.question.delete({ where: { id } });
+    // await this._prismaService.question.update({
+    //   where: { id },
+    //   data: { status: EQuestionStatus.ARCHIVED, updatedAt: new Date() },
+    // });
   }
 }

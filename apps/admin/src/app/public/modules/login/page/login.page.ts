@@ -41,7 +41,6 @@ export class LoginPage implements OnInit {
 
     if (this._currentLoginAttempts === this.MAX_LOGIN_ATTEMPTS) {
       this.isLoginButtonDisabled = true;
-      this._toastService.close();
       this._showIPBlockedAlert();
       return;
     }
@@ -62,7 +61,6 @@ export class LoginPage implements OnInit {
           this._router.navigate(['/', 'cockpit']);
         },
         error: () => {
-          this._toastService.close();
           this._toastService.open({
             type: 'error',
             message: 'Credenciais inválidas. Por favor, verifique seu email e senha.',

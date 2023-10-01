@@ -9,8 +9,18 @@ export class DeleteSubjectByIdUseCase {
   async execute(id: string): Promise<void> {
     try {
       await this._subjectsRepository.deleteById(id);
-    } catch {
-      throw new HttpException('Subject does not exist!', HttpStatus.BAD_REQUEST);
+    } catch (error: any) {
+      if (error?.code === 'P2003') {
+        throw new HttpException(
+          'Deletion of this entity is not possible due to its associations with other entities.',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
+      throw new HttpException(
+        'An error occurred while deleting the entity.',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   }
 }

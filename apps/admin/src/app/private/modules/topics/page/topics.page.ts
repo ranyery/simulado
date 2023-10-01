@@ -1,7 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { ETopicStatus, ISubject, ITopic } from '@libs/shared/domain';
+import { ISubject, ITopic } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, forkJoin, iif, of, switchMap } from 'rxjs';
@@ -140,33 +140,29 @@ export class TopicsPage implements OnInit {
 
   public deleteTopic(topic: ITopic): void {
     this._confirmDialogService.confirm(
-      { title: 'Atenção!', message: `Deseja arquivar o tópico <b>${topic.name}</b>?` },
-      () => this._archiveTopicById(topic)
+      { title: 'Atenção!', message: `Deseja deletar o tópico <b>${topic.name}</b>?` },
+      () => this._deleteTopicById(topic)
     );
   }
 
   public copyToClipboard(value: string): void {
     this._clipboard.copy(value);
-    this._toastService.close();
     this._toastService.open({ type: 'info', message: 'Id copiado para a área de transferência.' });
   }
 
-  private _archiveTopicById(topic: ITopic): void {
-    this._topicsService.deleteById(topic.id).subscribe({
+  private _deleteTopicById(topic: ITopic): void {
+    this._topicsService.deleteById(topic).subscribe({
       next: () => {
-        this.topics = this.topics.map((sub) => {
-          if (sub.id !== topic.id) return sub;
-          return { ...sub, status: ETopicStatus.ARCHIVED };
-        });
+        this.topics = this.topics.filter((t) => t.id !== topic.id);
         this._topicsState.set(this.topics);
 
-        this._toastService.open({ type: 'success', message: 'Tópico arquivado com sucesso.' });
+        this._toastService.open({ type: 'success', message: 'Tópico deletado com sucesso.' });
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
         this._toastService.open({
           type: 'error',
-          message: 'Erro ao tentar arquivar o tópico. Verifique os detalhes no console.',
+          message: 'Erro ao tentar deletar o tópico. Verifique os detalhes no console.',
         });
       },
     });

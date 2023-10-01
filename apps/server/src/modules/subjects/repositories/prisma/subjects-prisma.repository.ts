@@ -1,4 +1,4 @@
-import { ESubjectStatus, ISubject } from '@libs/shared/domain';
+import { ISubject } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
@@ -34,11 +34,11 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
   }
 
   async deleteById(id: string): Promise<void> {
-    // await this._prismaService.subject.delete({ where: { id } });
-    await this._prismaService.subject.update({
-      where: { id },
-      data: { status: ESubjectStatus.ARCHIVED, updatedAt: new Date() },
-      include: { topics: true },
-    });
+    await this._prismaService.subject.delete({ where: { id }, include: { topics: false } });
+    // await this._prismaService.subject.update({
+    //   where: { id },
+    //   data: { status: ESubjectStatus.ARCHIVED, updatedAt: new Date() },
+    //   include: { topics: true },
+    // });
   }
 }

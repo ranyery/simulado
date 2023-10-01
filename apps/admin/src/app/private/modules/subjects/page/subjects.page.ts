@@ -1,7 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { ESubjectStatus, ISubject } from '@libs/shared/domain';
+import { ISubject } from '@libs/shared/domain';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
@@ -131,26 +131,22 @@ export class SubjectsPage implements OnInit {
 
   public copyToClipboard(value: string): void {
     this._clipboard.copy(value);
-    this._toastService.close();
     this._toastService.open({ type: 'info', message: 'Id copiado para a área de transferência.' });
   }
 
   private _deleteSubjectById(subject: ISubject): void {
-    this._subjectsService.deleteById(subject.id).subscribe({
+    this._subjectsService.deleteById(subject).subscribe({
       next: () => {
-        this.subjects = this.subjects.map((sub) => {
-          if (sub.id !== subject.id) return sub;
-          return { ...sub, status: ESubjectStatus.ARCHIVED };
-        });
+        this.subjects = this.subjects.filter((sub) => sub.id !== subject.id);
         this._subjectsState.set(this.subjects);
 
-        this._toastService.open({ type: 'success', message: 'Matéria arquivada com sucesso.' });
+        this._toastService.open({ type: 'success', message: 'Matéria deletada com sucesso.' });
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
         this._toastService.open({
           type: 'error',
-          message: 'Erro ao tentar arquivar a matéria. Verifique os detalhes no console.',
+          message: 'Erro ao tentar deletar a matéria. Verifique os detalhes no console.',
         });
       },
     });

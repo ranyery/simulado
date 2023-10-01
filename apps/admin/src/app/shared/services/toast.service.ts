@@ -24,6 +24,7 @@ export class ToastService {
   constructor() {}
 
   public open(props: IToastProps): void {
+    this._messageService.clear();
     this._messageService.add({
       severity: props.type,
       summary: this._titleMap[props.type],
@@ -31,9 +32,5 @@ export class ToastService {
       life: props.life ?? 3000,
       closable: props.closable ?? true,
     });
-  }
-
-  public close(): void {
-    this._messageService.clear();
   }
 }

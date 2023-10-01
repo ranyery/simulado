@@ -24,11 +24,11 @@ export class SubjectsService {
     return this._httpClient.post<ISubject>(`${this._baseUrl}`, subject);
   }
 
-  public updateById(subjectPartial: ISubject): Observable<ISubject> {
-    return this._httpClient.put<ISubject>(`${this._baseUrl}/${subjectPartial.id}`, subjectPartial);
+  public updateById(partialSubject: ISubject): Observable<ISubject> {
+    return this._httpClient.put<ISubject>(`${this._baseUrl}/${partialSubject.id}`, partialSubject);
   }
 
-  public deleteById(id: string): Observable<void> {
-    return this._httpClient.delete<void>(`${this._baseUrl}/${id}`);
+  public deleteById(subject: ISubject): Observable<void> {
+    return this._httpClient.delete<void>(`${this._baseUrl}/${subject.id}`);
   }
 }

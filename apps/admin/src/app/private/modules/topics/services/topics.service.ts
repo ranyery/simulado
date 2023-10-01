@@ -24,11 +24,11 @@ export class TopicsService {
     return this._httpClient.post<ITopic>(`${this._baseUrl}`, topic);
   }
 
-  public updateById(topicPartial: ITopic): Observable<ITopic> {
-    return this._httpClient.put<ITopic>(`${this._baseUrl}/${topicPartial.id}`, topicPartial);
+  public updateById(partialTopic: ITopic): Observable<ITopic> {
+    return this._httpClient.put<ITopic>(`${this._baseUrl}/${partialTopic.id}`, partialTopic);
   }
 
-  public deleteById(id: string): Observable<void> {
-    return this._httpClient.delete<void>(`${this._baseUrl}/${id}`);
+  public deleteById(topic: ITopic): Observable<void> {
+    return this._httpClient.delete<void>(`${this._baseUrl}/${topic.id}`);
   }
 }
