@@ -5,7 +5,7 @@ import { PrimeNGConfig } from 'primeng/api';
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
-    <p-toast position="top-center"></p-toast>
+    <p-toast [style]="{ width: '500px' }" position="top-center"></p-toast>
     <p-confirmDialog [style]="{ width: '50vw' }"></p-confirmDialog>
   `,
 })

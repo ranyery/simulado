@@ -172,7 +172,7 @@ export class TopicsPage implements OnInit {
     this._pTable?.clear();
   }
 
-  public applyFilterGlobal($event: any, value: string): void {
-    this._pTable?.filterGlobal(($event.target as HTMLInputElement).value, value);
+  public applyFilterGlobal(event: Event, value: string): void {
+    this._pTable?.filterGlobal((event.target as HTMLInputElement).value, value);
   }
 }

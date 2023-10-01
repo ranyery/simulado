@@ -23,7 +23,7 @@
           "error",
           {
             "type": "attribute",
-            "prefixes": ["app", "*"],
+            "prefix": ["app", "if"],
             "style": "camelCase"
           }
         ],
