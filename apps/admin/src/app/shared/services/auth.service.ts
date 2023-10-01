@@ -21,7 +21,7 @@ export class AuthService {
   private readonly _userRolesService = inject(UserRolesService);
   private readonly _sessionStorageService = inject(SessionStorageService);
 
-  public isLoggedIn: boolean = false;
+  private _isLoggedIn: boolean = false;
 
   public get token(): string {
     return this._sessionStorageService.getItem(ESessionStorage.ACCESS_TOKEN) || '';
@@ -41,7 +41,7 @@ export class AuthService {
         }),
         tap(({ access_token }) => {
           this.token = access_token;
-          this.isLoggedIn = true;
+          this._isLoggedIn = true;
           this._userRolesService.updateRoles();
           this._userPermissionsService.updatePermissions();
         })
@@ -53,11 +53,11 @@ export class AuthService {
       return of(false);
     }
 
-    if (this.isLoggedIn) return of(true);
+    if (this._isLoggedIn) return of(true);
 
     return this._httpClient.post<void>(`${environment.apiUrl}/validate-token`, null).pipe(
       map(() => {
-        this.isLoggedIn = true;
+        this._isLoggedIn = true;
         this._userRolesService.updateRoles();
         this._userPermissionsService.updatePermissions();
         return true;
@@ -74,7 +74,7 @@ export class AuthService {
 
   public logout(): void {
     this._clearToken();
-    this.isLoggedIn = false;
+    this._isLoggedIn = false;
     this._redirectToLoginPage();
   }
 

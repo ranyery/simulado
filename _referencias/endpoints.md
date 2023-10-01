@@ -51,3 +51,26 @@
 19. `GET /users/by-role/{roleId}`: Lista todos os usuários com um papel específico.
 20. `GET /users/export/csv`: Exporta a lista de usuários para um arquivo CSV.
 21. `GET /users/{id}/reset-password`: Envia um e-mail de redefinição de senha para um usuário.
+
+---
+
+1. `POST /auth/register`: Registra um novo usuário no sistema.
+2. `POST /auth/login`: Inicia uma sessão de autenticação para o usuário.
+3. `POST /auth/logout`: Encerra a sessão de autenticação atual.
+4. `POST /auth/refresh-token`: Gera um novo token de acesso com base em um token de atualização.
+5. `POST /auth/forgot-password`: Envia um e-mail para redefinir a senha do usuário.
+6. `POST /auth/reset-password`: Redefine a senha do usuário com base em um token de redefinição de senha.
+7. `GET /auth/user-profile`: Obtém o perfil do usuário autenticado.
+8. `PUT /auth/update-profile`: Atualiza o perfil do usuário autenticado.
+9. `GET /auth/verify-email`: Verifica o endereço de e-mail de um usuário com base em um token de verificação.
+10. `POST /auth/resend-verification-email`: Reenvia o e-mail de verificação para o usuário.
+11. `GET /auth/two-factor-auth-setup`: Obtém informações e configurações de autenticação de dois fatores para o usuário autenticado.
+12. `POST /auth/two-factor-auth-setup`: Configura a autenticação de dois fatores para o usuário autenticado.
+13. `PUT /auth/two-factor-auth-disable`: Desativa a autenticação de dois fatores para o usuário autenticado.
+14. `POST /auth/two-factor-auth-verify`: Verifica um código de autenticação de dois fatores.
+15. `POST /auth/change-password`: Altera a senha do usuário autenticado.
+16. `GET /auth/roles`: Lista todos os papéis (roles) disponíveis para autenticação.
+17. `POST /auth/impersonate`: Permite que um administrador assuma a identidade de outro usuário para fins de suporte.
+18. `POST /auth/revoke-token`: Revoga um token de acesso específico, deslogando o usuário associado.
+19. `POST /auth/logout-all-devices`: Encerra a sessão de autenticação em todos os dispositivos do usuário.
+20. `GET /auth/audit-logs`: Obtém registros de auditoria relacionados a ações de autenticação e autorização.

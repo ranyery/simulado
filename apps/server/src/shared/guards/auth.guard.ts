@@ -16,16 +16,14 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    /**
-     * TODO!
-     * Validar se token está expirado antes de prosseguir,
-     * Se estiver expirado => retornar 401 (UnauthorizedException)
-     */
-
     try {
       const payload = await this._jwtService.verifyAsync(token, { secret });
       request['user'] = payload;
-    } catch {
+    } catch (error: any) {
+      if (error?.name === 'TokenExpiredError') {
+        throw new UnauthorizedException('Token expired!');
+      }
+
       throw new UnauthorizedException();
     }
 

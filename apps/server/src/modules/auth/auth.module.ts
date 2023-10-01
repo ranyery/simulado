@@ -16,7 +16,7 @@ import { ValidateTokenUseCase } from './useCases/validate-token.usecase';
       global: true,
       secret: secret,
       signOptions: {
-        expiresIn: '8h',
+        expiresIn: '168h',
       },
     }),
   ],

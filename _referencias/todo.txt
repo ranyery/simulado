@@ -5,7 +5,7 @@
 [-] Adicionar validação para identificar se o usuário pode utilizar as funções => Falta adicionar no back-end
 [ ] ADICIONAR FUNÇÃO "refresh-token" no front-end
 [ ] Pensar sobre trocar o nome da função (no back) "token.service.ts" no Server para auth-service
-[ ] Adicionar nome na entidade usuário => A informação será importante para o envio e recebimento de e-mails para quando a aplicação for liberada para o público
+[-] *Adicionar nome na entidade usuário* => A informação será importante para o envio e recebimento de e-mails para quando a aplicação for liberada para o público
 
 [X] Se a "Disciplina" tiver "Tópico" associado, não pode ser excluída do banco
 [X] Adicionar validação de permissões para [Adicionar, Editar e Excluir] disciplinas
