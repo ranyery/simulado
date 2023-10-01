@@ -2,9 +2,9 @@ import { NgIf } from '@angular/common';
 import { Directive, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { AuthService } from '../../../shared/services/auth.service';
-import { UserPermissionsService } from '../../../shared/services/user-permissions.service';
 import { IRouteData } from '../../interfaces/route-data.interface';
+import { AuthService } from '../../services/auth.service';
+import { UserPermissionsService } from '../../services/user-permissions.service';
 
 @Directive({
   selector: '[ifCanRead]',

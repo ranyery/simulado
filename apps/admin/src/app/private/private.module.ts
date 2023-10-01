@@ -3,13 +3,12 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { PrivateRoutingModule } from './private-routing.module';
 import { ShellPage } from './shell/shell.page';
 
 @NgModule({
-  declarations: [ShellPage, SideMenuComponent],
+  declarations: [ShellPage],
   imports: [CommonModule, PrivateRoutingModule, DashboardModule, ButtonModule],
   providers: [DialogService, DynamicDialogRef],
 })

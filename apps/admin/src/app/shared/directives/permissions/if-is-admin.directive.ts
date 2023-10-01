@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Directive, inject } from '@angular/core';
 import { EUserRole } from '@libs/shared/domain';
 
-import { UserRolesService } from '../../../shared/services/user-roles.service';
+import { UserRolesService } from '../../services/user-roles.service';
 
 @Directive({
   selector: '[ifIsAdmin]',
