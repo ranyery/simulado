@@ -11,9 +11,8 @@ export interface IUser {
 
 export enum EUserRole {
   USER = 'USER', // Usuário comum
-  ADMIN = 'ADMIN', // Pode fazer tudo no sistema
-  TEACHER = 'TEACHER', // Pode criar novos simulados
   MODERATOR = 'MODERATOR', // Permissões limitadas => Deve buscar permissões dentro do array permissions
+  ADMIN = 'ADMIN', // Pode fazer tudo no sistema
 }
 
 // Entidade serve exclusivamente para a área administrativa, assim é possível limitar o acesso ao que pode ser feito

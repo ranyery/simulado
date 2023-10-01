@@ -12,7 +12,6 @@ datasource db {
 
 enum EUserRole {
   USER
-  TEACHER
   MODERATOR
   ADMIN
 }

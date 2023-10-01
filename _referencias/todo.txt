@@ -1,24 +1,20 @@
-Na seção de Disciplinas:
+[ ] Adicionar author na entidade Subject (disciplina) para rastrear quem foi o responsável pela criação
+[ ] Se o usuário que está criando for ADMIN, então ele pode deixar o status como "Aprovado", caso contrário o status deve ficar como "pendente de aprovação"
+[ ] Criar uma classe base para a storage local e de seção
+[ ] Validar a possibilidade de deixar o create, update e delete da IEntityPermission como opcionais
+[-] Adicionar validação para identificar se o usuário pode utilizar as funções => Falta adicionar no back-end
+[ ] ADICIONAR FUNÇÃO "refresh-token" no front-end
+[ ] Pensar sobre trocar o nome da função (no back) "token.service.ts" no Server para auth-service
+[ ] Adicionar nome na entidade usuário => A informação será importante para o envio e recebimento de e-mails para quando a aplicação for liberada para o público
+
 [X] Se a "Disciplina" tiver "Tópico" associado, não pode ser excluída do banco
 [X] Adicionar validação de permissões para [Adicionar, Editar e Excluir] disciplinas
 [X] Adicionar status na entidade Subject (disciplina) => Default: pendente_de_revisão
 [X] Adicionar filtro no front para buscar pelos pendentes e outros
 [X] Adicionar createdAt e updatedAt na entidade Subject (disciplina)
-[]  Adicionar author na entidade Subject (disciplina) para rastrear quem foi o responsável pela criação
-[]  Se o usuário que está criando for ADMIN, então ele pode deixar o status como "Aprovado", caso contrário o status deve ficar como "pendente de aprovação"
 [X] Adicionar validações no formulário de cadastro de Matérias
 [X] Adicionar funções de atualizar horário do Subject ao salvar no banco de dados
-
-[] Criar uma classe base para a storage local e de seção
-
-[] Validar a possibilidade de deixar o create, update e delete da IEntityPermission como opcionais
-
-Geral:
 [x] Pensar em novas roles
-[-] Adicionar validação para identificar se o usuário pode utilizar as funções => Falta adicionar no back-end
 [x] Adicionar Roles no JWT
-
-[] ADICIONAR FUNÇÃO "refresh-token" no front-end
-[] Pensar sobre trocar o nome da função (no back) "token.service.ts" no Server para auth-service
 [x] Criar uma entidade lá no domain apenas para TOPIC, adicionar createdAt e updatedAt e status
 [X] VALIDAR FORMULÁRIOS DO SUBJECT
