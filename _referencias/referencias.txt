@@ -24,3 +24,9 @@ simulado.gratis/portugues/exercicios-de-gramatica
 Telas:
 - Confirmação de e-mail: https://dribbble.com/search/confirm-email
 - Confirmação de e-mail: https://dribbble.com/search/confirmation
+
+---
+
+roles:
+https://frontegg.com/guides/user-role-and-permission
+https://uxdesign.cc/design-permissions-for-a-saas-app-db6c1825f20e
