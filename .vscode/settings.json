@@ -20,6 +20,9 @@
       "source.fixAll.eslint": true
     }
   },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "files.exclude": {
     ".angular": true,

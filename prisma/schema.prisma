@@ -26,14 +26,14 @@ enum EUserStatus {
 
 // npx prisma migrate dev --name create-users => 24/09/2023 08:21:45
 model User {
-  id            String        @id @default(uuid())
-  email         String        @unique
-  password      String
-  roles         EUserRole[]   @default([USER])
-  permissions   String        @default("[]")  // ! Json => Por causa do cockroachdb
-  status        EUserStatus   @default(PENDING_CONFIRMATION)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @default(now())
+  id          String      @id @default(uuid())
+  email       String      @unique
+  password    String
+  roles       EUserRole[] @default([USER])
+  permissions String      @default("[]") // ! Json => Por causa do cockroachdb
+  status      EUserStatus @default(PENDING_CONFIRMATION)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now())
 
   @@map("users")
 }
@@ -46,13 +46,13 @@ enum ESubjectStatus {
 
 // npx prisma migrate dev --name create-subjects => 25/09/2023 19:08:21
 model Subject {
-  id            String            @id @default(uuid())
-  name          String
-  description   String?
-  status        ESubjectStatus    @default(PENDING_REVIEW)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @default(now())
-  topics        Topic[]
+  id          String         @id @default(uuid())
+  name        String
+  description String?
+  status      ESubjectStatus @default(PENDING_REVIEW)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @default(now())
+  topics      Topic[]
 
   @@map("subjects")
 }
@@ -65,14 +65,14 @@ enum ETopicStatus {
 
 // npx prisma migrate dev --name create-topics => 25/09/2023 22:56:34
 model Topic {
-  id            String          @id @default(uuid())
-  name          String
-  description   String?
-  status        ETopicStatus    @default(PENDING_REVIEW)
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @default(now())
-  subjectId     String
-  subject       Subject         @relation(fields: [subjectId], references: [id])
+  id          String       @id @default(uuid())
+  name        String
+  description String?
+  status      ETopicStatus @default(PENDING_REVIEW)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+  subjectId   String
+  subject     Subject      @relation(fields: [subjectId], references: [id])
 
   @@map("topics")
 }
@@ -97,18 +97,18 @@ enum EQuestionStatus {
 
 // npx prisma migrate dev --name create-questions => 26/09/2023 00:05:55
 model Question {
-  id              String                    @id @default(uuid())
+  id              String                   @id @default(uuid())
   statement       String
-  answerOptions   String                    @default("[]")  // ! Json[] => Por causa do cockroachdb
+  answerOptions   String                   @default("[]") // ! Json[] => Por causa do cockroachdb
   explanation     String?
-  type            EQuestionType             @default(MULTIPLE_CHOICE)
-  source          String                    // ! Json => Por causa do cockroachdb => Já pode ser atualizado
-  difficultyLevel EQuestionDifficultyLevel  @default(MEDIUM)
+  type            EQuestionType            @default(MULTIPLE_CHOICE)
+  source          String // ! Json => Por causa do cockroachdb => Já pode ser atualizado
+  difficultyLevel EQuestionDifficultyLevel @default(MEDIUM)
   subjectId       String
-  relatedTopicIds String[]                  @default([])
-  status          EQuestionStatus           @default(PENDING_REVIEW)
-  createdAt       DateTime                  @default(now())
-  updatedAt       DateTime                  @default(now())
+  relatedTopicIds String[]                 @default([])
+  status          EQuestionStatus          @default(PENDING_REVIEW)
+  createdAt       DateTime                 @default(now())
+  updatedAt       DateTime                 @default(now())
 
   @@map("questions")
 }
