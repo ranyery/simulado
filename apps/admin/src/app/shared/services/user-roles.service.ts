@@ -11,6 +11,10 @@ export class UserRolesService {
 
   constructor() {}
 
+  public isAdmin(): boolean {
+    return this.hasRole(EUserRole.ADMIN);
+  }
+
   public getRoles(): EUserRole[] {
     return [...this._userRoles];
   }

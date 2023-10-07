@@ -1,6 +1,5 @@
 import { NgIf } from '@angular/common';
 import { Directive, inject } from '@angular/core';
-import { EUserRole } from '@libs/shared/domain';
 
 import { UserRolesService } from '../../services/user-roles.service';
 
@@ -13,6 +12,6 @@ export class IfIsAdminDirective {
   private readonly _userRolesService = inject(UserRolesService);
 
   constructor() {
-    this._ngIfDirective.ngIf = this._userRolesService.hasRole(EUserRole.ADMIN);
+    this._ngIfDirective.ngIf = this._userRolesService.isAdmin();
   }
 }

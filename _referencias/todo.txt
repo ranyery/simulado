@@ -19,3 +19,4 @@
 [x] Criar uma entidade lá no domain apenas para TOPIC, adicionar createdAt e updatedAt e status
 [X] VALIDAR FORMULÁRIOS DO SUBJECT
 [ ] Se basear na interface do URI Online Judge para deixar a plataforma mais gamificada
+[ ] Salvar todos os emails no banco em minusculo
