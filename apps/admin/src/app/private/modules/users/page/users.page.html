@@ -1,3 +1,46 @@
 <section class="users">
-  <p>users works!</p>
+  <div>
+    <p-button
+      (onClick)="addPermission()"
+      label="Adicionar"
+      styleClass="p-button-sm p-button-success">
+    </p-button>
+    {{ " " }}
+    <p-button (onClick)="salvar()" label="Salvar" styleClass="p-button-sm p-button-warning">
+    </p-button>
+  </div>
+  <ng-container *ngFor="let form of entityPermissionForms; index as i">
+    <form class="form" [formGroup]="form">
+      <div class="value">{{ form.controls['entity'].value | titlecase }}</div>
+      <div class="value">
+        <span>READ</span>
+        <p-inputSwitch formControlName="read"></p-inputSwitch>
+      </div>
+      <div class="value">
+        <span>CREATE</span>
+        <p-inputSwitch formControlName="create"></p-inputSwitch>
+      </div>
+      <div class="value">
+        <span>UPDATE</span>
+        <p-inputSwitch formControlName="update"></p-inputSwitch>
+      </div>
+      <div class="value">
+        <span>DELETE</span>
+        <p-inputSwitch formControlName="delete"></p-inputSwitch>
+      </div>
+      <div class="value value--row">
+        <p-button
+          (onClick)="updatePermission(form)"
+          label="Atualizar"
+          styleClass="p-button-sm p-button-success">
+        </p-button>
+
+        <p-button
+          (onClick)="deletePermission(i)"
+          label="Deletar"
+          styleClass="p-button-sm p-button-danger">
+        </p-button>
+      </div>
+    </form>
+  </ng-container>
 </section>
