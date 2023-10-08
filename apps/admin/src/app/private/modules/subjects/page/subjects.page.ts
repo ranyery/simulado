@@ -15,7 +15,6 @@ import { SubjectsState } from '../state/subjects.state';
 export const enum ESubjectActions {
   CREATE = 'CREATE',
   UPDATE = 'UPDATE',
-  DELETE = 'DELETE',
 }
 
 @Component({
@@ -49,7 +48,7 @@ export class SubjectsPage implements OnInit {
 
   private _fetchAllSubjects(): void {
     if (!this._subjectsState.isEmpty()) {
-      this.subjects = this._subjectsState.get();
+      this.subjects = this._subjectsState.getAll();
       this.isLoading = false;
       return;
     }

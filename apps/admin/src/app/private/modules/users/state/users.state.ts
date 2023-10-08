@@ -11,7 +11,7 @@ export class UsersState {
     this._users = [...users];
   }
 
-  public get(): IUser[] {
+  public getAll(): IUser[] {
     return [...this._users];
   }
 

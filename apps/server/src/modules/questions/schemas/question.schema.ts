@@ -24,7 +24,7 @@ export const QuestionSchema = z.object({
       id: z.string().trim().uuid(),
       acronym: z.string().trim(),
     }),
-    year: z.number().positive().optional(),
+    year: z.number().gte(0).optional().default(0),
   }),
   difficultyLevel: z.nativeEnum(EQuestionDifficultyLevel),
   subjectId: z.string().trim().uuid(),

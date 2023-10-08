@@ -20,6 +20,12 @@ const routes: Routes = [
         canMatch: [() => RolesGuard(allowedRoles)],
       },
       {
+        path: EEntity.QUESTIONS,
+        loadChildren: () =>
+          import('./modules/questions/questions.module').then((m) => m.QuestionsModule),
+        canMatch: [() => RolesGuard(allowedRoles)],
+      },
+      {
         path: EEntity.USERS,
         loadChildren: () => import('./modules/users/users.module').then((m) => m.UsersModule),
         canMatch: [() => RolesGuard(allowedRoles)],

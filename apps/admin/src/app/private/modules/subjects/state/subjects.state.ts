@@ -11,8 +11,12 @@ export class SubjectsState {
     this._subjects = [...subjects];
   }
 
-  public get(): ISubject[] {
+  public getAll(): ISubject[] {
     return [...this._subjects];
+  }
+
+  public getById(id: string): ISubject | undefined {
+    return this._subjects.find((subject) => subject.id === id);
   }
 
   public isEmpty(): boolean {

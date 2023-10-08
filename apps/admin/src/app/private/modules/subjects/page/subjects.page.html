@@ -54,7 +54,7 @@
           tooltipPosition="top"
           tooltipEvent="hover"
           (click)="copyToClipboard(subject.id)">
-          {{ subject.id | shorten: 8 : '...' }}
+          {{ subject.id | shorten: 6 : '...' }}
         </td>
         <td class="overflow">{{ subject.name }}</td>
         <td class="overflow">

@@ -35,7 +35,7 @@ export class UsersPage implements OnInit {
 
   private _fetchUsers(): void {
     if (!this._usersState.isEmpty()) {
-      this.users = this._usersState.get();
+      this.users = this._usersState.getAll();
       this.isLoading = false;
       return;
     }

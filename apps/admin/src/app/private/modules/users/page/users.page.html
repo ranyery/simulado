@@ -50,7 +50,7 @@
           tooltipPosition="top"
           tooltipEvent="hover"
           (click)="copyToClipboard(user.id)">
-          {{ user.id | shorten: 8 : '...' }}
+          {{ user.id | shorten: 6 : '...' }}
         </td>
         <td class="overflow">{{ user.email }}</td>
         <td class="overflow flex gap-1">

@@ -1,23 +1,23 @@
-<section class="topics" *ifCanRead>
-  <div class="topics__header">
-    <div class="topics__title">Lista de Tópicos</div>
+<section class="questions" *ifCanRead>
+  <div class="questions__header">
+    <div class="questions__title">Lista de Questões</div>
     <p-button
       *ifCanCreate
-      (onClick)="createTopic()"
+      (onClick)="createQuestion()"
       label="Adicionar"
       styleClass="p-button-sm p-button-success">
     </p-button>
   </div>
   <p-table
     #pTable
-    [value]="topics"
+    [value]="questions"
     [scrollable]="true"
     [loading]="isLoading"
     scrollHeight="calc(100vh - 202px)"
     [resizableColumns]="true"
     styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '100%'}"
-    [globalFilterFields]="['id', 'name', 'subjectId', 'description', 'status']">
+    [globalFilterFields]="['id', 'statement', 'type', 'difficultyLevel', 'subjectId', 'status']">
     <ng-template pTemplate="caption">
       <div class="flex">
         <span class="p-input-icon-left ml-auto">
@@ -26,29 +26,31 @@
             pInputText
             type="text"
             (input)="applyFilterGlobal($event, 'contains')"
-            placeholder="Pesquisar tópico..." />
+            placeholder="Pesquisar questão..." />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="id" pResizableColumn>Id <p-sortIcon field="id"></p-sortIcon></th>
-        <th pSortableColumn="name" style="min-width: 156px" pResizableColumn>
-          Nome <p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="statement" style="width: 100%" pResizableColumn>
+          Enunciado <p-sortIcon field="statement"></p-sortIcon>
+        </th>
+        <th pSortableColumn="type" pResizableColumn>Tipo <p-sortIcon field="type"></p-sortIcon></th>
+        <th pSortableColumn="difficultyLevel" pResizableColumn>
+          Dificuldade <p-sortIcon field="difficultyLevel"></p-sortIcon>
         </th>
         <th pSortableColumn="subjectId" pResizableColumn>
           Matéria <p-sortIcon field="subjectId"></p-sortIcon>
         </th>
-        <th pSortableColumn="description" style="width: 100%" pResizableColumn>
-          Descrição <p-sortIcon field="description"></p-sortIcon>
-        </th>
-        <th pSortableColumn="status" style="min-width: 162px" pResizableColumn>
+        <th pResizableColumn>Tópicos</th>
+        <th pSortableColumn="status" pResizableColumn>
           Status <p-sortIcon field="status"></p-sortIcon>
         </th>
         <th pResizableColumn *ifCanUpdate>Ações</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-topic>
+    <ng-template pTemplate="body" let-question>
       <tr>
         <td
           class="overflow"
@@ -56,25 +58,25 @@
           pTooltip="Clique para copiar"
           tooltipPosition="top"
           tooltipEvent="hover"
-          (click)="copyToClipboard(topic.id)">
-          {{ topic.id | shorten: 6 : '...' }}
+          (click)="copyToClipboard(question.id)">
+          {{ question.id | shorten: 6 : '...' }}
         </td>
-        <td class="overflow">{{ topic.name }}</td>
-        <td class="overflow">{{ topic.subjectId | findSubjectById }}</td>
-        <td class="overflow">
-          {{ topic.description ? (topic.description | shorten: 30 : '...') : '' }}
-        </td>
-        <td class="overflow">{{ topic.status }}</td>
+        <td class="overflow">{{ question.statement | shorten: 60 : '...' }}</td>
+        <td class="overflow">{{ question.type }}</td>
+        <td class="overflow">{{ question.difficultyLevel }}</td>
+        <td class="overflow">{{ question.subjectId | findSubject }}</td>
+        <td class="overflow">{{ question.relatedTopicIds | findRelatedTopics }}</td>
+        <td class="overflow">{{ question.status }}</td>
         <td style="display: flex; gap: 16px" *ifCanUpdate>
           <p-button
-            (onClick)="updateTopic(topic)"
+            (onClick)="updateQuestion(question)"
             label="Editar"
             styleClass="p-button-sm p-button-warning">
           </p-button>
 
           <p-button
             *ifCanDelete
-            (onClick)="deleteTopic(topic)"
+            (onClick)="deleteQuestion(question)"
             label="Excluir"
             styleClass="p-button-sm p-button-danger">
           </p-button>

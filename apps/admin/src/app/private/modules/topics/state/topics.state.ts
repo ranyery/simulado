@@ -11,8 +11,12 @@ export class TopicsState {
     this._subjects = [...subjects];
   }
 
-  public get(): ITopic[] {
+  public getAll(): ITopic[] {
     return [...this._subjects];
+  }
+
+  public getById(subjectId: string): ITopic | undefined {
+    return this._subjects.find((s) => s.id === subjectId);
   }
 
   public isEmpty(): boolean {

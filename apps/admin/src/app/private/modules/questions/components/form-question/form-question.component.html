@@ -1,0 +1,38 @@
+<div class="form-question">
+  <form class="form-question__form" [formGroup]="form">
+    <div class="flex flex-column gap-1">
+      <label class="label" htmlFor="name">Nome *</label>
+      <input pInputText id="name" formControlName="name" />
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label" htmlFor="name">Status</label>
+      <p-dropdown
+        formControlName="status"
+        [options]="questionStatus"
+        optionLabel="name"
+        styleClass="w-full"
+        appendTo="body">
+      </p-dropdown>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label" htmlFor="name">Descrição</label>
+      <textarea rows="5" cols="50" pInputTextarea [autoResize]="true" formControlName="description">
+      </textarea>
+    </div>
+    <div class="form-question__actions">
+      <p-button
+        (onClick)="cancel()"
+        label="Cancelar"
+        styleClass="w-full p-button-sm p-button-warning">
+      </p-button>
+      <p-button
+        (onClick)="confirm()"
+        [disabled]="form.invalid"
+        label="Confirmar"
+        styleClass="w-full p-button-sm p-button-success">
+      </p-button>
+    </div>
+  </form>
+</div>

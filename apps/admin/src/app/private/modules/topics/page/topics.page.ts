@@ -17,7 +17,6 @@ import { TopicsState } from '../state/topics.state';
 export const enum ETopicActions {
   CREATE = 'CREATE',
   UPDATE = 'UPDATE',
-  DELETE = 'DELETE',
 }
 
 @Component({
@@ -58,13 +57,13 @@ export class TopicsPage implements OnInit {
     const topicsObservable = iif(
       () => this._topicsState.isEmpty(),
       this._topicsService.getAll(),
-      of(this._topicsState.get())
+      of(this._topicsState.getAll())
     );
 
     const subjectsObservable = iif(
       () => this._subjectsState.isEmpty(),
       this._subjectsService.getAll(),
-      of(this._subjectsState.get())
+      of(this._subjectsState.getAll())
     );
 
     this.isLoading = true;
