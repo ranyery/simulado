@@ -1,22 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { IUser } from '@libs/shared/domain';
+import { Table } from 'primeng/table';
+import { finalize } from 'rxjs';
 
-import { IEntityPermission } from '@libs/shared/domain';
-import { UserRolesService } from '../../../../shared/services/user-roles.service';
-
-interface IPermissionForm {
-  entity: FormControl<string | null>;
-  read: FormControl<boolean | null>;
-  create: FormControl<boolean | null>;
-  update: FormControl<boolean | null>;
-  delete: FormControl<boolean | null>;
-}
-
-const permissions: IEntityPermission[] = [
-  { entity: 'users', read: true, create: true, update: true, delete: false },
-  { entity: 'subjects', read: true, create: true, update: true, delete: false },
-  { entity: 'topics', read: true, create: false, update: false, delete: false },
-];
+import { ToastService } from '../../../../shared/services/toast.service';
+import { UsersService } from '../services/users.service';
+import { UsersState } from '../state/users.state';
 
 @Component({
   selector: 'app-users',
@@ -24,52 +14,58 @@ const permissions: IEntityPermission[] = [
   styleUrls: ['./users.page.scss'],
 })
 export class UsersPage implements OnInit {
-  private readonly _userRolesService = inject(UserRolesService);
+  private readonly _usersState = inject(UsersState);
+  private readonly _usersService = inject(UsersService);
 
-  public entityPermissionForms: FormGroup<IPermissionForm>[] = [];
+  private readonly _clipboard = inject(Clipboard);
+  private readonly _toastService = inject(ToastService);
+
+  @ViewChild('pTable')
+  private readonly _pTable?: Table;
+
+  public users: IUser[] = [];
+  public isLoading: boolean = true;
+  public hasError: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    const isAdmin = this._userRolesService.isAdmin();
-    permissions.forEach((permission) => {
-      this.entityPermissionForms.push(
-        new FormGroup({
-          entity: new FormControl<string>(
-            { value: permission.entity, disabled: false },
-            Validators.required
-          ),
-          read: new FormControl<boolean>({ value: permission.read, disabled: !isAdmin }),
-          create: new FormControl<boolean>({ value: permission.create, disabled: !isAdmin }),
-          update: new FormControl<boolean>({ value: permission.update, disabled: !isAdmin }),
-          delete: new FormControl<boolean>({ value: permission.delete, disabled: !isAdmin }),
-        })
-      );
-    });
+    this._fetchUsers();
   }
 
-  public addPermission(): void {
-    this.entityPermissionForms.push(
-      new FormGroup({
-        entity: new FormControl<string>({ value: '', disabled: false }, Validators.required),
-        read: new FormControl<boolean>({ value: false, disabled: false }),
-        create: new FormControl<boolean>({ value: false, disabled: false }),
-        update: new FormControl<boolean>({ value: false, disabled: false }),
-        delete: new FormControl<boolean>({ value: false, disabled: true }),
-      })
-    );
+  private _fetchUsers(): void {
+    if (!this._usersState.isEmpty()) {
+      this.users = this._usersState.get();
+      this.isLoading = false;
+      return;
+    }
+
+    this.isLoading = true;
+    this.hasError = false;
+
+    this._usersService
+      .getAll()
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (users) => {
+          this.users = users;
+          this._usersState.set(users);
+          this.hasError = false;
+        },
+        error: () => (this.hasError = true),
+      });
   }
 
-  public deletePermission(index: number): void {
-    this.entityPermissionForms.splice(index, 1);
+  public copyToClipboard(value: string): void {
+    this._clipboard.copy(value);
+    this._toastService.open({ type: 'info', message: 'Id copiado para a área de transferência.' });
   }
 
-  public updatePermission(form: FormGroup<IPermissionForm>): void {
-    console.log(form.value);
+  public clearFilterTable(): void {
+    this._pTable?.clear();
   }
 
-  public salvar(): void {
-    const permissions = this.entityPermissionForms.map((form) => form.value);
-    console.log('permissions:', permissions);
+  public applyFilterGlobal(event: Event, value: string): void {
+    this._pTable?.filterGlobal((event.target as HTMLInputElement).value, value);
   }
 }

@@ -18,7 +18,7 @@ export class UserPrismaRepository implements IUsersRepository {
   }
 
   async findAll(): Promise<IUser[]> {
-    const users = await this._prismaService.user.findMany();
+    const users = await this._prismaService.user.findMany({ orderBy: { createdAt: 'desc' } });
     return users.map((user) => ({
       ...user,
       permissions: JSON.parse(user.permissions),

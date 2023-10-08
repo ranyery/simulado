@@ -1,46 +1,66 @@
-<section class="users">
-  <div>
-    <p-button
-      (onClick)="addPermission()"
-      label="Adicionar"
-      styleClass="p-button-sm p-button-success">
-    </p-button>
-    {{ " " }}
-    <p-button (onClick)="salvar()" label="Salvar" styleClass="p-button-sm p-button-warning">
-    </p-button>
+<section class="users" *ifCanRead>
+  <div class="users__header">
+    <div class="users__title">Lista de Usuários</div>
   </div>
-  <ng-container *ngFor="let form of entityPermissionForms; index as i">
-    <form class="form" [formGroup]="form">
-      <div class="value">{{ form.controls['entity'].value | titlecase }}</div>
-      <div class="value">
-        <span>READ</span>
-        <p-inputSwitch formControlName="read"></p-inputSwitch>
+  <p-table
+    #pTable
+    [value]="users"
+    [scrollable]="true"
+    [loading]="isLoading"
+    scrollHeight="calc(100vh - 202px)"
+    [resizableColumns]="true"
+    styleClass="p-datatable-gridlines"
+    [tableStyle]="{'min-width': '100%'}"
+    [globalFilterFields]="['id', 'email', 'roles', 'status', 'createdAt']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Pesquisar usuário..." />
+        </span>
       </div>
-      <div class="value">
-        <span>CREATE</span>
-        <p-inputSwitch formControlName="create"></p-inputSwitch>
-      </div>
-      <div class="value">
-        <span>UPDATE</span>
-        <p-inputSwitch formControlName="update"></p-inputSwitch>
-      </div>
-      <div class="value">
-        <span>DELETE</span>
-        <p-inputSwitch formControlName="delete"></p-inputSwitch>
-      </div>
-      <div class="value value--row">
-        <p-button
-          (onClick)="updatePermission(form)"
-          label="Atualizar"
-          styleClass="p-button-sm p-button-success">
-        </p-button>
-
-        <p-button
-          (onClick)="deletePermission(i)"
-          label="Deletar"
-          styleClass="p-button-sm p-button-danger">
-        </p-button>
-      </div>
-    </form>
-  </ng-container>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id" pResizableColumn>Id <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="email" style="width: 100%" pResizableColumn>
+          E-mail <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th pSortableColumn="roles" pResizableColumn>
+          Roles <p-sortIcon field="roles"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status" style="min-width: 162px" pResizableColumn>
+          Status <p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th pSortableColumn="createdAt" pResizableColumn>
+          Criado em <p-sortIcon field="createdAt"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td
+          class="overflow"
+          style="cursor: pointer"
+          pTooltip="Clique para copiar"
+          tooltipPosition="top"
+          tooltipEvent="hover"
+          (click)="copyToClipboard(user.id)">
+          {{ user.id | shorten: 8 : '...' }}
+        </td>
+        <td class="overflow">{{ user.email }}</td>
+        <td class="overflow flex gap-1">
+          <ng-container *ngFor="let role of user.roles">
+            <p-tag [severity]="role === 'ADMIN' ? 'success' : 'info'" [value]="role"></p-tag>
+          </ng-container>
+        </td>
+        <td class="overflow">{{ user.status }}</td>
+        <td class="overflow">{{ user.createdAt | date: 'dd/MM/yy HH:mm' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
 </section>
