@@ -21,3 +21,4 @@
 [ ] Se basear na interface do URI Online Judge para deixar a plataforma mais gameficada
 [ ] Salvar todos os emails no banco em minusculo
 [ ] Criar um script para sempre bater na api de tópicos e gerar um arquivo json estático atualizado dentro da pasta assets
+[ ] Criar diretiva canArchive

@@ -25,7 +25,6 @@ CREATE TABLE "users" (
     "email" STRING NOT NULL,
     "password" STRING NOT NULL,
     "roles" "EUserRole"[] DEFAULT ARRAY['USER']::"EUserRole"[],
-    "permissions" STRING NOT NULL DEFAULT '[]',
     "status" "EUserStatus" NOT NULL DEFAULT 'PENDING_CONFIRMATION',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -78,6 +77,3 @@ CREATE TABLE "questions" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
-
--- AddForeignKey
-ALTER TABLE "topics" ADD CONSTRAINT "topics_subjectId_fkey" FOREIGN KEY ("subjectId") REFERENCES "subjects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -96,10 +96,10 @@ enum EQuestionStatus {
 model Question {
   id              String                   @id @default(uuid())
   statement       String
-  answerOptions   String                   @default("[]") // ! Json[] => Por causa do cockroachdb
+  answerOptions   String                   @default("[]") // ! Json[] => Ainda não é suportado pelo Cockroachdb
   explanation     String                   @default("")
   type            EQuestionType            @default(MULTIPLE_CHOICE)
-  source          String // ! Json => Por causa do cockroachdb => Já pode ser atualizado
+  source          String // ! Json => Ainda não é suportado pelo Cockroachdb
   difficultyLevel EQuestionDifficultyLevel @default(MEDIUM)
   subjectId       String
   relatedTopicIds String[]                 @default([])
