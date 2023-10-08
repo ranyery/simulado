@@ -1,8 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-
 import { EUserRole } from '@libs/shared/domain';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+
 import { Auth } from '../../shared/decorators/auth.decorator';
-import { AuthGuard } from '../../shared/guards/auth.guard';
 import { CreateTopicRequestDTO } from './schemas/create-topic.schema';
 import { PartialTopicRequestDTO } from './schemas/partial-topic.schema';
 import { TopicResponseDTO } from './schemas/topic.schema';
@@ -45,7 +44,7 @@ export class TopicsController {
   }
 
   @Put('/:id')
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async updateById(@Param('id') id: string, @Body() data: PartialTopicRequestDTO) {
     const topic = await this._updateTopicByIdUseCase.execute(id, data);
     const topicDTO = TopicResponseDTO.parse(topic);
@@ -53,7 +52,7 @@ export class TopicsController {
   }
 
   @Delete('/:id')
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async deleteById(@Param('id') id: string): Promise<void> {
     await this._deleteTopicByIdUseCase.execute(id);
   }

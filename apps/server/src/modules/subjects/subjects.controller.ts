@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { EUserRole } from '@libs/shared/domain';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
-import { AuthGuard } from '../../shared/guards/auth.guard';
+import { Auth } from '../../shared/decorators/auth.decorator';
 import { CreateSubjectRequestDTO } from './schemas/create-subject.schema';
 import { PartialSubjectRequestDTO } from './schemas/partial-subject.schema';
 import { SubjectResponseDTO } from './schemas/subject.schema';
@@ -35,7 +36,7 @@ export class SubjectsController {
   }
 
   @Post()
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async create(@Body() data: CreateSubjectRequestDTO) {
     const subject = await this._createSubjectUseCase.execute(data);
     const subjectDTO = SubjectResponseDTO.parse(subject);
@@ -43,7 +44,7 @@ export class SubjectsController {
   }
 
   @Put('/:id')
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async updateById(@Param('id') id: string, @Body() data: PartialSubjectRequestDTO) {
     const subject = await this._updateSubjectByIdUseCase.execute(id, data);
     const subjectDTO = SubjectResponseDTO.parse(subject);
@@ -51,7 +52,7 @@ export class SubjectsController {
   }
 
   @Delete('/:id')
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async deleteById(@Param('id') id: string): Promise<void> {
     await this._deleteSubjectByIdUseCase.execute(id);
   }

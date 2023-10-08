@@ -1,6 +1,6 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Request } from '@nestjs/common';
 
-import { AuthGuard } from '../../shared/guards/auth.guard';
+import { Auth } from '../../shared/decorators/auth.decorator';
 import { LoginRequestDTO } from './schemas/login.schema';
 import { LoginUseCase } from './useCases/login.usecase';
 import { RefreshTokenUseCase } from './useCases/refresh-token.usecase';
@@ -21,7 +21,7 @@ export class AuthController {
   }
 
   @Post('/validate-token')
-  @UseGuards(AuthGuard)
+  @Auth()
   async validateToken(@Request() req: Record<string, any>) {
     const userId = req['user']['sub'] as string;
     await this._validateTokenUseCase.execute(userId);
@@ -29,7 +29,7 @@ export class AuthController {
   }
 
   @Post('/refresh-token')
-  @UseGuards(AuthGuard)
+  @Auth()
   async refreshToken(@Request() req: Record<string, any>) {
     const userId = req['user']['sub'] as string;
     const token = await this._refreshTokenUseCase.execute(userId);

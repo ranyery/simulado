@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { EUserRole } from '@libs/shared/domain';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
-import { AuthGuard } from '../../shared/guards/auth.guard';
+import { Auth } from '../../shared/decorators/auth.decorator';
 import { CreateQuestionRequestDTO } from './schemas/create-question.schema';
 import { PartialQuestionRequestDTO } from './schemas/partial-question.schema';
 import { CreateQuestionUseCase } from './useCases/create-question.usecase';
@@ -31,19 +32,19 @@ export class QuestionsController {
   }
 
   @Post()
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async create(@Body() data: CreateQuestionRequestDTO) {
     return await this._createQuestionUseCase.execute(data);
   }
 
   @Put('/:id')
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async updateById(@Param('id') id: string, @Body() data: PartialQuestionRequestDTO) {
     return await this._updateQuestionByIdUseCase.execute(id, data);
   }
 
   @Delete('/:id')
-  @UseGuards(AuthGuard)
+  @Auth(EUserRole.ADMIN)
   async deleteById(@Param('id') id: string): Promise<void> {
     await this._deleteQuestionByIdUseCase.execute(id);
   }
