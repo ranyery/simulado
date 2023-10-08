@@ -45,15 +45,16 @@ export interface IImage {
 }
 
 export interface ISource {
-  institution: Pick<IInstitution, 'id' | 'name'>;
-  year: number;
+  exam: Pick<IExam, 'id' | 'acronym'>;
+  year?: number;
 }
 
-export interface IInstitution {
+export interface IExam {
   id: string;
-  name: string; // Nome da instituição
-  website: string; // Site da instituição
-  description: string; // Descrição ou resumo da instituição
-  foundedYear: number; // Ano de fundação da instituição
-  logo: string; // Link para a imagem do logotipo da instituição
+  acronym: string; // Sigla do Exame => FATEC, FUVEST, UFABC
+  fullName: string; // Nome completo da instituição
+  // website: string; // Site da instituição
+  // description: string; // Descrição ou resumo da instituição
+  // foundedYear: number; // Ano de fundação da instituição
+  // logo: string; // Link para a imagem do logotipo da instituição
 }

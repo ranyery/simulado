@@ -20,11 +20,11 @@ export const QuestionSchema = z.object({
   explanation: z.string().trim().optional().default(''),
   type: z.nativeEnum(EQuestionType),
   source: z.object({
-    institution: z.object({
+    exam: z.object({
       id: z.string().trim().uuid(),
-      name: z.string().trim(),
+      acronym: z.string().trim(),
     }),
-    year: z.number().positive(),
+    year: z.number().positive().optional(),
   }),
   difficultyLevel: z.nativeEnum(EQuestionDifficultyLevel),
   subjectId: z.string().trim().uuid(),
