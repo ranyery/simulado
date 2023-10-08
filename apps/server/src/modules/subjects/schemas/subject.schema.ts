@@ -5,7 +5,7 @@ import { TopicSchema } from '../../topics/schemas/topic.schema';
 export const SubjectSchema = z.object({
   id: z.string().trim().uuid(),
   name: z.string().trim(),
-  description: z.string().trim().optional().nullable(),
+  description: z.string().trim().optional().default(''),
   topics: z.array(TopicSchema),
   status: z.nativeEnum(ESubjectStatus),
   createdAt: z.date(),

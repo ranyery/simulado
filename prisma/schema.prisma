@@ -48,7 +48,7 @@ enum ESubjectStatus {
 model Subject {
   id          String         @id @default(uuid())
   name        String
-  description String?
+  description String         @default("")
   status      ESubjectStatus @default(PENDING_REVIEW)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @default(now())
@@ -67,7 +67,7 @@ enum ETopicStatus {
 model Topic {
   id          String       @id @default(uuid())
   name        String
-  description String?
+  description String       @default("")
   status      ETopicStatus @default(PENDING_REVIEW)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
@@ -100,7 +100,7 @@ model Question {
   id              String                   @id @default(uuid())
   statement       String
   answerOptions   String                   @default("[]") // ! Json[] => Por causa do cockroachdb
-  explanation     String?
+  explanation     String                   @default("")
   type            EQuestionType            @default(MULTIPLE_CHOICE)
   source          String // ! Json => Por causa do cockroachdb => Já pode ser atualizado
   difficultyLevel EQuestionDifficultyLevel @default(MEDIUM)

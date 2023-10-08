@@ -1,7 +1,7 @@
 export interface ITopic {
   id: string;
   name: string;
-  description?: string | null; // Descrição sobre o tópico para SEO
+  description?: string; // Descrição sobre o tópico para SEO
   subjectId: string; // ISubject;
   status: string | ETopicStatus; // Indica se tópico está ativo, inativo ou pendente para revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.

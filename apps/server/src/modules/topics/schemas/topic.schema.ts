@@ -4,7 +4,7 @@ import { z } from 'nestjs-zod/z';
 export const TopicSchema = z.object({
   id: z.string().trim().uuid(),
   name: z.string().trim(),
-  description: z.string().trim().optional().nullable(),
+  description: z.string().trim().default(''),
   status: z.nativeEnum(ETopicStatus),
   createdAt: z.date(),
   updatedAt: z.date(),

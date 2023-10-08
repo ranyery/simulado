@@ -4,7 +4,7 @@ export interface IQuestion {
   id: string;
   statement: string; // Enunciado => A pergunta ou problema apresentado
   answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
-  explanation?: string | null; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
+  explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
   type: string | EQuestionType;
   source: ISource; // Exemplo (ENEM 2022)
   difficultyLevel: string | EQuestionDifficultyLevel;

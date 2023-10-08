@@ -17,7 +17,7 @@ export const QuestionSchema = z.object({
     .array()
     .min(2)
     .max(5),
-  explanation: z.string().trim().optional().nullable(),
+  explanation: z.string().trim().optional().default(''),
   type: z.nativeEnum(EQuestionType),
   source: z.object({
     institution: z.object({
