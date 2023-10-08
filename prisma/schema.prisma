@@ -26,14 +26,13 @@ enum EUserStatus {
 
 // npx prisma migrate dev --name create-users => 24/09/2023 08:21:45
 model User {
-  id          String      @id @default(uuid())
-  email       String      @unique
-  password    String
-  roles       EUserRole[] @default([USER])
-  permissions String      @default("[]") // ! Json => Por causa do cockroachdb
-  status      EUserStatus @default(PENDING_CONFIRMATION)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @default(now())
+  id        String      @id @default(uuid())
+  email     String      @unique
+  password  String
+  roles     EUserRole[] @default([USER])
+  status    EUserStatus @default(PENDING_CONFIRMATION)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @default(now())
 
   @@map("users")
 }
@@ -52,7 +51,6 @@ model Subject {
   status      ESubjectStatus @default(PENDING_REVIEW)
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @default(now())
-  topics      Topic[]
 
   @@map("subjects")
 }
@@ -72,7 +70,6 @@ model Topic {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @default(now())
   subjectId   String
-  subject     Subject      @relation(fields: [subjectId], references: [id])
 
   @@map("topics")
 }

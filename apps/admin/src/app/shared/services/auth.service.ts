@@ -9,7 +9,6 @@ import { NotImplemented } from '../decorators/not-implemented.decorator';
 import { ILoginResponse } from '../interfaces/login.interface';
 import { JwtService } from './jwt.service';
 import { SessionStorageService } from './session-storage.service';
-import { UserPermissionsService } from './user-permissions.service';
 import { UserRolesService } from './user-roles.service';
 
 @Injectable({ providedIn: 'root' })
@@ -17,7 +16,6 @@ export class AuthService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _router = inject(Router);
   private readonly _jwtService = inject(JwtService);
-  private readonly _userPermissionsService = inject(UserPermissionsService);
   private readonly _userRolesService = inject(UserRolesService);
   private readonly _sessionStorageService = inject(SessionStorageService);
 
@@ -45,7 +43,6 @@ export class AuthService {
           this.token = access_token;
           this._isLoggedIn = true;
           this._userRolesService.updateRoles();
-          this._userPermissionsService.updatePermissions();
         })
       );
   }
@@ -61,7 +58,6 @@ export class AuthService {
       map(() => {
         this._isLoggedIn = true;
         this._userRolesService.updateRoles();
-        this._userPermissionsService.updatePermissions();
         return true;
       }),
       catchError(() => {

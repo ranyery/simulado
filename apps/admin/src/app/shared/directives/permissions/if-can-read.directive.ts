@@ -1,10 +1,9 @@
 import { NgIf } from '@angular/common';
 import { Directive, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { IRouteData } from '../../interfaces/route-data.interface';
+import { allowedRoles } from '../../../private/private-routing.module';
 import { AuthService } from '../../services/auth.service';
-import { UserPermissionsService } from '../../services/user-permissions.service';
+import { UserRolesService } from '../../services/user-roles.service';
 
 @Directive({
   selector: '[ifCanRead]',
@@ -13,12 +12,10 @@ import { UserPermissionsService } from '../../services/user-permissions.service'
 export class IfCanReadDirective {
   private readonly _ngIfDirective = inject(NgIf);
   private readonly _authService = inject(AuthService);
-  private readonly _userPermissionsService = inject(UserPermissionsService);
-  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _userRolesService = inject(UserRolesService);
 
   constructor() {
-    const { entity } = this._activatedRoute.snapshot.data as IRouteData;
-    const canRead = this._userPermissionsService.canRead(entity);
+    const canRead = this._userRolesService.hasAtLeastOneRole(allowedRoles);
 
     if (!canRead) {
       this._authService.logout();

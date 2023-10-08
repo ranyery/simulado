@@ -1,9 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Directive, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-import { IRouteData } from '../../interfaces/route-data.interface';
-import { UserPermissionsService } from '../../services/user-permissions.service';
+import { allowedRoles } from '../../../private/private-routing.module';
+import { UserRolesService } from '../../services/user-roles.service';
 
 @Directive({
   selector: '[ifCanCreate]',
@@ -11,11 +10,9 @@ import { UserPermissionsService } from '../../services/user-permissions.service'
 })
 export class IfCanCreateDirective {
   private readonly _ngIfDirective = inject(NgIf);
-  private readonly _activatedRoute = inject(ActivatedRoute);
-  private readonly _userPermissionsService = inject(UserPermissionsService);
+  private readonly _userRolesService = inject(UserRolesService);
 
   constructor() {
-    const { entity } = this._activatedRoute.snapshot.data as IRouteData;
-    this._ngIfDirective.ngIf = this._userPermissionsService.canCreate(entity);
+    this._ngIfDirective.ngIf = this._userRolesService.hasAtLeastOneRole(allowedRoles);
   }
 }

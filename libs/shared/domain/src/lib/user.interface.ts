@@ -3,7 +3,6 @@ export interface IUser {
   email: string;
   password: string; // Criptografada
   roles: string[] | EUserRole[]; // Entender pq tem 'string[]' aqui
-  permissions: IEntityPermission[];
   status: string | EUserStatus;
   createdAt: string | Date;
   updatedAt: string | Date;
@@ -15,15 +14,6 @@ export enum EUserRole {
   ADMIN = 'ADMIN', // Pode fazer tudo no sistema
 }
 
-// Entidade serve exclusivamente para a área administrativa, assim é possível limitar o acesso ao que pode ser feito
-export interface IEntityPermission {
-  entity: string; // No da entidade no banco de dados
-  read: boolean; // Permissão para visualizar informações de [Matérias, Tópicos, Perguntas, etc...]
-  create: boolean; // Permissão para criar novos(as) [Matérias, Tópicos, Perguntas, etc...]
-  update: boolean; // Permissão para editar informações de [Matérias, Tópicos, Perguntas, etc...]
-  delete: boolean; // Permissão para excluir [Matérias, Tópicos, Perguntas, etc...]
-}
-
 export enum EUserStatus {
   ACTIVE = 'ACTIVE', // Conta ativa e totalmente funcional.
   PENDING_CONFIRMATION = 'PENDING_CONFIRMATION', // Aguardando confirmação de e-mail.
@@ -32,7 +22,7 @@ export enum EUserStatus {
   CLOSED = 'CLOSED', // Conta encerrada permanentemente pelo usuário.
 }
 
-export interface IConfirmationCode {
+interface IConfirmationCode {
   id: string; // Um identificador único para a confirmação de e-mail.
   userId: string; // IUser => O ID do usuário associado à confirmação de e-mail.
   code: string; // O código de confirmação enviado por e-mail.
@@ -42,7 +32,7 @@ export interface IConfirmationCode {
 }
 
 // Interface base para quando for adicionar a funcionalidade/página de perfil do usuário
-export interface IUserProfile extends IUser {
+interface IUserProfile extends IUser {
   id: string; // Pode ser uma entidade separada do IUser, portanto precisa de um Id
   username: string;
   fullName: string;
@@ -61,23 +51,23 @@ export interface IUserProfile extends IUser {
   accessHistory: IAccessHistory[]; // Histórico de Acessos
 }
 
-export enum ECountry {
+enum ECountry {
   USA = 'USA',
   BRAZIL = 'Brazil',
 }
 
-export enum ELanguage {
+enum ELanguage {
   ENGLISH = 'ENGLISH',
   PORTUGUESE = 'PORTUGUESE',
 }
 
-export enum ESubject {
+enum ESubject {
   MATH = 'MATH',
   ENGLISH = 'ENGLISH',
   SCIENCE = 'SCIENCE',
 }
 
-export interface IUserAddress {
+interface IUserAddress {
   street: string;
   number: string;
   city: string;
@@ -85,7 +75,7 @@ export interface IUserAddress {
   zipCode: string;
 }
 
-export interface IUserSocialMedia {
+interface IUserSocialMedia {
   linkedIn?: string;
   twitter?: string;
   facebook?: string;
@@ -93,18 +83,18 @@ export interface IUserSocialMedia {
   youtube?: string;
 }
 
-export interface IPracticeTestHistory {
+interface IPracticeTestHistory {
   id: string; // ID do simulado realizado
   score: number; // Pontuação obtida no simulado
   completionDate: string | Date; // Data de conclusão do simulado
   practiceTestId: string; // IPracticeTest
 }
 
-export interface IAccessHistory {
+interface IAccessHistory {
   loginDate: string | Date; // Data e hora do último login do usuário
 }
 
-export interface IEducationInfo {
+interface IEducationInfo {
   degree: string; // Grau acadêmico (por exemplo, graduação, pós-graduação)
   fieldOfStudy: string; // Área de estudo
   university: string; // Universidade ou instituição de ensino

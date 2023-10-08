@@ -11,7 +11,6 @@ export class CreateUserRequestDTO extends createZodDto(CreateUserRequestSchema) 
 export const CreateUserResponseDTO = UserSchema.omit({
   password: true,
   roles: true,
-  permissions: true,
   createdAt: true,
   updatedAt: true,
 });
