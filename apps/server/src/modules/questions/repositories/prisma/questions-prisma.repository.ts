@@ -18,7 +18,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
         ...question,
         answerOptions: JSON.parse(question.answerOptions),
         source: JSON.parse(question.source),
-      } as IQuestion;
+      } satisfies IQuestion;
     });
   }
 
@@ -33,7 +33,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
       ...question,
       answerOptions: JSON.parse(question.answerOptions),
       source: JSON.parse(question.source),
-    } as IQuestion;
+    } satisfies IQuestion;
   }
 
   async create(data: CreateQuestionRequestDTO): Promise<IQuestion> {
@@ -50,7 +50,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
       ...question,
       answerOptions: JSON.parse(question.answerOptions),
       source: JSON.parse(question.source),
-    } as IQuestion;
+    } satisfies IQuestion;
   }
 
   async updateById(id: string, data: PartialQuestionRequestDTO): Promise<IQuestion | null> {
@@ -74,7 +74,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
       ...question,
       answerOptions: JSON.parse(question.answerOptions),
       source: JSON.parse(question.source),
-    } as IQuestion;
+    } satisfies IQuestion;
   }
 
   async deleteById(id: string): Promise<void> {

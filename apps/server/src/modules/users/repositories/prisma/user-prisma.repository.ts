@@ -14,7 +14,15 @@ export class UserPrismaRepository implements IUsersRepository {
     return {
       ...user,
       permissions: JSON.parse(user.permissions),
-    };
+    } satisfies IUser;
+  }
+
+  async findAll(): Promise<IUser[]> {
+    const users = await this._prismaService.user.findMany();
+    return users.map((user) => ({
+      ...user,
+      permissions: JSON.parse(user.permissions),
+    })) satisfies IUser[];
   }
 
   async findById(id: string): Promise<IUser | null> {
@@ -24,8 +32,8 @@ export class UserPrismaRepository implements IUsersRepository {
 
     return {
       ...user,
-      permissions: JSON.parse(user?.permissions ?? '[]'),
-    } as IUser;
+      permissions: JSON.parse(user.permissions),
+    } satisfies IUser;
   }
 
   async findByEmail(email: string): Promise<IUser | null> {
@@ -35,7 +43,7 @@ export class UserPrismaRepository implements IUsersRepository {
 
     return {
       ...user,
-      permissions: JSON.parse(user?.permissions ?? '[]'),
-    } as IUser;
+      permissions: JSON.parse(user.permissions),
+    } satisfies IUser;
   }
 }

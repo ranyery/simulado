@@ -10,7 +10,7 @@ export class DeleteSubjectByIdUseCase {
     try {
       await this._subjectsRepository.deleteById(id);
     } catch (error: any) {
-      if (error?.code === 'P2003') {
+      if (error.code === 'P2003') {
         throw new HttpException(
           'Deletion of this entity is not possible due to its associations with other entities.',
           HttpStatus.BAD_REQUEST
