@@ -6,7 +6,7 @@ import { LoginUseCase } from './useCases/login.usecase';
 import { RefreshTokenUseCase } from './useCases/refresh-token.usecase';
 import { ValidateTokenUseCase } from './useCases/validate-token.usecase';
 
-@Controller()
+@Controller('/auth')
 export class AuthController {
   constructor(
     private readonly _loginUseCase: LoginUseCase,

@@ -21,6 +21,8 @@ export class AuthService {
   private readonly _userRolesService = inject(UserRolesService);
   private readonly _sessionStorageService = inject(SessionStorageService);
 
+  private readonly _baseUrl = `${environment.apiUrl}/auth`;
+
   private _isLoggedIn: boolean = false;
 
   public get token(): string {
@@ -33,7 +35,7 @@ export class AuthService {
 
   public login(email: string, password: string): Observable<ILoginResponse> {
     return this._httpClient
-      .post<ILoginResponse>(`${environment.apiUrl}/login`, { email, password })
+      .post<ILoginResponse>(`${this._baseUrl}/login`, { email, password })
       .pipe(
         catchError((httpError: HttpErrorResponse) => {
           this.logout();
@@ -55,7 +57,7 @@ export class AuthService {
 
     if (this._isLoggedIn) return of(true);
 
-    return this._httpClient.post<void>(`${environment.apiUrl}/validate-token`, null).pipe(
+    return this._httpClient.post<void>(`${this._baseUrl}/validate-token`, null).pipe(
       map(() => {
         this._isLoggedIn = true;
         this._userRolesService.updateRoles();
