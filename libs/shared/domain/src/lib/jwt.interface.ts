@@ -1,4 +1,4 @@
-import { EUserRole, IEntityPermission } from '@libs/shared/domain';
+import { EUserRole, IEntityPermission } from './user.interface';
 
 export interface IJwt {
   sub: string;

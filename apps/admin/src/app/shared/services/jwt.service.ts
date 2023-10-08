@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
+import { IJwt } from '@libs/shared/domain';
 import jwtDecode from 'jwt-decode';
 
 import { ESessionStorage } from '../constants/session-storage.enum';
-import { IJwt } from '../interfaces/jwt.interface';
 import { SessionStorageService } from './session-storage.service';
 
 @Injectable({ providedIn: 'root' })
