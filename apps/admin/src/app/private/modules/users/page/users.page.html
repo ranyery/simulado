@@ -11,7 +11,7 @@
     [resizableColumns]="true"
     styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '100%'}"
-    [globalFilterFields]="['id', 'email', 'roles', 'status', 'createdAt']">
+    [globalFilterFields]="['id', 'email', 'roles', 'permissions', 'status', 'createdAt']">
     <ng-template pTemplate="caption">
       <div class="flex">
         <span class="p-input-icon-left ml-auto">
@@ -32,6 +32,9 @@
         </th>
         <th pSortableColumn="roles" pResizableColumn>
           Roles <p-sortIcon field="roles"></p-sortIcon>
+        </th>
+        <th pSortableColumn="permissions" pResizableColumn>
+          Permissions <p-sortIcon field="permissions"></p-sortIcon>
         </th>
         <th pSortableColumn="status" style="min-width: 162px" pResizableColumn>
           Status <p-sortIcon field="status"></p-sortIcon>
@@ -56,6 +59,11 @@
         <td class="overflow flex gap-1">
           <ng-container *ngFor="let role of user.roles">
             <p-tag [severity]="role === 'ADMIN' ? 'success' : 'info'" [value]="role"></p-tag>
+          </ng-container>
+        </td>
+        <td class="overflow">
+          <ng-container *ngFor="let permission of user.permissions">
+            {{ permission | pick: 'entity' | values }}
           </ng-container>
         </td>
         <td class="overflow">{{ user.status }}</td>

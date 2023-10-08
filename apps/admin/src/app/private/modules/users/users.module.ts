@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgStringPipesModule } from 'ngx-pipes';
+import { NgObjectPipesModule, NgStringPipesModule } from 'ngx-pipes';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -19,6 +19,7 @@ import { UsersRoutingModule } from './users-routing.module';
     InputTextModule,
     TooltipModule,
     NgStringPipesModule,
+    NgObjectPipesModule,
     PermissionsDirectivesModule,
     TagModule,
   ],
