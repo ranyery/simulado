@@ -8,7 +8,7 @@ import { allowedRoles } from '../private-routing.module';
 interface IMenuItem {
   icon: string;
   label: string;
-  route: string | EEntity;
+  route: EEntity;
   isEnabled: boolean;
 }
 
@@ -25,13 +25,19 @@ export class ShellPage implements OnInit {
     {
       label: 'Dashboard',
       icon: 'pi-chart-bar',
-      route: 'dashboard',
+      route: EEntity.DASHBOARD,
       isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
     },
     {
       label: 'Usuários',
       icon: 'pi-users',
       route: EEntity.USERS,
+      isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
+    },
+    {
+      label: 'Questões',
+      icon: 'pi-file',
+      route: EEntity.QUESTIONS,
       isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
     },
     {
