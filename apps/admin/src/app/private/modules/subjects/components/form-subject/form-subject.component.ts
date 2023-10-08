@@ -4,6 +4,7 @@ import { ESubjectStatus, ISubject } from '@libs/shared/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { UserRolesService } from '../../../../../shared/services/user-roles.service';
 import { UtilsService } from '../../../../../shared/services/utils.service';
 import { ESubjectActions } from '../../page/subjects.page';
 
@@ -28,6 +29,7 @@ export class FormSubjectComponent implements OnInit {
   private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _utilsService = inject(UtilsService);
+  private readonly _userRolesService = inject(UserRolesService);
 
   private _actionType?: ESubjectActions;
 
@@ -40,7 +42,10 @@ export class FormSubjectComponent implements OnInit {
   public form = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string>('', [Validators.required]),
-    status: new FormControl<ISubjectStatus | undefined>(this.subjectStatus[0]),
+    status: new FormControl<ISubjectStatus | undefined>({
+      value: this.subjectStatus.find((subject) => subject.name === ESubjectStatus.PENDING_REVIEW),
+      disabled: !this._userRolesService.isAdmin(),
+    }),
     description: new FormControl<string | undefined>(undefined),
   });
 

@@ -4,6 +4,7 @@ import { ETopicStatus, ISubject, ITopic } from '@libs/shared/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { UserRolesService } from '../../../../../shared/services/user-roles.service';
 import { UtilsService } from '../../../../../shared/services/utils.service';
 import { ETopicActions } from '../../page/topics.page';
 
@@ -34,6 +35,7 @@ export class FormTopicComponent implements OnInit {
   private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _utilsService = inject(UtilsService);
+  private readonly _userRolesService = inject(UserRolesService);
 
   private _actionType?: ETopicActions;
 
@@ -49,7 +51,10 @@ export class FormTopicComponent implements OnInit {
     id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string | undefined>(undefined),
-    status: new FormControl<ITopicStatus | undefined>(this.topicStatus[0]),
+    status: new FormControl<ITopicStatus | undefined>({
+      value: this.topicStatus.find((topic) => topic.name === ETopicStatus.PENDING_REVIEW),
+      disabled: !this._userRolesService.isAdmin(),
+    }),
     subjectId: new FormControl<ISubjectOption | undefined>(undefined, [Validators.required]),
   });
 
