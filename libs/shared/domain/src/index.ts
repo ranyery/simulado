@@ -1,5 +1,5 @@
 export * from './lib/entity.interface';
-export * from './lib/exam.interface';
+export * from './lib/institute.interface';
 export * from './lib/jwt.interface';
 export * from './lib/practice-test.interface';
 export * from './lib/question.interface';

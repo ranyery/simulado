@@ -68,8 +68,8 @@ model Topic {
   @@map("topics")
 }
 
-// npx prisma migrate dev --name create-exams => 09/10/2023 03:53:16
-model Exam {
+// npx prisma migrate dev --name create-institutes => 09/10/2023 03:53:16
+model Institute {
   id        String        @id @default(cuid())
   acronym   String
   name      String        @default("")
@@ -77,7 +77,7 @@ model Exam {
   createdAt DateTime      @default(now())
   updatedAt DateTime      @default(now())
 
-  @@map("exams")
+  @@map("institutes")
 }
 
 enum EQuestionDifficultyLevel {

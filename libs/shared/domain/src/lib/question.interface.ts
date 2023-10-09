@@ -6,7 +6,7 @@ export interface IQuestion {
   answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
   explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
   type: string | EQuestionType;
-  examId: string; // Referência para o Identificador do Exame => ENEM, FUVEST, FATEC
+  examId: string; // Referência para o Identificador do Instituto => ENEM, FUVEST, FATEC
   year?: number;
   difficultyLevel: string | EQuestionDifficultyLevel;
   subjectId: string; // ISubject => A matéria à qual a questão está relacionada (matemática, história, etc.)

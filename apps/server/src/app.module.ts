@@ -4,7 +4,7 @@ import { ZodValidationPipe } from 'nestjs-zod';
 
 import { PrismaModule } from './infra/database/prisma.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { ExamsModule } from './modules/exams/exams.module';
+import { InstitutesModule } from './modules/institutes/institutes.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { SubjectsModule } from './modules/subjects/subjects.module';
 import { TopicsModule } from './modules/topics/topics.module';
@@ -18,7 +18,7 @@ import { UsersModule } from './modules/users/users.module';
     SubjectsModule,
     TopicsModule,
     QuestionsModule,
-    ExamsModule,
+    InstitutesModule,
   ],
   controllers: [],
   providers: [

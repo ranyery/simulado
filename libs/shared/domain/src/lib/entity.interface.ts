@@ -4,5 +4,5 @@ export const enum EEntity {
   SUBJECTS = 'subjects',
   TOPICS = 'topics',
   QUESTIONS = 'questions',
-  EXAMS = 'exams',
+  INSTITUTES = 'institutes',
 }
