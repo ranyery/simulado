@@ -6,11 +6,11 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
 
-import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
-import { ToastService } from '../../../../shared/services/toast.service';
-import { FormQuestionComponent } from '../components/form-question/form-question.component';
-import { QuestionsService } from '../services/questions.service';
-import { QuestionsState } from '../state/questions.state';
+import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { ToastService } from '../../../../../shared/services/toast.service';
+import { FormQuestionComponent } from '../../components/form-question/form-question.component';
+import { QuestionsService } from '../../services/questions.service';
+import { QuestionsState } from '../../state/questions.state';
 
 export const enum EQuestionActions {
   CREATE = 'CREATE',
@@ -18,11 +18,11 @@ export const enum EQuestionActions {
 }
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.page.html',
-  styleUrls: ['./questions.page.scss'],
+  selector: 'app-question-list',
+  templateUrl: './question-list.page.html',
+  styleUrls: ['./question-list.page.scss'],
 })
-export class QuestionsPage implements OnInit {
+export class QuestionListPage implements OnInit {
   private _dynamicDialogRef = inject(DynamicDialogRef);
   private readonly _dialogService = inject(DialogService);
   private readonly _toastService = inject(ToastService);

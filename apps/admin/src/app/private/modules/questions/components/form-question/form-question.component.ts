@@ -14,7 +14,7 @@ import { UtilsService } from '../../../../../shared/services/utils.service';
 import { ExamsState } from '../../../exams/state/exams.state';
 import { SubjectsState } from '../../../subjects/state/subjects.state';
 import { TopicsState } from '../../../topics/state/topics.state';
-import { EQuestionActions } from '../../page/questions.page';
+import { EQuestionActions } from '../../pages/question-list/question-list.page';
 
 interface IQuestionStatus {
   name: string;
