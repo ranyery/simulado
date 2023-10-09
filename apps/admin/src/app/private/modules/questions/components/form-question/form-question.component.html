@@ -23,85 +23,86 @@
       <input pInputText id="explanation" formControlName="explanation" />
     </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Tipo</label>
-      <p-dropdown
-        formControlName="type"
-        [options]="questionTypes"
-        optionLabel="name"
-        styleClass="w-full"
-        appendTo="body">
-      </p-dropdown>
-    </div>
+    <div class="grid-row">
+      <div class="flex flex-column gap-1 subject">
+        <label class="label">Matéria</label>
+        <p-dropdown
+          styleClass="w-full"
+          formControlName="subjectId"
+          [options]="subjectOptions"
+          optionLabel="name"
+          appendTo="body">
+        </p-dropdown>
+      </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Instituição / Exame</label>
-      <span>
-        {{ formQuestion.controls['examId'] }}
-      </span>
-    </div>
+      <div class="flex flex-column gap-1 topics">
+        <label class="label">Tópicos</label>
+        <p-multiSelect
+          styleClass="w-full"
+          formControlName="relatedTopicIds"
+          [options]="relatedTopicOptions"
+          optionLabel="name"
+          display="chip">
+        </p-multiSelect>
+      </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Ano</label>
-      <p-inputNumber formControlName="year" [min]="0"></p-inputNumber>
-    </div>
+      <div class="flex flex-column gap-1 difficultyLevel">
+        <label class="label">Dificuldade</label>
+        <p-dropdown
+          styleClass="w-full"
+          formControlName="difficultyLevel"
+          [options]="questionDifficultyLevels"
+          optionLabel="name"
+          appendTo="body">
+        </p-dropdown>
+      </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Dificuldade</label>
-      <p-dropdown
-        formControlName="difficultyLevel"
-        [options]="questionDifficultyLevels"
-        optionLabel="name"
-        styleClass="w-full"
-        appendTo="body">
-      </p-dropdown>
-    </div>
+      <div class="flex flex-column gap-1 exam">
+        <label class="label">Exame / Instituto</label>
+        <span>
+          {{ formQuestion.controls['examId'] }}
+        </span>
+      </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Matéria</label>
-      <p-dropdown
-        formControlName="subjectId"
-        [options]="subjectOptions"
-        optionLabel="name"
-        styleClass="w-full"
-        appendTo="body">
-      </p-dropdown>
-    </div>
+      <div class="flex flex-column gap-1 year">
+        <label class="label">Ano</label>
+        <p-inputNumber styleClass="w-full" formControlName="year" [min]="0"></p-inputNumber>
+      </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Tópicos</label>
-      <p-multiSelect
-        [options]="relatedTopicOptions"
-        formControlName="relatedTopicIds"
-        optionLabel="name"
-        styleClass="w-full"
-        display="chip"
-        [filter]="true">
-      </p-multiSelect>
-    </div>
+      <div class="flex flex-column gap-1 type">
+        <label class="label">Tipo</label>
+        <p-dropdown
+          styleClass="w-full"
+          formControlName="type"
+          [options]="questionTypes"
+          optionLabel="name"
+          appendTo="body">
+        </p-dropdown>
+      </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label">Status</label>
-      <p-dropdown
-        formControlName="status"
-        [options]="questionStatus"
-        optionLabel="name"
-        styleClass="w-full"
-        appendTo="body">
-      </p-dropdown>
+      <div class="flex flex-column gap-1 status">
+        <label class="label">Status</label>
+        <p-dropdown
+          styleClass="w-full"
+          formControlName="status"
+          [options]="questionStatus"
+          optionLabel="name"
+          appendTo="body">
+        </p-dropdown>
+      </div>
     </div>
 
     <div class="form-question__actions">
       <p-button
         (onClick)="cancel()"
-        label="Cancelar"
-        styleClass="w-full p-button-sm p-button-warning">
+        styleClass="w-full p-button-sm p-button-warning"
+        label="Cancelar">
       </p-button>
       <p-button
         (onClick)="confirm()"
+        styleClass="w-full p-button-sm p-button-success"
         [disabled]="formQuestion.invalid"
-        label="Confirmar"
-        styleClass="w-full p-button-sm p-button-success">
+        label="Confirmar">
       </p-button>
     </div>
   </form>

@@ -1,13 +1,12 @@
 .form-question {
   display: flex;
-  width: 400px;
+  width: 800px;
   flex-direction: column;
-  gap: 32px;
 
   &__form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 
     .label {
       font-weight: bold;
@@ -23,6 +22,43 @@
       align-items: center;
       gap: 8px;
       grid-template-columns: 1fr auto;
+    }
+
+    .grid-row {
+      display: grid;
+      gap: 16px;
+      grid-template-areas:
+        'subject  topics  topics  difficultyLevel'
+        'exam     year    type    status';
+      grid-template-columns: repeat(4, 1fr);
+
+      .subject {
+        grid-area: subject;
+      }
+
+      .topics {
+        grid-area: topics;
+      }
+
+      .difficultyLevel {
+        grid-area: difficultyLevel;
+      }
+
+      .exam {
+        grid-area: exam;
+      }
+
+      .year {
+        grid-area: year;
+      }
+
+      .type {
+        grid-area: type;
+      }
+
+      .status {
+        grid-area: status;
+      }
     }
   }
 

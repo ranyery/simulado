@@ -86,7 +86,14 @@ export class FormQuestionComponent implements OnInit {
   public formQuestion = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
     statement: new FormControl<string>('', Validators.required),
-    answerOptions: new FormArray<FormGroup>([]),
+    answerOptions: new FormArray<FormGroup>(
+      [].constructor(5).fill(
+        new FormGroup({
+          text: new FormControl<string>('', Validators.required),
+          isCorrect: new FormControl<boolean>(false),
+        })
+      )
+    ),
     explanation: new FormControl<string | undefined>(undefined),
     type: new FormControl<IQuestionType | string | undefined>({
       value: this.questionTypes.find((question) => question.name === EQuestionType.MULTIPLE_CHOICE),
@@ -147,6 +154,8 @@ export class FormQuestionComponent implements OnInit {
       this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
 
+      // Necessário limpar
+      this.formQuestion.controls['answerOptions'].clear();
       question.answerOptions.forEach((option) => {
         const formGroup = new FormGroup({
           text: new FormControl<string>(option.text, Validators.required),

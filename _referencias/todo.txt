@@ -22,3 +22,10 @@
 [ ] Salvar todos os emails no banco em minusculo
 [ ] Criar um script para sempre bater na api de tópicos e gerar um arquivo json estático atualizado dentro da pasta assets
 [ ] Criar diretiva canArchive
+[ ] remover htmlFor dos formulários, pois não precisam ser acessíveis
+[ ] adicionar endpoints de roles
+[ ] adicionar endpoints de permissions
+[ ] Criar entidade Instituição
+[ ] Validar possibilidade de simplificar ainda mais a entidade question
+[ ] remover o admin do ar
+[ ] simplificar relacionamentos das entidades => pode ser algo mais simples e buscar local de acordo com o id mesmo
