@@ -66,7 +66,7 @@ export class FormTopicComponent implements OnInit {
     this._actionType = actionType;
 
     if (actionType === ETopicActions.CREATE) {
-      this.form.controls['subjectId'].setValue(this.subjectOptions[0], { emitEvent: false });
+      this.form.controls['subjectId'].setValue(this.subjectOptions[0]);
       return;
     }
 
@@ -74,11 +74,11 @@ export class FormTopicComponent implements OnInit {
       const topicStatus = this.topicStatus.find((s) => s.code === topic.status);
       const selectedSubject = this.subjectOptions.find((s) => s.code === topic.subjectId);
 
-      this.form.controls['id'].setValue(topic.id, { emitEvent: false });
-      this.form.controls['name'].setValue(topic.name, { emitEvent: false });
-      this.form.controls['description'].setValue(topic.description, { emitEvent: false });
-      this.form.controls['status'].setValue(topicStatus, { emitEvent: false });
-      this.form.controls['subjectId'].setValue(selectedSubject, { emitEvent: false });
+      this.form.controls['id'].setValue(topic.id);
+      this.form.controls['name'].setValue(topic.name);
+      this.form.controls['description'].setValue(topic.description);
+      this.form.controls['status'].setValue(topicStatus);
+      this.form.controls['subjectId'].setValue(selectedSubject);
     }
   }
 

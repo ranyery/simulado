@@ -1,12 +1,87 @@
 <div class="form-question">
-  <form class="form-question__form" [formGroup]="form">
+  <form class="form-question__form" [formGroup]="formQuestion">
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Nome *</label>
-      <input pInputText id="name" formControlName="name" />
+      <label class="label">Enunciado *</label>
+      <input pInputText formControlName="statement" />
+    </div>
+
+    <div formArrayName="answerOptions">
+      <div
+        class="flex flex-column gap-1"
+        *ngFor="let answerOption of formQuestion.controls['answerOptions'].controls; let i = index"
+        [formGroupName]="i">
+        <label class="label">Opção {{ i + 1 }}:</label>
+        <div class="grid-wrapper">
+          <input pInputText formControlName="text" />
+          <input class="checkbox" type="checkbox" formControlName="isCorrect" />
+        </div>
+      </div>
     </div>
 
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Status</label>
+      <label class="label">Explicação para a resposta correta</label>
+      <input pInputText id="explanation" formControlName="explanation" />
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Tipo</label>
+      <p-dropdown
+        formControlName="type"
+        [options]="questionTypes"
+        optionLabel="name"
+        styleClass="w-full"
+        appendTo="body">
+      </p-dropdown>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Instituição / Exame</label>
+      <span>
+        {{ formQuestion.controls['examId'] }}
+      </span>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Ano</label>
+      <p-inputNumber formControlName="year" [min]="0"></p-inputNumber>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Dificuldade</label>
+      <p-dropdown
+        formControlName="difficultyLevel"
+        [options]="questionDifficultyLevels"
+        optionLabel="name"
+        styleClass="w-full"
+        appendTo="body">
+      </p-dropdown>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Matéria</label>
+      <p-dropdown
+        formControlName="subjectId"
+        [options]="subjectOptions"
+        optionLabel="name"
+        styleClass="w-full"
+        appendTo="body">
+      </p-dropdown>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Tópicos</label>
+      <p-multiSelect
+        [options]="relatedTopicOptions"
+        formControlName="relatedTopicIds"
+        optionLabel="name"
+        styleClass="w-full"
+        display="chip"
+        [filter]="true">
+      </p-multiSelect>
+    </div>
+
+    <div class="flex flex-column gap-1">
+      <label class="label">Status</label>
       <p-dropdown
         formControlName="status"
         [options]="questionStatus"
@@ -16,11 +91,6 @@
       </p-dropdown>
     </div>
 
-    <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Descrição</label>
-      <textarea rows="5" cols="50" pInputTextarea [autoResize]="true" formControlName="description">
-      </textarea>
-    </div>
     <div class="form-question__actions">
       <p-button
         (onClick)="cancel()"
@@ -29,7 +99,7 @@
       </p-button>
       <p-button
         (onClick)="confirm()"
-        [disabled]="form.invalid"
+        [disabled]="formQuestion.invalid"
         label="Confirmar"
         styleClass="w-full p-button-sm p-button-success">
       </p-button>

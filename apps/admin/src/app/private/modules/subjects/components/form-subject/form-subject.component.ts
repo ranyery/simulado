@@ -62,10 +62,10 @@ export class FormSubjectComponent implements OnInit {
     if (actionType === ESubjectActions.UPDATE) {
       const subjectStatus = this.subjectStatus.find((s) => s.code === subject.status);
 
-      this.form.controls['id'].setValue(subject.id, { emitEvent: false });
-      this.form.controls['name'].setValue(subject.name, { emitEvent: false });
-      this.form.controls['status'].setValue(subjectStatus, { emitEvent: false });
-      this.form.controls['description'].setValue(subject.description, { emitEvent: false });
+      this.form.controls['id'].setValue(subject.id);
+      this.form.controls['name'].setValue(subject.name);
+      this.form.controls['status'].setValue(subjectStatus);
+      this.form.controls['description'].setValue(subject.description);
     }
   }
 

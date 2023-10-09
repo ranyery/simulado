@@ -6,7 +6,8 @@ export interface IQuestion {
   answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
   explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
   type: string | EQuestionType;
-  source: ISource; // Exemplo (ENEM 2022)
+  examId: string; // Referência para o Identificador do Exame => ENEM, FUVEST, FATEC
+  year?: number;
   difficultyLevel: string | EQuestionDifficultyLevel;
   subjectId: string; // ISubject => A matéria à qual a questão está relacionada (matemática, história, etc.)
   relatedTopicIds: string[]; // ITopic[] => Tópicos ou tags (da matéria) que ajudam a categorizar ou relacionar a questão a conceitos específicos (Matemática => Equação de 1º grau).
@@ -42,11 +43,6 @@ export enum EQuestionStatus {
 
 export interface IImage {
   url: string;
-}
-
-export interface ISource {
-  exam: Pick<IExam, 'id' | 'acronym'>;
-  year?: number;
 }
 
 export interface IExam {

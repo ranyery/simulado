@@ -12,6 +12,18 @@
     .label {
       font-weight: bold;
     }
+
+    .checkbox {
+      height: 32px;
+      width: 32px;
+    }
+
+    .grid-wrapper {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 8px;
+    }
   }
 
   &__actions {

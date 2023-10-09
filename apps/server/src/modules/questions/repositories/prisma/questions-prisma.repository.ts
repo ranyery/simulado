@@ -17,7 +17,6 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
       return {
         ...question,
         answerOptions: JSON.parse(question.answerOptions),
-        source: JSON.parse(question.source),
       } satisfies IQuestion;
     });
   }
@@ -32,16 +31,14 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
     return {
       ...question,
       answerOptions: JSON.parse(question.answerOptions),
-      source: JSON.parse(question.source),
     } satisfies IQuestion;
   }
 
   async create(data: CreateQuestionRequestDTO): Promise<IQuestion> {
-    const { answerOptions, source } = data;
+    const { answerOptions } = data;
     const parsedData = {
       ...data,
       answerOptions: JSON.stringify(answerOptions),
-      source: JSON.stringify(source),
     };
 
     const question = await this._prismaService.question.create({ data: parsedData });
@@ -49,16 +46,14 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
     return {
       ...question,
       answerOptions: JSON.parse(question.answerOptions),
-      source: JSON.parse(question.source),
     } satisfies IQuestion;
   }
 
   async updateById(id: string, data: PartialQuestionRequestDTO): Promise<IQuestion | null> {
-    const { answerOptions, source } = data;
+    const { answerOptions } = data;
     const parsedData = {
       ...data,
       answerOptions: JSON.stringify(answerOptions),
-      source: JSON.stringify(source),
     };
 
     const question = await this._prismaService.question.update({
@@ -73,7 +68,6 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
     return {
       ...question,
       answerOptions: JSON.parse(question.answerOptions),
-      source: JSON.parse(question.source),
     } satisfies IQuestion;
   }
 

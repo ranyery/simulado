@@ -3,8 +3,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table';
@@ -31,6 +33,8 @@ import { TopicsRoutingModule } from './topics-routing.module';
     TooltipModule,
     NgStringPipesModule,
     PermissionsDirectivesModule,
+    CheckboxModule,
+    InputSwitchModule,
   ],
 })
 export class TopicsModule {}

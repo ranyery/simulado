@@ -5,8 +5,10 @@ import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -32,6 +34,8 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     TooltipModule,
     NgStringPipesModule,
     PermissionsDirectivesModule,
+    MultiSelectModule,
+    InputNumberModule,
   ],
 })
 export class QuestionsModule {}
