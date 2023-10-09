@@ -26,7 +26,7 @@ enum EUserStatus {
 
 // npx prisma migrate dev --name create-users => 24/09/2023 08:21:45
 model User {
-  id        String      @id @default(uuid())
+  id        String      @id @default(cuid())
   email     String      @unique
   password  String
   roles     EUserRole[] @default([USER])
@@ -45,7 +45,7 @@ enum ESubjectStatus {
 
 // npx prisma migrate dev --name create-subjects => 25/09/2023 19:08:21
 model Subject {
-  id          String         @id @default(uuid())
+  id          String         @id @default(cuid())
   name        String
   description String         @default("")
   status      ESubjectStatus @default(PENDING_REVIEW)
@@ -63,7 +63,7 @@ enum ETopicStatus {
 
 // npx prisma migrate dev --name create-topics => 25/09/2023 22:56:34
 model Topic {
-  id          String       @id @default(uuid())
+  id          String       @id @default(cuid())
   name        String
   description String       @default("")
   status      ETopicStatus @default(PENDING_REVIEW)
@@ -94,17 +94,17 @@ enum EQuestionStatus {
 
 // npx prisma migrate dev --name create-questions => 26/09/2023 00:05:55
 model Question {
-  id              String                   @id @default(uuid())
+  id              String                   @id @default(cuid())
   statement       String
   answerOptions   String                   @default("[]") // ! Json[] => Ainda não é suportado pelo Cockroachdb
   explanation     String                   @default("")
-  type            EQuestionType            @default(MULTIPLE_CHOICE)
-  examId          String
-  year            Int                      @default(0)
   difficultyLevel EQuestionDifficultyLevel @default(MEDIUM)
+  type            EQuestionType            @default(MULTIPLE_CHOICE)
+  status          EQuestionStatus          @default(PENDING_REVIEW)
+  year            Int                      @default(0)
+  examId          String
   subjectId       String
   relatedTopicIds String[]                 @default([])
-  status          EQuestionStatus          @default(PENDING_REVIEW)
   createdAt       DateTime                 @default(now())
   updatedAt       DateTime                 @default(now())
 

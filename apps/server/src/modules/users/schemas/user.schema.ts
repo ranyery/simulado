@@ -2,7 +2,7 @@ import { EUserRole, EUserStatus, IUser } from '@libs/shared/domain';
 import { z } from 'nestjs-zod/z';
 
 export const UserSchema = z.object({
-  id: z.string().trim().uuid(),
+  id: z.string().trim().cuid(),
   email: z.string({ required_error: 'Email is required' }).trim().email(),
   password: z.string({ required_error: 'Password is required' }).trim().min(6),
   roles: z.nativeEnum(EUserRole).array().min(1),
