@@ -3,7 +3,7 @@ import { inject, Pipe, PipeTransform } from '@angular/core';
 import { TopicsState } from '../../topics/state/topics.state';
 
 @Pipe({ name: 'findRelatedTopics' })
-export class FindRelatedTopics implements PipeTransform {
+export class FindRelatedTopicsPipe implements PipeTransform {
   private readonly _topicsState = inject(TopicsState);
 
   transform(subjectIds: string[]): string[] {

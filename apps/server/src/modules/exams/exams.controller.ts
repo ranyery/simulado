@@ -2,7 +2,7 @@ import { EUserRole } from '@libs/shared/domain';
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
 import { Auth } from '../../shared/decorators/auth.decorator';
-import { CreateExamRequestDTO, CreateExamResponseDTO } from './schemas/create-exam.schema';
+import { CreateExamRequestDTO } from './schemas/create-exam.schema';
 import { ExamResponseDTO } from './schemas/exam.schema';
 import { PartialExamRequestDTO } from './schemas/partial-exam.schema';
 import { CreateExamUseCase } from './useCases/create-exam.usecase';
@@ -31,7 +31,7 @@ export class ExamsController {
   @Get('/:id')
   async getById(@Param('id') id: string) {
     const exam = await this._findExamByIdUseCase.execute(id);
-    const examDTO = CreateExamResponseDTO.parse(exam);
+    const examDTO = ExamResponseDTO.parse(exam);
     return examDTO;
   }
 
@@ -39,7 +39,7 @@ export class ExamsController {
   @Auth(EUserRole.ADMIN)
   async create(@Body() data: CreateExamRequestDTO) {
     const exam = await this._createExamUseCase.execute(data);
-    const examDTO = CreateExamResponseDTO.parse(exam);
+    const examDTO = ExamResponseDTO.parse(exam);
     return examDTO;
   }
 
@@ -47,7 +47,7 @@ export class ExamsController {
   @Auth(EUserRole.ADMIN)
   async updateById(@Param('id') id: string, @Body() data: PartialExamRequestDTO) {
     const exam = await this._updateExamByIdUseCase.execute(id, data);
-    const examDTO = CreateExamResponseDTO.parse(exam);
+    const examDTO = ExamResponseDTO.parse(exam);
     return examDTO;
   }
 

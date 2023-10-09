@@ -9,6 +9,6 @@ export class CreateExamUseCase {
   constructor(private readonly _examsRepository: IExamsRepository) {}
 
   async execute(data: CreateExamRequestDTO): Promise<IExam> {
-    return await this._examsRepository.create(data);
+    return this._examsRepository.create(data);
   }
 }

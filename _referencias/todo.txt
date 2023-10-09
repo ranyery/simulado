@@ -29,3 +29,5 @@
 [ ] Validar possibilidade de simplificar ainda mais a entidade question
 [ ] remover o admin do ar
 [ ] simplificar relacionamentos das entidades => pode ser algo mais simples e buscar local de acordo com o id mesmo
+[ ] Validar pontos ontem tem => '.name ==', pois a validação pode não estar correto
+[ ] Trocar Exam para institute

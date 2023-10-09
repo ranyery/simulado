@@ -1,7 +1,7 @@
 <div class="form-question">
   <form class="form-question__form" [formGroup]="formQuestion">
     <div class="flex flex-column gap-1">
-      <label class="label">Enunciado *</label>
+      <label class="label">Enunciado</label>
       <input pInputText formControlName="statement" />
     </div>
 
@@ -10,7 +10,7 @@
         class="flex flex-column gap-1"
         *ngFor="let answerOption of formQuestion.controls['answerOptions'].controls; let i = index"
         [formGroupName]="i">
-        <label class="label">Opção {{ i + 1 }}:</label>
+        <label class="label">Opção {{ upperLetters[i] }}:</label>
         <div class="grid-wrapper">
           <input pInputText formControlName="text" />
           <input class="checkbox" type="checkbox" formControlName="isCorrect" />
@@ -42,7 +42,8 @@
           formControlName="relatedTopicIds"
           [options]="relatedTopicOptions"
           optionLabel="name"
-          display="chip">
+          display="chip"
+          appendTo="body">
         </p-multiSelect>
       </div>
 
@@ -59,9 +60,13 @@
 
       <div class="flex flex-column gap-1 exam">
         <label class="label">Exame / Instituto</label>
-        <span>
-          {{ formQuestion.controls['examId'] }}
-        </span>
+        <p-dropdown
+          styleClass="w-full"
+          formControlName="examId"
+          [options]="examOptions"
+          optionLabel="name"
+          appendTo="body">
+        </p-dropdown>
       </div>
 
       <div class="flex flex-column gap-1 year">

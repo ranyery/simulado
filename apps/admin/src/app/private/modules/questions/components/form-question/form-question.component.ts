@@ -11,6 +11,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { UserRolesService } from '../../../../../shared/services/user-roles.service';
 import { UtilsService } from '../../../../../shared/services/utils.service';
+import { ExamsState } from '../../../exams/state/exams.state';
 import { SubjectsState } from '../../../subjects/state/subjects.state';
 import { TopicsState } from '../../../topics/state/topics.state';
 import { EQuestionActions } from '../../page/questions.page';
@@ -30,12 +31,7 @@ interface IQuestionDifficultyLevel {
   code: EQuestionDifficultyLevel;
 }
 
-interface ISubjectOption {
-  name: string;
-  code: string;
-}
-
-interface IRelatedTopicOption {
+interface IOption {
   name: string;
   code: string;
 }
@@ -59,6 +55,7 @@ export class FormQuestionComponent implements OnInit {
   private readonly _userRolesService = inject(UserRolesService);
   private readonly _subjectsState = inject(SubjectsState);
   private readonly _topicsState = inject(TopicsState);
+  private readonly _examsState = inject(ExamsState);
 
   private _actionType?: EQuestionActions;
 
@@ -80,55 +77,76 @@ export class FormQuestionComponent implements OnInit {
     { name: 'Arquivado', code: EQuestionStatus.ARCHIVED },
   ];
 
-  public subjectOptions: ISubjectOption[] = [];
-  public relatedTopicOptions: IRelatedTopicOption[] = [];
+  public subjectOptions: IOption[] = [];
+  public relatedTopicOptions: IOption[] = [];
+  public examOptions: IOption[] = [];
+  public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
 
   public formQuestion = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
-    statement: new FormControl<string>('', Validators.required),
+    statement: new FormControl<string>('', [Validators.required]),
     answerOptions: new FormArray<FormGroup>(
-      [].constructor(5).fill(
-        new FormGroup({
-          text: new FormControl<string>('', Validators.required),
-          isCorrect: new FormControl<boolean>(false),
-        })
-      )
+      Array(5)
+        .fill(null)
+        .map(
+          () =>
+            new FormGroup({
+              text: new FormControl('', [Validators.required]),
+              isCorrect: new FormControl(false),
+            })
+        )
     ),
     explanation: new FormControl<string | undefined>(undefined),
-    type: new FormControl<IQuestionType | string | undefined>({
-      value: this.questionTypes.find((question) => question.name === EQuestionType.MULTIPLE_CHOICE),
-      disabled: true,
-    }),
-    examId: new FormControl<string>('', [Validators.required]),
+    type: new FormControl<IQuestionType | undefined>(
+      {
+        value: this.questionTypes.find(
+          (question) => question.code === EQuestionType.MULTIPLE_CHOICE
+        ),
+        disabled: true,
+      },
+      [Validators.required]
+    ),
+    examId: new FormControl<IOption | undefined>(undefined, [Validators.required]),
     year: new FormControl<number | undefined>(undefined),
-    difficultyLevel: new FormControl<IQuestionDifficultyLevel | undefined>({
-      value: this.questionDifficultyLevels.find((q) => q.name === EQuestionDifficultyLevel.MEDIUM),
-      disabled: false,
-    }),
-    subjectId: new FormControl<ISubjectOption | undefined>(undefined),
-    relatedTopicIds: new FormControl<IRelatedTopicOption[]>([]),
-    status: new FormControl<IQuestionStatus | undefined>({
-      value: this.questionStatus.find((q) => q.name === EQuestionStatus.PENDING_REVIEW),
-      disabled: !this._userRolesService.isAdmin(),
-    }),
+    difficultyLevel: new FormControl<IQuestionDifficultyLevel | undefined>(
+      {
+        value: this.questionDifficultyLevels.find((q) => q.code === EQuestionDifficultyLevel.EASY),
+        disabled: false,
+      },
+      [Validators.required]
+    ),
+    subjectId: new FormControl<IOption | undefined>(undefined, [Validators.required]),
+    relatedTopicIds: new FormControl<IOption[] | undefined>(undefined, [Validators.required]),
+    status: new FormControl<IQuestionStatus | undefined>(
+      {
+        value: this.questionStatus.find((q) => q.code === EQuestionStatus.PENDING_REVIEW),
+        disabled: !this._userRolesService.isAdmin(),
+      },
+      [Validators.required]
+    ),
   });
 
   constructor() {}
 
   ngOnInit(): void {
     const { actionType, question } = this._dynamicDialogConfig.data as IQuestionActionData;
+    this._actionType = actionType;
 
     this.subjectOptions = this._subjectsState
       .getAll()
-      .map<ISubjectOption>((subject) => ({ name: subject.name, code: subject.id }));
+      .map<IOption>((subject) => ({ name: subject.name, code: subject.id }));
 
     this.relatedTopicOptions = this._topicsState
       .getAll()
-      .map<IRelatedTopicOption>((topic) => ({ name: topic.name, code: topic.id }));
+      .map<IOption>((topic) => ({ name: topic.name, code: topic.id }));
 
-    this._actionType = actionType;
+    this.examOptions = this._examsState
+      .getAll()
+      .map<IOption>((exam) => ({ name: exam.acronym, code: exam.id }));
 
     if (actionType === EQuestionActions.CREATE) {
+      this.formQuestion.controls['examId'].setValue(this.examOptions[0]);
+      this.formQuestion.controls['subjectId'].setValue(this.subjectOptions[0]);
       return;
     }
 
@@ -142,23 +160,24 @@ export class FormQuestionComponent implements OnInit {
       const selectedSubjectIds = this.relatedTopicOptions.filter((topic) =>
         question.relatedTopicIds.includes(topic.code)
       );
+      const selectedExam = this.examOptions.find((exam) => exam.code === question.examId);
 
       this.formQuestion.controls['id'].setValue(question.id);
       this.formQuestion.controls['statement'].setValue(question.statement);
       this.formQuestion.controls['explanation'].setValue(question.explanation);
       this.formQuestion.controls['type'].setValue(questionType);
-      this.formQuestion.controls['examId'].setValue(question.examId);
+      this.formQuestion.controls['examId'].setValue(selectedExam);
       this.formQuestion.controls['year'].setValue(question.year);
       this.formQuestion.controls['difficultyLevel'].setValue(questionDifficultyLevel);
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
       this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
 
-      // Necessário limpar
+      // Necessário limpar caso não seja do tipo 'CREATE'
       this.formQuestion.controls['answerOptions'].clear();
       question.answerOptions.forEach((option) => {
         const formGroup = new FormGroup({
-          text: new FormControl<string>(option.text, Validators.required),
+          text: new FormControl<string>(option.text, [Validators.required]),
           isCorrect: new FormControl<boolean>(option.isCorrect),
         });
 
@@ -168,17 +187,26 @@ export class FormQuestionComponent implements OnInit {
   }
 
   public confirm(): void {
-    const formQuestionValues = this.formQuestion.value;
+    const formQuestionValues = this.formQuestion.getRawValue();
     const { question } = this._dynamicDialogConfig.data as IQuestionActionData;
 
-    const questionId = question.id;
-    const questionStatus = formQuestionValues.status?.code ?? EQuestionStatus.PENDING_REVIEW;
+    const questionType = formQuestionValues.type?.code;
+    const questionStatus = formQuestionValues.status?.code;
+    const questionExamId = formQuestionValues.examId?.code;
+    const questionSubjectId = formQuestionValues.subjectId?.code;
+    const questionDifficultyLevel = formQuestionValues.difficultyLevel?.code;
+    const questionRelatedTopicIds = formQuestionValues.relatedTopicIds?.map((topic) => topic.code);
 
     const updatedQuestion = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IQuestion>({
       ...question,
       ...formQuestionValues,
-      id: questionId,
-      status: questionStatus,
+      id: question.id,
+      examId: questionExamId,
+      subjectId: questionSubjectId,
+      relatedTopicIds: questionRelatedTopicIds ?? [],
+      type: questionType ?? EQuestionType.MULTIPLE_CHOICE,
+      status: questionStatus ?? EQuestionStatus.PENDING_REVIEW,
+      difficultyLevel: questionDifficultyLevel ?? EQuestionDifficultyLevel.MEDIUM,
     });
 
     this._confirmDialogService.confirm(

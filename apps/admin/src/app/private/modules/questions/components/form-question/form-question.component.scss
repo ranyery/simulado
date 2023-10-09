@@ -30,7 +30,7 @@
       grid-template-areas:
         'subject  topics  topics  difficultyLevel'
         'exam     year    type    status';
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1fr 1fr 200px;
 
       .subject {
         grid-area: subject;

@@ -15,12 +15,19 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PermissionsDirectivesModule } from '../../../shared/directives/permissions/permissions-directives.module';
 import { FormQuestionComponent } from './components/form-question/form-question.component';
 import { QuestionsPage } from './page/questions.page';
-import { FindRelatedTopics } from './pipes/find-related-topics.pipe';
+import { FindExamPipe } from './pipes/find-exam.pipe';
+import { FindRelatedTopicsPipe } from './pipes/find-related-topics.pipe';
 import { FindSubjectPipe } from './pipes/find-subject.pipe';
 import { QuestionsRoutingModule } from './questions-routing.module';
 
 @NgModule({
-  declarations: [QuestionsPage, FormQuestionComponent, FindSubjectPipe, FindRelatedTopics],
+  declarations: [
+    QuestionsPage,
+    FormQuestionComponent,
+    FindSubjectPipe,
+    FindRelatedTopicsPipe,
+    FindExamPipe,
+  ],
   imports: [
     CommonModule,
     QuestionsRoutingModule,

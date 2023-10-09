@@ -62,8 +62,9 @@ export class FormTopicComponent implements OnInit {
 
   ngOnInit(): void {
     const { actionType, topic, subjects } = this._dynamicDialogConfig.data as ITopicActionData;
-    this.subjectOptions = subjects.map<ISubjectOption>((s) => ({ name: s.name, code: s.id }));
     this._actionType = actionType;
+
+    this.subjectOptions = subjects.map<ISubjectOption>((s) => ({ name: s.name, code: s.id }));
 
     if (actionType === ETopicActions.CREATE) {
       this.form.controls['subjectId'].setValue(this.subjectOptions[0]);

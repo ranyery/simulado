@@ -1,3 +1,79 @@
-<section class="exams">
-  <p>exams works!</p>
+<section class="exams" *ifCanRead>
+  <div class="exams__header">
+    <div class="exams__title">Lista de Exames</div>
+    <p-button
+      *ifCanCreate
+      (onClick)="createExam()"
+      label="Adicionar"
+      styleClass="p-button-sm p-button-success">
+    </p-button>
+  </div>
+  <p-table
+    #pTable
+    [value]="exams"
+    [scrollable]="true"
+    [loading]="isLoading"
+    scrollHeight="calc(100vh - 202px)"
+    [resizableColumns]="true"
+    styleClass="p-datatable-gridlines"
+    [tableStyle]="{'min-width': '100%'}"
+    [globalFilterFields]="['id', 'acronym', 'name', 'status']">
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="applyFilterGlobal($event, 'contains')"
+            placeholder="Pesquisar exame..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="id" pResizableColumn>Id <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="acronym" pResizableColumn>
+          Sigla <p-sortIcon field="acronym"></p-sortIcon>
+        </th>
+        <th pSortableColumn="name" style="width: 100%" pResizableColumn>
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status" pResizableColumn>
+          Status <p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th pResizableColumn *ifCanUpdate>Ações</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-exam>
+      <tr>
+        <td
+          class="overflow"
+          style="cursor: pointer"
+          pTooltip="Clique para copiar"
+          tooltipPosition="top"
+          tooltipEvent="hover"
+          (click)="copyToClipboard(exam.id)">
+          {{ exam.id | shorten: 6 : '...' }}
+        </td>
+        <td class="overflow">{{ exam.acronym }}</td>
+        <td class="overflow">{{ exam.name ? (exam.name | shorten: 60 : '...') : '' }}</td>
+        <td class="overflow">{{ exam.status }}</td>
+        <td style="display: flex; gap: 16px" *ifCanUpdate>
+          <p-button
+            (onClick)="updateExam(exam)"
+            label="Editar"
+            styleClass="p-button-sm p-button-warning">
+          </p-button>
+
+          <p-button
+            *ifCanDelete
+            (onClick)="deleteExam(exam)"
+            label="Excluir"
+            styleClass="p-button-sm p-button-danger">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </section>

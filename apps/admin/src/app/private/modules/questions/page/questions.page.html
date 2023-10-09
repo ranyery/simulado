@@ -17,7 +17,7 @@
     [resizableColumns]="true"
     styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '100%'}"
-    [globalFilterFields]="['id', 'statement', 'type', 'difficultyLevel', 'subjectId', 'status']">
+    [globalFilterFields]="['id', 'statement', 'examId', 'type', 'difficultyLevel', 'subjectId', 'status']">
     <ng-template pTemplate="caption">
       <div class="flex">
         <span class="p-input-icon-left ml-auto">
@@ -35,6 +35,9 @@
         <th pSortableColumn="id" pResizableColumn>Id <p-sortIcon field="id"></p-sortIcon></th>
         <th pSortableColumn="statement" style="width: 100%" pResizableColumn>
           Enunciado <p-sortIcon field="statement"></p-sortIcon>
+        </th>
+        <th pSortableColumn="examId" pResizableColumn>
+          Exame <p-sortIcon field="examId"></p-sortIcon>
         </th>
         <th pSortableColumn="type" pResizableColumn>Tipo <p-sortIcon field="type"></p-sortIcon></th>
         <th pSortableColumn="difficultyLevel" pResizableColumn>
@@ -61,7 +64,8 @@
           (click)="copyToClipboard(question.id)">
           {{ question.id | shorten: 6 : '...' }}
         </td>
-        <td class="overflow">{{ question.statement | shorten: 60 : '...' }}</td>
+        <td class="overflow">{{ question.statement | shorten: 30 : '...' }}</td>
+        <td class="overflow">{{ question.examId | findExam }}</td>
         <td class="overflow">{{ question.type }}</td>
         <td class="overflow">{{ question.difficultyLevel }}</td>
         <td class="overflow">{{ question.subjectId | findSubject }}</td>

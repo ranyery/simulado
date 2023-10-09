@@ -10,7 +10,7 @@ export class UpdateExamByIdUseCase {
 
   async execute(id: string, data: PartialExamRequestDTO): Promise<IExam | null> {
     try {
-      return await this._examsRepository.updateById(id, data);
+      return this._examsRepository.updateById(id, data);
     } catch {
       throw new HttpException('Exam does not exist!', HttpStatus.BAD_REQUEST);
     }

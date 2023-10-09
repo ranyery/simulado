@@ -8,6 +8,6 @@ export class FindAllExamsUseCase {
   constructor(private readonly _examsRepository: IExamsRepository) {}
 
   async execute(): Promise<IExam[]> {
-    return await this._examsRepository.findAll();
+    return this._examsRepository.findAll();
   }
 }
