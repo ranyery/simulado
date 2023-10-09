@@ -37,7 +37,7 @@ model User {
   @@map("users")
 }
 
-enum ESubjectStatus {
+enum ECommonStatus {
   ACTIVE
   PENDING_REVIEW
   ARCHIVED
@@ -45,39 +45,39 @@ enum ESubjectStatus {
 
 // npx prisma migrate dev --name create-subjects => 25/09/2023 19:08:21
 model Subject {
-  id          String         @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
-  description String         @default("")
-  status      ESubjectStatus @default(PENDING_REVIEW)
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @default(now())
+  description String        @default("")
+  status      ECommonStatus @default(PENDING_REVIEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
 
   @@map("subjects")
 }
 
-enum ETopicStatus {
-  ACTIVE
-  PENDING_REVIEW
-  ARCHIVED
-}
-
 // npx prisma migrate dev --name create-topics => 25/09/2023 22:56:34
 model Topic {
-  id          String       @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
-  description String       @default("")
-  status      ETopicStatus @default(PENDING_REVIEW)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now())
+  description String        @default("")
+  status      ECommonStatus @default(PENDING_REVIEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
   subjectId   String
 
   @@map("topics")
 }
 
-enum EQuestionType {
-  MULTIPLE_CHOICE
-  TRUE_OR_FALSE
-  FILL_IN_THE_BLANK
+// npx prisma migrate dev --name create-exams => 09/10/2023 03:53:16
+model Exam {
+  id        String        @id @default(cuid())
+  acronym   String
+  name      String        @default("")
+  status    ECommonStatus @default(PENDING_REVIEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now())
+
+  @@map("exams")
 }
 
 enum EQuestionDifficultyLevel {
@@ -86,10 +86,10 @@ enum EQuestionDifficultyLevel {
   HARD
 }
 
-enum EQuestionStatus {
-  ACTIVE
-  PENDING_REVIEW
-  ARCHIVED
+enum EQuestionType {
+  MULTIPLE_CHOICE
+  TRUE_OR_FALSE
+  FILL_IN_THE_BLANK
 }
 
 // npx prisma migrate dev --name create-questions => 26/09/2023 00:05:55
@@ -100,7 +100,7 @@ model Question {
   explanation     String                   @default("")
   difficultyLevel EQuestionDifficultyLevel @default(MEDIUM)
   type            EQuestionType            @default(MULTIPLE_CHOICE)
-  status          EQuestionStatus          @default(PENDING_REVIEW)
+  status          ECommonStatus            @default(PENDING_REVIEW)
   year            Int                      @default(0)
   examId          String
   subjectId       String

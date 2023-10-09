@@ -5,19 +5,13 @@ CREATE TYPE "EUserRole" AS ENUM ('USER', 'MODERATOR', 'ADMIN');
 CREATE TYPE "EUserStatus" AS ENUM ('ACTIVE', 'PENDING_CONFIRMATION', 'SUSPENDED', 'BANNED', 'CLOSED');
 
 -- CreateEnum
-CREATE TYPE "ESubjectStatus" AS ENUM ('ACTIVE', 'PENDING_REVIEW', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "ETopicStatus" AS ENUM ('ACTIVE', 'PENDING_REVIEW', 'ARCHIVED');
-
--- CreateEnum
-CREATE TYPE "EQuestionType" AS ENUM ('MULTIPLE_CHOICE', 'TRUE_OR_FALSE', 'FILL_IN_THE_BLANK');
+CREATE TYPE "ECommonStatus" AS ENUM ('ACTIVE', 'PENDING_REVIEW', 'ARCHIVED');
 
 -- CreateEnum
 CREATE TYPE "EQuestionDifficultyLevel" AS ENUM ('EASY', 'MEDIUM', 'HARD');
 
 -- CreateEnum
-CREATE TYPE "EQuestionStatus" AS ENUM ('ACTIVE', 'PENDING_REVIEW', 'ARCHIVED');
+CREATE TYPE "EQuestionType" AS ENUM ('MULTIPLE_CHOICE', 'TRUE_OR_FALSE', 'FILL_IN_THE_BLANK');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -37,7 +31,7 @@ CREATE TABLE "subjects" (
     "id" STRING NOT NULL,
     "name" STRING NOT NULL,
     "description" STRING NOT NULL DEFAULT '',
-    "status" "ESubjectStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
+    "status" "ECommonStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -49,12 +43,24 @@ CREATE TABLE "topics" (
     "id" STRING NOT NULL,
     "name" STRING NOT NULL,
     "description" STRING NOT NULL DEFAULT '',
-    "status" "ETopicStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
+    "status" "ECommonStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "subjectId" STRING NOT NULL,
 
     CONSTRAINT "topics_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "exams" (
+    "id" STRING NOT NULL,
+    "acronym" STRING NOT NULL,
+    "name" STRING NOT NULL DEFAULT '',
+    "status" "ECommonStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "exams_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -65,7 +71,7 @@ CREATE TABLE "questions" (
     "explanation" STRING NOT NULL DEFAULT '',
     "difficultyLevel" "EQuestionDifficultyLevel" NOT NULL DEFAULT 'MEDIUM',
     "type" "EQuestionType" NOT NULL DEFAULT 'MULTIPLE_CHOICE',
-    "status" "EQuestionStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
+    "status" "ECommonStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
     "year" INT4 NOT NULL DEFAULT 0,
     "examId" STRING NOT NULL,
     "subjectId" STRING NOT NULL,
