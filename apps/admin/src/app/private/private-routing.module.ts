@@ -20,12 +20,6 @@ const routes: Routes = [
         canMatch: [() => RolesGuard(allowedRoles)],
       },
       {
-        path: EEntity.QUESTIONS,
-        loadChildren: () =>
-          import('./modules/questions/questions.module').then((m) => m.QuestionsModule),
-        canMatch: [() => RolesGuard(allowedRoles)],
-      },
-      {
         path: EEntity.USERS,
         loadChildren: () => import('./modules/users/users.module').then((m) => m.UsersModule),
         canMatch: [() => RolesGuard(allowedRoles)],
@@ -39,6 +33,17 @@ const routes: Routes = [
       {
         path: EEntity.TOPICS,
         loadChildren: () => import('./modules/topics/topics.module').then((m) => m.TopicsModule),
+        canMatch: [() => RolesGuard(allowedRoles)],
+      },
+      {
+        path: EEntity.EXAMS,
+        loadChildren: () => import('./modules/exams/exams.module').then((m) => m.ExamsModule),
+        canMatch: [() => RolesGuard(allowedRoles)],
+      },
+      {
+        path: EEntity.QUESTIONS,
+        loadChildren: () =>
+          import('./modules/questions/questions.module').then((m) => m.QuestionsModule),
         canMatch: [() => RolesGuard(allowedRoles)],
       },
     ],

@@ -35,12 +35,6 @@ export class ShellPage implements OnInit {
       isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
     },
     {
-      label: 'Questões',
-      icon: 'pi-file',
-      route: EEntity.QUESTIONS,
-      isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
-    },
-    {
       label: 'Matérias',
       icon: 'pi-book',
       route: EEntity.SUBJECTS,
@@ -50,6 +44,18 @@ export class ShellPage implements OnInit {
       label: 'Tópicos',
       icon: 'pi-tags',
       route: EEntity.TOPICS,
+      isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
+    },
+    {
+      label: 'Exames / Instituições',
+      icon: 'pi-box',
+      route: EEntity.EXAMS,
+      isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
+    },
+    {
+      label: 'Questões',
+      icon: 'pi-file',
+      route: EEntity.QUESTIONS,
       isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
     },
   ];
