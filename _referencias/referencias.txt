@@ -30,3 +30,9 @@ Telas:
 roles:
 https://frontegg.com/guides/user-role-and-permission
 https://uxdesign.cc/design-permissions-for-a-saas-app-db6c1825f20e
+
+
+---
+
+Plataformas:
+https://blogdoenem.com.br/simulado_enem/

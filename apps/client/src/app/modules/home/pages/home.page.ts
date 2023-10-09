@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 interface IAnswer {
@@ -10,7 +10,6 @@ interface IAnswer {
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
   public showList: boolean = true;
@@ -32,7 +31,7 @@ export class HomePage implements OnInit {
     selectedAnswer: new FormControl(),
   });
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.topics = ['Matemática Financeira', 'Regra de três', 'Equação de 1º grau'];
@@ -42,7 +41,6 @@ export class HomePage implements OnInit {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-      this._changeDetectorRef.detectChanges();
     }, 1000);
   }
 
