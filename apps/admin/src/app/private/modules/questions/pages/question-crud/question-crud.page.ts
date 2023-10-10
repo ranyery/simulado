@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -9,6 +9,7 @@ import {
   EQuestionType,
   IQuestion,
 } from '@libs/shared/domain';
+import { Editor, Toolbar } from 'ngx-editor';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../../shared/services/toast.service';
@@ -45,8 +46,9 @@ interface IOption {
   selector: 'app-question-crud',
   templateUrl: './question-crud.page.html',
   styleUrls: ['./question-crud.page.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class QuestionCrudPage implements OnInit {
+export class QuestionCrudPage implements OnInit, OnDestroy {
   private readonly _router = inject(Router);
   private readonly _location = inject(Location);
   private readonly _activatedRoute = inject(ActivatedRoute);
@@ -62,6 +64,18 @@ export class QuestionCrudPage implements OnInit {
   private readonly _subjectsState = inject(SubjectsState);
   private readonly _questionsState = inject(QuestionsState);
   private readonly _institutesState = inject(InstitutesState);
+
+  public editor!: Editor;
+  public toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   public question?: IQuestion;
   private _questionState!: IQuestion;
@@ -159,6 +173,8 @@ export class QuestionCrudPage implements OnInit {
   }
 
   ngOnInit(): void {
+    this.editor = new Editor();
+
     this.formQuestion.valueChanges.subscribe(() => {
       this.question = this._composeQuestionFromFormValues();
     });
@@ -287,5 +303,9 @@ export class QuestionCrudPage implements OnInit {
         });
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 }

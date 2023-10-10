@@ -13,8 +13,14 @@
     </div>
 
     <div class="title">
-      <span class="bold">({{ question.instituteId | findInstitute }})</span>
-      {{ question.statement }}
+      <span class="bold">({{ question.instituteId | findInstitute }}) </span>
+      <span
+        markdown
+        katex
+        ngPreserveWhitespaces
+        [inline]="true"
+        [data]="question.statement | toMarkdown">
+      </span>
     </div>
     <form class="answers" [formGroup]="form">
       <ng-container *ngFor="let answer of question.answerOptions; index as i">

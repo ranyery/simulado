@@ -3,7 +3,14 @@
     <form class="form-question__form" [formGroup]="formQuestion">
       <div class="flex flex-column gap-1">
         <label class="label">Enunciado</label>
-        <input pInputText formControlName="statement" />
+        <div class="editor">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+          <ngx-editor
+            [editor]="editor"
+            formControlName="statement"
+            placeholder="Digite aqui o enunciado da questão...">
+          </ngx-editor>
+        </div>
       </div>
 
       <div formArrayName="answerOptions">

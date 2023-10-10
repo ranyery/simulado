@@ -20,9 +20,14 @@
           "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
           "node_modules/primeng/resources/primeng.min.css",
           "node_modules/primeflex/primeflex.css",
-          "apps/admin/src/styles.scss"
+          "apps/admin/src/styles.scss",
+          "node_modules/katex/dist/katex.min.css"
         ],
-        "scripts": []
+        "scripts": [
+          "node_modules/marked/marked.min.js",
+          "node_modules/katex/dist/katex.min.js",
+          "node_modules/katex/dist/contrib/auto-render.min.js"
+        ]
       },
       "configurations": {
         "production": {
