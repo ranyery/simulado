@@ -73,13 +73,11 @@ export class FormSubjectComponent implements OnInit {
     const formSubjectValues = this.form.value;
     const { subject } = this._dynamicDialogConfig.data as ISubjectActionData;
 
-    const subjectId = subject.id;
     const subjectStatus = formSubjectValues.status?.code ?? ESubjectStatus.PENDING_REVIEW;
 
     const updatedSubject = this._utilsService.removeNullOrUndefinedOrEmptyProperties<ISubject>({
       ...subject,
       ...formSubjectValues,
-      id: subjectId,
       status: subjectStatus,
     });
 

@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -9,7 +9,6 @@ import {
   EQuestionType,
   IQuestion,
 } from '@libs/shared/domain';
-import { Editor, Toolbar } from 'ngx-editor';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../../shared/services/toast.service';
@@ -48,7 +47,7 @@ interface IOption {
   styleUrls: ['./question-crud.page.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class QuestionCrudPage implements OnInit, OnDestroy {
+export class QuestionCrudPage implements OnInit {
   private readonly _router = inject(Router);
   private readonly _location = inject(Location);
   private readonly _activatedRoute = inject(ActivatedRoute);
@@ -64,18 +63,6 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
   private readonly _subjectsState = inject(SubjectsState);
   private readonly _questionsState = inject(QuestionsState);
   private readonly _institutesState = inject(InstitutesState);
-
-  public editor!: Editor;
-  public toolbar: Toolbar = [
-    ['bold', 'italic'],
-    ['underline', 'strike'],
-    ['code', 'blockquote'],
-    ['ordered_list', 'bullet_list'],
-    [{ heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] }],
-    ['link', 'image'],
-    ['text_color', 'background_color'],
-    ['align_left', 'align_center', 'align_right', 'align_justify'],
-  ];
 
   public question?: IQuestion;
   private _questionState!: IQuestion;
@@ -116,17 +103,12 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
   public formQuestion = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
     statement: new FormControl<string>('', [Validators.required]),
-    answerOptions: new FormArray<FormGroup>(
+    answerOptions: new FormArray(
       Array(5)
         .fill(null)
-        .map(
-          () =>
-            new FormGroup({
-              text: new FormControl('', [Validators.required]),
-              isCorrect: new FormControl(false),
-            })
-        )
+        .map(() => new FormControl<string | undefined>(undefined, [Validators.required]))
     ),
+    rightAnswer: new FormControl<number | undefined>(undefined, Validators.required),
     explanation: new FormControl<string | undefined>(undefined),
     type: new FormControl<IQuestionType | undefined>(
       {
@@ -173,8 +155,6 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.editor = new Editor();
-
     this.formQuestion.valueChanges.subscribe(() => {
       this.question = this._composeQuestionFromFormValues();
     });
@@ -211,17 +191,13 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
       this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
-
-      this.formQuestion.controls['answerOptions'].clear();
-      this._questionState.answerOptions.forEach((option) => {
-        const formGroup = new FormGroup({
-          text: new FormControl<string>(option.text, [Validators.required]),
-          isCorrect: new FormControl<boolean>(option.isCorrect),
-        });
-
-        this.formQuestion.controls['answerOptions'].push(formGroup);
-      });
+      this.formQuestion.controls['answerOptions'].setValue(this._questionState.answerOptions);
+      this.formQuestion.controls['rightAnswer'].setValue(this._questionState.rightAnswer);
     }
+  }
+
+  public setRightAnswer(index: number): void {
+    this.formQuestion.controls['rightAnswer'].setValue(index);
   }
 
   public confirm(): void {
@@ -249,6 +225,7 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
   }
 
   private _composeQuestionFromFormValues(): IQuestion {
+    debugger;
     const formQuestionValues = this.formQuestion.getRawValue();
 
     const questionType = formQuestionValues.type?.code;
@@ -261,7 +238,6 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
     const updatedQuestion = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IQuestion>({
       ...(this._questionState ?? {}),
       ...formQuestionValues,
-      id: this._questionState?.id,
       instituteId: questionInstituteId,
       subjectId: questionSubjectId,
       relatedTopicIds: questionRelatedTopicIds ?? [],
@@ -303,9 +279,5 @@ export class QuestionCrudPage implements OnInit, OnDestroy {
         });
       },
     });
-  }
-
-  ngOnDestroy(): void {
-    this.editor.destroy();
   }
 }

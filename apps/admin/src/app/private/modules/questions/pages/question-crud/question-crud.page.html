@@ -3,25 +3,22 @@
     <form class="form-question__form" [formGroup]="formQuestion">
       <div class="flex flex-column gap-1">
         <label class="label">Enunciado</label>
-        <div class="editor">
-          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-          <ngx-editor
-            [editor]="editor"
-            formControlName="statement"
-            placeholder="Digite aqui o enunciado da questão...">
-          </ngx-editor>
-        </div>
+        <textarea rows="2" cols="30" pInputTextarea formControlName="statement" [autoResize]="true">
+        </textarea>
       </div>
 
       <div formArrayName="answerOptions">
         <div
           class="flex flex-column gap-1"
-          *ngFor="let answerOption of formQuestion.controls['answerOptions'].controls; let i = index"
-          [formGroupName]="i">
+          *ngFor="let answerOption of formQuestion.controls['answerOptions'].controls; index as i">
           <label class="label">Opção {{ upperLetters[i] }}:</label>
           <div class="grid-wrapper">
-            <input pInputText formControlName="text" />
-            <input class="checkbox" type="checkbox" formControlName="isCorrect" />
+            <input pInputText [formControlName]="i" />
+            <p-button
+              icon="pi pi-check"
+              (click)="setRightAnswer(i)"
+              styleClass="{{ formQuestion.controls['rightAnswer'].value === i ? 'p-button-success' : 'p-button-secondary opacity-20' }}">
+            </p-button>
           </div>
         </div>
       </div>

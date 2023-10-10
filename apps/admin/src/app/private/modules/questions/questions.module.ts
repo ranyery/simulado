@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxEditorModule } from 'ngx-editor';
 import { MarkdownModule } from 'ngx-markdown';
 import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -23,7 +23,7 @@ import { QuestionListPage } from './pages/question-list/question-list.page';
 import { FindInstitutePipe } from './pipes/find-institute.pipe';
 import { FindRelatedTopicPipe } from './pipes/find-related-topics.pipe';
 import { FindSubjectPipe } from './pipes/find-subject.pipe';
-import { ToMarkdownPipe } from './pipes/to-markdown.pipe';
+import { StatementToMarkdownPipe } from './pipes/statement-to-markdown.pipe';
 import { QuestionsRoutingModule } from './questions-routing.module';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     FindSubjectPipe,
     FindRelatedTopicPipe,
     FindInstitutePipe,
-    ToMarkdownPipe,
+    StatementToMarkdownPipe,
     QuestionCrudPage,
     QuestionPreviewComponent,
   ],
@@ -52,7 +52,7 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     MultiSelectModule,
     InputNumberModule,
     RadioButtonModule,
-    NgxEditorModule,
+    CheckboxModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
 })

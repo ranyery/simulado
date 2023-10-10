@@ -67,7 +67,8 @@ CREATE TABLE "institutes" (
 CREATE TABLE "questions" (
     "id" STRING NOT NULL,
     "statement" STRING NOT NULL,
-    "answerOptions" STRING NOT NULL DEFAULT '[]',
+    "answerOptions" STRING[],
+    "rightAnswer" INT4 NOT NULL,
     "explanation" STRING NOT NULL DEFAULT '',
     "difficultyLevel" "EQuestionDifficultyLevel" NOT NULL DEFAULT 'MEDIUM',
     "type" "EQuestionType" NOT NULL DEFAULT 'MULTIPLE_CHOICE',

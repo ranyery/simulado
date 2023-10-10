@@ -87,14 +87,12 @@ export class FormTopicComponent implements OnInit {
     const formTopicValues = this.form.value;
     const { topic } = this._dynamicDialogConfig.data as ITopicActionData;
 
-    const topicId = topic.id;
     const subject = formTopicValues.subjectId;
     const topicStatus = formTopicValues.status?.code ?? ETopicStatus.PENDING_REVIEW;
 
     const updatedTopic = this._utilsService.removeNullOrUndefinedOrEmptyProperties<ITopic>({
       ...topic,
       ...formTopicValues,
-      id: topicId,
       subjectId: subject?.code,
       status: topicStatus,
     });

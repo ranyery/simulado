@@ -9,14 +9,8 @@ import { z } from 'nestjs-zod/z';
 export const QuestionSchema = z.object({
   id: z.string().trim().cuid(),
   statement: z.string().trim(),
-  answerOptions: z
-    .object({
-      text: z.string().trim(),
-      isCorrect: z.boolean(),
-    })
-    .array()
-    .min(2)
-    .max(5),
+  answerOptions: z.string().trim().array().min(2).max(5),
+  rightAnswer: z.number().gte(0).lte(5),
   explanation: z.string().trim().optional().default(''),
   type: z.nativeEnum(EQuestionType),
   instituteId: z.string().trim().cuid(),

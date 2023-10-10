@@ -3,7 +3,8 @@
 export interface IQuestion {
   id: string;
   statement: string; // Enunciado => A pergunta ou problema apresentado
-  answerOptions: IAnswer[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
+  answerOptions: string[]; // Uma lista de opções para a resposta da questão (para questões de múltipla escolha)
+  rightAnswer: number;
   explanation?: string; // Uma explicação opcional que fornece informações adicionais sobre a resposta correta
   type: string | EQuestionType;
   instituteId: string; // Referência para o Identificador do Instituto => ENEM, FUVEST, FATEC

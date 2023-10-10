@@ -12,23 +12,14 @@
       </div>
     </div>
 
-    <div class="title">
-      <span class="bold">({{ question.instituteId | findInstitute }}) </span>
-      <span
-        markdown
-        katex
-        ngPreserveWhitespaces
-        [inline]="true"
-        [data]="question.statement | toMarkdown">
-      </span>
-    </div>
+    <h1 class="title" markdown katex [inline]="true" [data]="question | statementToMarkdown"></h1>
     <form class="answers" [formGroup]="form">
       <ng-container *ngFor="let answer of question.answerOptions; index as i">
-        <label [ngClass]="{ selected: form.controls['selectedAnswer'].value === answer.text }">
-          <p-radioButton inputId="{{ i }}" [value]="answer.text" formControlName="selectedAnswer">
+        <label [ngClass]="{ selected: question.rightAnswer === i }">
+          <p-radioButton inputId="{{ i }}" [value]="i" formControlName="selectedAnswer">
           </p-radioButton>
           <span class="bold">{{ upperLetters[i] }}.</span>
-          <span>{{ answer.text }}</span>
+          <span>{{ answer }}</span>
         </label>
       </ng-container>
     </form>

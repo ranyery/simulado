@@ -75,13 +75,11 @@ export class FormInstituteComponent implements OnInit {
     const formInstituteValues = this.form.value;
     const { institute } = this._dynamicDialogConfig.data as IInstituteActionData;
 
-    const instituteId = institute.id;
     const instituteStatus = formInstituteValues.status?.code ?? EInstituteStatus.PENDING_REVIEW;
 
     const updatedInstitute = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IInstitute>({
       ...institute,
       ...formInstituteValues,
-      id: instituteId,
       status: instituteStatus,
     });
 

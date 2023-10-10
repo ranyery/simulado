@@ -6,12 +6,16 @@ https://soexercicios.com.br/plataforma/questoes-de-vestibular/FATEC/23656/proble
 
 - Markdown:
 https://www.markdownguide.org/basic-syntax/
-https://ashki23.github.io/markdown-latex.html
+https://ashki23.github.io/markdown-latex.html#latex-equations
 
 - NPM Libs:
 https://www.npmjs.com/package/ngx-editor
 https://www.npmjs.com/package/ngx-markdown
 https://www.npmjs.com/package/ngx-markdown-editor
+
+https://www.npmjs.com/package/markdown-pdf
+https://www.npmjs.com/package/textract
+https://www.npmjs.com/package/md-to-pdf
 
 ---
 Como devem ficar as urls (Otimização para SEO):
