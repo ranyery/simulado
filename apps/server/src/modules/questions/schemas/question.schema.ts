@@ -19,7 +19,7 @@ export const QuestionSchema = z.object({
     .max(5),
   explanation: z.string().trim().optional().default(''),
   type: z.nativeEnum(EQuestionType),
-  examId: z.string().trim().cuid(),
+  instituteId: z.string().trim().cuid(),
   year: z.number().gte(0).optional().default(0),
   difficultyLevel: z.nativeEnum(EQuestionDifficultyLevel),
   subjectId: z.string().trim().cuid(),

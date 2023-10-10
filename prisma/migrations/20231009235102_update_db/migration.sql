@@ -52,7 +52,7 @@ CREATE TABLE "topics" (
 );
 
 -- CreateTable
-CREATE TABLE "exams" (
+CREATE TABLE "institutes" (
     "id" STRING NOT NULL,
     "acronym" STRING NOT NULL,
     "name" STRING NOT NULL DEFAULT '',
@@ -60,7 +60,7 @@ CREATE TABLE "exams" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "exams_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "institutes_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -73,7 +73,7 @@ CREATE TABLE "questions" (
     "type" "EQuestionType" NOT NULL DEFAULT 'MULTIPLE_CHOICE',
     "status" "ECommonStatus" NOT NULL DEFAULT 'PENDING_REVIEW',
     "year" INT4 NOT NULL DEFAULT 0,
-    "examId" STRING NOT NULL,
+    "instituteId" STRING NOT NULL,
     "subjectId" STRING NOT NULL,
     "relatedTopicIds" STRING[] DEFAULT ARRAY[]::STRING[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

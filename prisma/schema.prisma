@@ -102,7 +102,7 @@ model Question {
   type            EQuestionType            @default(MULTIPLE_CHOICE)
   status          ECommonStatus            @default(PENDING_REVIEW)
   year            Int                      @default(0)
-  examId          String
+  instituteId     String
   subjectId       String
   relatedTopicIds String[]                 @default([])
   createdAt       DateTime                 @default(now())

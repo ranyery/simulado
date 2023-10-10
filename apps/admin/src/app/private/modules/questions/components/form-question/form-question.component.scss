@@ -28,8 +28,8 @@
       display: grid;
       gap: 16px;
       grid-template-areas:
-        'subject  topics  topics  difficultyLevel'
-        'exam     year    type    status';
+        'subject    topics  topics  difficultyLevel'
+        'institute  year    type    status';
       grid-template-columns: 1fr 1fr 1fr 200px;
 
       .subject {
@@ -44,8 +44,8 @@
         grid-area: difficultyLevel;
       }
 
-      .exam {
-        grid-area: exam;
+      .institute {
+        grid-area: institute;
       }
 
       .year {

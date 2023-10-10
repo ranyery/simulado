@@ -11,15 +11,15 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
 import { PermissionsDirectivesModule } from '../../../shared/directives/permissions/permissions-directives.module';
-import { FormExamComponent } from './components/form-exam/form-exam.component';
-import { ExamsRoutingModule } from './exams-routing.module';
-import { ExamsPage } from './page/exams.page';
+import { FormInstituteComponent } from './components/form-institute/form-institute.component';
+import { InstitutesRoutingModule } from './institutes-routing.module';
+import { InstitutesPage } from './page/institutes.page';
 
 @NgModule({
-  declarations: [ExamsPage, FormExamComponent],
+  declarations: [InstitutesPage, FormInstituteComponent],
   imports: [
     CommonModule,
-    ExamsRoutingModule,
+    InstitutesRoutingModule,
     ButtonModule,
     TableModule,
     DynamicDialogModule,
@@ -32,4 +32,4 @@ import { ExamsPage } from './page/exams.page';
     PermissionsDirectivesModule,
   ],
 })
-export class ExamsModule {}
+export class InstitutesModule {}

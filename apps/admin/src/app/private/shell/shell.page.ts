@@ -47,9 +47,9 @@ export class ShellPage implements OnInit {
       isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
     },
     {
-      label: 'Exames / Institutos',
-      icon: 'pi-box',
-      route: EEntity.EXAMS,
+      label: 'Institutos',
+      icon: 'pi-building',
+      route: EEntity.INSTITUTES,
       isEnabled: this._userRolesService.hasAtLeastOneRole(allowedRoles),
     },
     {

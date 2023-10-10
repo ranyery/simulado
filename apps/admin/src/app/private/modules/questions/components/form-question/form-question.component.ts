@@ -11,7 +11,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { UserRolesService } from '../../../../../shared/services/user-roles.service';
 import { UtilsService } from '../../../../../shared/services/utils.service';
-import { ExamsState } from '../../../exams/state/exams.state';
+import { InstitutesState } from '../../../institutes/state/institutes.state';
 import { SubjectsState } from '../../../subjects/state/subjects.state';
 import { TopicsState } from '../../../topics/state/topics.state';
 import { EQuestionActions } from '../../pages/question-list/question-list.page';
@@ -55,7 +55,7 @@ export class FormQuestionComponent implements OnInit {
   private readonly _userRolesService = inject(UserRolesService);
   private readonly _subjectsState = inject(SubjectsState);
   private readonly _topicsState = inject(TopicsState);
-  private readonly _examsState = inject(ExamsState);
+  private readonly _institutesState = inject(InstitutesState);
 
   private _actionType?: EQuestionActions;
 
@@ -79,7 +79,7 @@ export class FormQuestionComponent implements OnInit {
 
   public subjectOptions: IOption[] = [];
   public relatedTopicOptions: IOption[] = [];
-  public examOptions: IOption[] = [];
+  public instituteOptions: IOption[] = [];
   public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
 
   public formQuestion = new FormGroup({
@@ -106,7 +106,7 @@ export class FormQuestionComponent implements OnInit {
       },
       [Validators.required]
     ),
-    examId: new FormControl<IOption | undefined>(undefined, [Validators.required]),
+    instituteId: new FormControl<IOption | undefined>(undefined, [Validators.required]),
     year: new FormControl<number | undefined>(undefined),
     difficultyLevel: new FormControl<IQuestionDifficultyLevel | undefined>(
       {
@@ -140,12 +140,12 @@ export class FormQuestionComponent implements OnInit {
       .getAll()
       .map<IOption>((topic) => ({ name: topic.name, code: topic.id }));
 
-    this.examOptions = this._examsState
+    this.instituteOptions = this._institutesState
       .getAll()
-      .map<IOption>((exam) => ({ name: exam.acronym, code: exam.id }));
+      .map<IOption>((institute) => ({ name: institute.acronym, code: institute.id }));
 
     if (actionType === EQuestionActions.CREATE) {
-      this.formQuestion.controls['examId'].setValue(this.examOptions[0]);
+      this.formQuestion.controls['instituteId'].setValue(this.instituteOptions[0]);
       this.formQuestion.controls['subjectId'].setValue(this.subjectOptions[0]);
       return;
     }
@@ -160,13 +160,15 @@ export class FormQuestionComponent implements OnInit {
       const selectedSubjectIds = this.relatedTopicOptions.filter((topic) =>
         question.relatedTopicIds.includes(topic.code)
       );
-      const selectedExam = this.examOptions.find((exam) => exam.code === question.examId);
+      const selectedInstitute = this.instituteOptions.find(
+        (institute) => institute.code === question.instituteId
+      );
 
       this.formQuestion.controls['id'].setValue(question.id);
       this.formQuestion.controls['statement'].setValue(question.statement);
       this.formQuestion.controls['explanation'].setValue(question.explanation);
       this.formQuestion.controls['type'].setValue(questionType);
-      this.formQuestion.controls['examId'].setValue(selectedExam);
+      this.formQuestion.controls['instituteId'].setValue(selectedInstitute);
       this.formQuestion.controls['year'].setValue(question.year);
       this.formQuestion.controls['difficultyLevel'].setValue(questionDifficultyLevel);
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
@@ -192,7 +194,7 @@ export class FormQuestionComponent implements OnInit {
 
     const questionType = formQuestionValues.type?.code;
     const questionStatus = formQuestionValues.status?.code;
-    const questionExamId = formQuestionValues.examId?.code;
+    const questionInstituteId = formQuestionValues.instituteId?.code;
     const questionSubjectId = formQuestionValues.subjectId?.code;
     const questionDifficultyLevel = formQuestionValues.difficultyLevel?.code;
     const questionRelatedTopicIds = formQuestionValues.relatedTopicIds?.map((topic) => topic.code);
@@ -201,7 +203,7 @@ export class FormQuestionComponent implements OnInit {
       ...question,
       ...formQuestionValues,
       id: question.id,
-      examId: questionExamId,
+      instituteId: questionInstituteId,
       subjectId: questionSubjectId,
       relatedTopicIds: questionRelatedTopicIds ?? [],
       type: questionType ?? EQuestionType.MULTIPLE_CHOICE,

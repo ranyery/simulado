@@ -36,8 +36,8 @@ const routes: Routes = [
         canMatch: [() => RolesGuard(allowedRoles)],
       },
       {
-        path: EEntity.EXAMS,
-        loadChildren: () => import('./modules/exams/exams.module').then((m) => m.ExamsModule),
+        path: EEntity.INSTITUTES,
+        loadChildren: () => import('./modules/institutes/institutes.module').then((m) => m.InstitutesModule),
         canMatch: [() => RolesGuard(allowedRoles)],
       },
       {

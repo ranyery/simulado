@@ -15,7 +15,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { PermissionsDirectivesModule } from '../../../shared/directives/permissions/permissions-directives.module';
 import { FormQuestionComponent } from './components/form-question/form-question.component';
 import { QuestionListPage } from './pages/question-list/question-list.page';
-import { FindExamPipe } from './pipes/find-exam.pipe';
+import { FindInstitutePipe } from './pipes/find-institute.pipe';
 import { FindRelatedTopicsPipe } from './pipes/find-related-topics.pipe';
 import { FindSubjectPipe } from './pipes/find-subject.pipe';
 import { QuestionsRoutingModule } from './questions-routing.module';
@@ -26,7 +26,7 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     FormQuestionComponent,
     FindSubjectPipe,
     FindRelatedTopicsPipe,
-    FindExamPipe,
+    FindInstitutePipe,
   ],
   imports: [
     CommonModule,

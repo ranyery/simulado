@@ -1,5 +1,5 @@
-<div class="form-exam">
-  <form class="form-exam__form" [formGroup]="form">
+<div class="form-institute">
+  <form class="form-institute__form" [formGroup]="form">
     <div class="flex flex-column gap-1">
       <label class="label">Sigla</label>
       <input pInputText formControlName="acronym" />
@@ -14,14 +14,14 @@
       <label class="label">Status</label>
       <p-dropdown
         formControlName="status"
-        [options]="examStatus"
+        [options]="instituteStatus"
         optionLabel="name"
         styleClass="w-full"
         appendTo="body">
       </p-dropdown>
     </div>
 
-    <div class="form-exam__actions">
+    <div class="form-institute__actions">
       <p-button
         (onClick)="cancel()"
         label="Cancelar"

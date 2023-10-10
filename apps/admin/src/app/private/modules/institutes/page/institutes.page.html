@@ -1,16 +1,16 @@
-<section class="exams" *ifCanRead>
-  <div class="exams__header">
-    <div class="exams__title">Lista de Exames</div>
+<section class="institutes" *ifCanRead>
+  <div class="institutes__header">
+    <div class="institutes__title">Lista de Institutos</div>
     <p-button
       *ifCanCreate
-      (onClick)="createExam()"
+      (onClick)="createInstitute()"
       label="Adicionar"
       styleClass="p-button-sm p-button-success">
     </p-button>
   </div>
   <p-table
     #pTable
-    [value]="exams"
+    [value]="institutes"
     [scrollable]="true"
     [loading]="isLoading"
     scrollHeight="calc(100vh - 202px)"
@@ -26,7 +26,7 @@
             pInputText
             type="text"
             (input)="applyFilterGlobal($event, 'contains')"
-            placeholder="Pesquisar exame..." />
+            placeholder="Pesquisar instituto..." />
         </span>
       </div>
     </ng-template>
@@ -45,7 +45,7 @@
         <th pResizableColumn *ifCanUpdate>Ações</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-exam>
+    <ng-template pTemplate="body" let-institute>
       <tr>
         <td
           class="overflow"
@@ -53,22 +53,22 @@
           pTooltip="Clique para copiar"
           tooltipPosition="top"
           tooltipEvent="hover"
-          (click)="copyToClipboard(exam.id)">
-          {{ exam.id | shorten: 6 : '...' }}
+          (click)="copyToClipboard(institute.id)">
+          {{ institute.id | shorten: 6 : '...' }}
         </td>
-        <td class="overflow">{{ exam.acronym }}</td>
-        <td class="overflow">{{ exam.name ? (exam.name | shorten: 60 : '...') : '' }}</td>
-        <td class="overflow">{{ exam.status }}</td>
+        <td class="overflow">{{ institute.acronym }}</td>
+        <td class="overflow">{{ institute.name ? (institute.name | shorten: 60 : '...') : '' }}</td>
+        <td class="overflow">{{ institute.status }}</td>
         <td style="display: flex; gap: 16px" *ifCanUpdate>
           <p-button
-            (onClick)="updateExam(exam)"
+            (onClick)="updateInstitute(institute)"
             label="Editar"
             styleClass="p-button-sm p-button-warning">
           </p-button>
 
           <p-button
             *ifCanDelete
-            (onClick)="deleteExam(exam)"
+            (onClick)="deleteInstitute(institute)"
             label="Excluir"
             styleClass="p-button-sm p-button-danger">
           </p-button>
