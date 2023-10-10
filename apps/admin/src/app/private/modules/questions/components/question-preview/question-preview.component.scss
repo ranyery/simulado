@@ -1,0 +1,75 @@
+.question-preview {
+  border-radius: 8px;
+  background-color: #25262e;
+  color: #fff;
+
+  .bold {
+    font-weight: bold;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    color: #fff;
+    gap: 24px;
+
+    .topics {
+      span {
+        color: #ffffff80;
+        font-weight: 400;
+      }
+    }
+
+    .title {
+      font-size: 20px;
+    }
+
+    .answers {
+      display: flex;
+      flex-direction: column;
+      padding: 12px;
+      border-radius: 8px;
+      background-color: #393a42;
+      row-gap: 8px;
+
+      .selected {
+        border: 1px solid #3b82f6;
+      }
+
+      label {
+        display: flex;
+        align-items: baseline;
+        padding: 12px 16px;
+        border: 1px solid #fff3;
+        border-radius: 8px;
+        background-color: #25262e;
+        cursor: pointer;
+        gap: 8px;
+      }
+    }
+
+    // Custom components
+    &::ng-deep {
+      p-radiobutton {
+        .p-radiobutton {
+          width: 18px;
+          height: 18px;
+
+          .p-radiobutton-box {
+            width: 18px;
+            height: 18px;
+
+            .p-radiobutton-icon {
+              background-color: transparent;
+            }
+
+            &:not(.p-disabled).p-focus {
+              box-shadow: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

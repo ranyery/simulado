@@ -69,7 +69,11 @@
         <td class="overflow">{{ question.type }}</td>
         <td class="overflow">{{ question.difficultyLevel }}</td>
         <td class="overflow">{{ question.subjectId | findSubject }}</td>
-        <td class="overflow">{{ question.relatedTopicIds | findRelatedTopics }}</td>
+        <td class="overflow">
+          <span *ngFor="let topicId of question.relatedTopicIds; last as isLast">
+            {{ topicId | findRelatedTopic }}{{ isLast ? '' : ', ' }}
+          </span>
+        </td>
         <td class="overflow">{{ question.status }}</td>
         <td style="display: flex; gap: 16px" *ifCanUpdate>
           <p-button

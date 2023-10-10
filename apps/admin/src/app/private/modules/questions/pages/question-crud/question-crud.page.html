@@ -1,0 +1,119 @@
+<section class="question-crud">
+  <div class="form-question">
+    <form class="form-question__form" [formGroup]="formQuestion">
+      <div class="flex flex-column gap-1">
+        <label class="label">Enunciado</label>
+        <input pInputText formControlName="statement" />
+      </div>
+
+      <div formArrayName="answerOptions">
+        <div
+          class="flex flex-column gap-1"
+          *ngFor="let answerOption of formQuestion.controls['answerOptions'].controls; let i = index"
+          [formGroupName]="i">
+          <label class="label">Opção {{ upperLetters[i] }}:</label>
+          <div class="grid-wrapper">
+            <input pInputText formControlName="text" />
+            <input class="checkbox" type="checkbox" formControlName="isCorrect" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-column gap-1">
+        <label class="label">Explicação para a resposta correta</label>
+        <input pInputText id="explanation" formControlName="explanation" />
+      </div>
+
+      <div class="grid-row">
+        <div class="flex flex-column gap-1 subject">
+          <label class="label">Matéria</label>
+          <p-dropdown
+            styleClass="w-full"
+            formControlName="subjectId"
+            [options]="subjectOptions"
+            optionLabel="name"
+            appendTo="body">
+          </p-dropdown>
+        </div>
+
+        <div class="flex flex-column gap-1 topics">
+          <label class="label">Tópicos</label>
+          <p-multiSelect
+            styleClass="w-full"
+            formControlName="relatedTopicIds"
+            [options]="relatedTopicOptions"
+            optionLabel="name"
+            display="chip"
+            appendTo="body">
+          </p-multiSelect>
+        </div>
+
+        <div class="flex flex-column gap-1 difficultyLevel">
+          <label class="label">Dificuldade</label>
+          <p-dropdown
+            styleClass="w-full"
+            formControlName="difficultyLevel"
+            [options]="questionDifficultyLevels"
+            optionLabel="name"
+            appendTo="body">
+          </p-dropdown>
+        </div>
+
+        <div class="flex flex-column gap-1 institute">
+          <label class="label">Instituto</label>
+          <p-dropdown
+            styleClass="w-full"
+            formControlName="instituteId"
+            [options]="instituteOptions"
+            optionLabel="name"
+            appendTo="body">
+          </p-dropdown>
+        </div>
+
+        <div class="flex flex-column gap-1 year">
+          <label class="label">Ano</label>
+          <p-inputNumber styleClass="w-full" formControlName="year" [min]="0"></p-inputNumber>
+        </div>
+
+        <div class="flex flex-column gap-1 type">
+          <label class="label">Tipo</label>
+          <p-dropdown
+            styleClass="w-full"
+            formControlName="type"
+            [options]="questionTypes"
+            optionLabel="name"
+            appendTo="body">
+          </p-dropdown>
+        </div>
+
+        <div class="flex flex-column gap-1 status">
+          <label class="label">Status</label>
+          <p-dropdown
+            styleClass="w-full"
+            formControlName="status"
+            [options]="questionStatus"
+            optionLabel="name"
+            appendTo="body">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="form-question__actions">
+        <p-button
+          (onClick)="cancel()"
+          styleClass="w-full p-button-sm p-button-warning"
+          label="Cancelar">
+        </p-button>
+        <p-button
+          (onClick)="confirm()"
+          styleClass="w-full p-button-sm p-button-success"
+          [disabled]="formQuestion.invalid"
+          label="Confirmar">
+        </p-button>
+      </div>
+    </form>
+  </div>
+  <div class="w-full" *ngIf="question">
+    <app-question-preview [question]="question"></app-question-preview>
+  </div>
+</section>

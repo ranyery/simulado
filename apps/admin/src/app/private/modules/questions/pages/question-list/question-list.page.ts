@@ -1,14 +1,13 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IQuestion } from '@libs/shared/domain';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
-import { finalize, switchMap } from 'rxjs';
+import { finalize } from 'rxjs';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../../shared/services/toast.service';
-import { FormQuestionComponent } from '../../components/form-question/form-question.component';
 import { QuestionsService } from '../../services/questions.service';
 import { QuestionsState } from '../../state/questions.state';
 
@@ -23,10 +22,10 @@ export const enum EQuestionActions {
   styleUrls: ['./question-list.page.scss'],
 })
 export class QuestionListPage implements OnInit {
-  private _dynamicDialogRef = inject(DynamicDialogRef);
-  private readonly _dialogService = inject(DialogService);
   private readonly _toastService = inject(ToastService);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
+  private readonly _router = inject(Router);
+  private readonly _activatedRoute = inject(ActivatedRoute);
 
   private readonly _clipboard = inject(Clipboard);
 
@@ -62,7 +61,7 @@ export class QuestionListPage implements OnInit {
       .subscribe({
         next: (questions) => {
           this.questions = questions;
-          this._questionsState.set(questions);
+          this._questionsState.addAll(questions);
           this.hasError = false;
         },
         error: () => (this.hasError = true),
@@ -70,55 +69,14 @@ export class QuestionListPage implements OnInit {
   }
 
   public createQuestion(): void {
-    this._dynamicDialogRef = this._dialogService.open(FormQuestionComponent, {
-      data: { actionType: EQuestionActions.CREATE, question: {} },
-      closable: false,
-    });
-
-    this._dynamicDialogRef.onClose
-      .pipe(switchMap(({ question }) => this._questionsService.create(question)))
-      .subscribe({
-        next: (data) => {
-          this.questions = [...this.questions, data];
-          this._questionsState.set(this.questions);
-          this._toastService.open({ type: 'success', message: 'Questão criada com sucesso.' });
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error(error);
-          this._toastService.open({
-            type: 'error',
-            message: 'Erro ao tentar criar uma nova questão. Verifique os detalhes no console.',
-          });
-        },
-      });
+    this._router.navigate(['crud'], { relativeTo: this._activatedRoute });
   }
 
   public updateQuestion(question: IQuestion): void {
-    this._dynamicDialogRef = this._dialogService.open(FormQuestionComponent, {
-      data: { actionType: EQuestionActions.UPDATE, question },
-      closable: false,
+    this._router.navigate(['crud', question.id], {
+      state: { question },
+      relativeTo: this._activatedRoute,
     });
-
-    this._dynamicDialogRef.onClose
-      .pipe(switchMap(({ question }) => this._questionsService.updateById(question)))
-      .subscribe({
-        next: (question) => {
-          this.questions = this.questions.map((q) => {
-            if (q.id !== question.id) return q;
-            return { ...q, ...question };
-          });
-          this._questionsState.set(this.questions);
-
-          this._toastService.open({ type: 'success', message: 'Questão atualizada com sucesso.' });
-        },
-        error: (error: HttpErrorResponse) => {
-          console.error(error);
-          this._toastService.open({
-            type: 'error',
-            message: 'Erro ao tentar atualizar a questão. Verifique os detalhes no console.',
-          });
-        },
-      });
   }
 
   public deleteQuestion(question: IQuestion): void {
@@ -137,7 +95,7 @@ export class QuestionListPage implements OnInit {
     this._questionsService.deleteById(question).subscribe({
       next: () => {
         this.questions = this.questions.filter((sub) => sub.id !== question.id);
-        this._questionsState.set(this.questions);
+        this._questionsState.addAll(this.questions);
 
         this._toastService.open({ type: 'success', message: 'Questão deletada com sucesso.' });
       },

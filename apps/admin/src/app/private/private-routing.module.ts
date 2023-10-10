@@ -37,7 +37,8 @@ const routes: Routes = [
       },
       {
         path: EEntity.INSTITUTES,
-        loadChildren: () => import('./modules/institutes/institutes.module').then((m) => m.InstitutesModule),
+        loadChildren: () =>
+          import('./modules/institutes/institutes.module').then((m) => m.InstitutesModule),
         canMatch: [() => RolesGuard(allowedRoles)],
       },
       {

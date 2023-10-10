@@ -1,20 +1,25 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   EQuestionDifficultyLevel,
   EQuestionStatus,
   EQuestionType,
   IQuestion,
 } from '@libs/shared/domain';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
+import { ToastService } from '../../../../../shared/services/toast.service';
 import { UserRolesService } from '../../../../../shared/services/user-roles.service';
 import { UtilsService } from '../../../../../shared/services/utils.service';
 import { InstitutesState } from '../../../institutes/state/institutes.state';
 import { SubjectsState } from '../../../subjects/state/subjects.state';
 import { TopicsState } from '../../../topics/state/topics.state';
-import { EQuestionActions } from '../../pages/question-list/question-list.page';
+import { QuestionsService } from '../../services/questions.service';
+import { QuestionsState } from '../../state/questions.state';
+import { EQuestionActions } from '../question-list/question-list.page';
 
 interface IQuestionStatus {
   name: string;
@@ -36,28 +41,33 @@ interface IOption {
   code: string;
 }
 
-interface IQuestionActionData {
-  actionType: EQuestionActions;
-  question: IQuestion;
-}
-
 @Component({
-  selector: 'app-form-question',
-  templateUrl: './form-question.component.html',
-  styleUrls: ['./form-question.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-question-crud',
+  templateUrl: './question-crud.page.html',
+  styleUrls: ['./question-crud.page.scss'],
 })
-export class FormQuestionComponent implements OnInit {
-  private readonly _dynamicDialogRef = inject(DynamicDialogRef);
-  private readonly _dynamicDialogConfig = inject(DynamicDialogConfig);
-  private readonly _confirmDialogService = inject(ConfirmDialogService);
+export class QuestionCrudPage implements OnInit {
+  private readonly _router = inject(Router);
+  private readonly _location = inject(Location);
+  private readonly _activatedRoute = inject(ActivatedRoute);
+
   private readonly _utilsService = inject(UtilsService);
+  private readonly _toastService = inject(ToastService);
+  private readonly _confirmDialogService = inject(ConfirmDialogService);
+
   private readonly _userRolesService = inject(UserRolesService);
-  private readonly _subjectsState = inject(SubjectsState);
+  private readonly _questionsService = inject(QuestionsService);
+
   private readonly _topicsState = inject(TopicsState);
+  private readonly _subjectsState = inject(SubjectsState);
+  private readonly _questionsState = inject(QuestionsState);
   private readonly _institutesState = inject(InstitutesState);
 
-  private _actionType?: EQuestionActions;
+  public question?: IQuestion;
+  private _questionState!: IQuestion;
+  private _actionType = EQuestionActions.CREATE;
+
+  public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
 
   public readonly questionTypes: IQuestionType[] = [
     { name: 'Múltipla Escolha', code: EQuestionType.MULTIPLE_CHOICE },
@@ -77,10 +87,17 @@ export class FormQuestionComponent implements OnInit {
     { name: 'Arquivado', code: EQuestionStatus.ARCHIVED },
   ];
 
-  public subjectOptions: IOption[] = [];
-  public relatedTopicOptions: IOption[] = [];
-  public instituteOptions: IOption[] = [];
-  public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
+  public subjectOptions: IOption[] = this._subjectsState
+    .getAll()
+    .map<IOption>((subject) => ({ name: subject.name, code: subject.id }));
+
+  public instituteOptions: IOption[] = this._institutesState
+    .getAll()
+    .map<IOption>((institute) => ({ name: institute.acronym, code: institute.id }));
+
+  public relatedTopicOptions: IOption[] = this._topicsState
+    .getAll()
+    .map<IOption>((topic) => ({ name: topic.name, code: topic.id }));
 
   public formQuestion = new FormGroup({
     id: new FormControl<string | undefined>(undefined),
@@ -126,58 +143,61 @@ export class FormQuestionComponent implements OnInit {
     ),
   });
 
-  constructor() {}
+  constructor() {
+    const state = this._router.getCurrentNavigation()?.extras.state;
+    const questionId = this._activatedRoute.snapshot.params['id'];
+
+    if (state) {
+      this._questionState = state['question'];
+      this._actionType = EQuestionActions.UPDATE;
+    }
+
+    if (questionId && !this._questionState) {
+      // update url without navigation
+      this._location.replaceState('cockpit/questions/crud');
+    }
+  }
 
   ngOnInit(): void {
-    const { actionType, question } = this._dynamicDialogConfig.data as IQuestionActionData;
-    this._actionType = actionType;
+    this.formQuestion.valueChanges.subscribe(() => {
+      this.question = this._composeQuestionFromFormValues();
+    });
 
-    this.subjectOptions = this._subjectsState
-      .getAll()
-      .map<IOption>((subject) => ({ name: subject.name, code: subject.id }));
-
-    this.relatedTopicOptions = this._topicsState
-      .getAll()
-      .map<IOption>((topic) => ({ name: topic.name, code: topic.id }));
-
-    this.instituteOptions = this._institutesState
-      .getAll()
-      .map<IOption>((institute) => ({ name: institute.acronym, code: institute.id }));
-
-    if (actionType === EQuestionActions.CREATE) {
+    if (this._actionType === EQuestionActions.CREATE) {
       this.formQuestion.controls['instituteId'].setValue(this.instituteOptions[0]);
       this.formQuestion.controls['subjectId'].setValue(this.subjectOptions[0]);
       return;
     }
 
-    if (actionType === EQuestionActions.UPDATE) {
-      const questionType = this.questionTypes.find((q) => q.code === question.type);
+    if (this._actionType === EQuestionActions.UPDATE) {
+      const questionType = this.questionTypes.find((q) => q.code === this._questionState.type);
       const questionDifficultyLevel = this.questionDifficultyLevels.find(
-        (s) => s.code === question.difficultyLevel
+        (d) => d.code === this._questionState.difficultyLevel
       );
-      const questionStatus = this.questionStatus.find((s) => s.code === question.status);
-      const selectedSubject = this.subjectOptions.find((s) => s.code === question.subjectId);
-      const selectedSubjectIds = this.relatedTopicOptions.filter((topic) =>
-        question.relatedTopicIds.includes(topic.code)
+      const questionStatus = this.questionStatus.find((s) => s.code === this._questionState.status);
+      const selectedSubject = this.subjectOptions.find(
+        (s) => s.code === this._questionState.subjectId
+      );
+      const selectedSubjectIds = this.relatedTopicOptions.filter((t) =>
+        this._questionState.relatedTopicIds.includes(t.code)
       );
       const selectedInstitute = this.instituteOptions.find(
-        (institute) => institute.code === question.instituteId
+        (i) => i.code === this._questionState.instituteId
       );
 
-      this.formQuestion.controls['id'].setValue(question.id);
-      this.formQuestion.controls['statement'].setValue(question.statement);
-      this.formQuestion.controls['explanation'].setValue(question.explanation);
+      this.formQuestion.controls['id'].setValue(this._questionState.id);
+      this.formQuestion.controls['statement'].setValue(this._questionState.statement);
+      this.formQuestion.controls['explanation'].setValue(this._questionState.explanation);
       this.formQuestion.controls['type'].setValue(questionType);
       this.formQuestion.controls['instituteId'].setValue(selectedInstitute);
-      this.formQuestion.controls['year'].setValue(question.year);
+      this.formQuestion.controls['year'].setValue(this._questionState.year);
       this.formQuestion.controls['difficultyLevel'].setValue(questionDifficultyLevel);
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
       this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
 
-      // Necessário limpar caso não seja do tipo 'CREATE'
       this.formQuestion.controls['answerOptions'].clear();
-      question.answerOptions.forEach((option) => {
+      this._questionState.answerOptions.forEach((option) => {
         const formGroup = new FormGroup({
           text: new FormControl<string>(option.text, [Validators.required]),
           isCorrect: new FormControl<boolean>(option.isCorrect),
@@ -189,27 +209,7 @@ export class FormQuestionComponent implements OnInit {
   }
 
   public confirm(): void {
-    const formQuestionValues = this.formQuestion.getRawValue();
-    const { question } = this._dynamicDialogConfig.data as IQuestionActionData;
-
-    const questionType = formQuestionValues.type?.code;
-    const questionStatus = formQuestionValues.status?.code;
-    const questionInstituteId = formQuestionValues.instituteId?.code;
-    const questionSubjectId = formQuestionValues.subjectId?.code;
-    const questionDifficultyLevel = formQuestionValues.difficultyLevel?.code;
-    const questionRelatedTopicIds = formQuestionValues.relatedTopicIds?.map((topic) => topic.code);
-
-    const updatedQuestion = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IQuestion>({
-      ...question,
-      ...formQuestionValues,
-      id: question.id,
-      instituteId: questionInstituteId,
-      subjectId: questionSubjectId,
-      relatedTopicIds: questionRelatedTopicIds ?? [],
-      type: questionType ?? EQuestionType.MULTIPLE_CHOICE,
-      status: questionStatus ?? EQuestionStatus.PENDING_REVIEW,
-      difficultyLevel: questionDifficultyLevel ?? EQuestionDifficultyLevel.MEDIUM,
-    });
+    const question = this._composeQuestionFromFormValues();
 
     this._confirmDialogService.confirm(
       {
@@ -219,12 +219,73 @@ export class FormQuestionComponent implements OnInit {
         } da questão?`,
         type: 'info',
       },
-      () => this._dynamicDialogRef.close({ question: updatedQuestion }),
+      () => {
+        this._actionType === EQuestionActions.CREATE
+          ? this._createQuestion(question)
+          : this._updateQuestion(question);
+      },
       () => this.cancel()
     );
   }
 
   public cancel(): void {
-    this._dynamicDialogRef.destroy();
+    this._router.navigate(['/', 'cockpit', 'questions']);
+  }
+
+  private _composeQuestionFromFormValues(): IQuestion {
+    const formQuestionValues = this.formQuestion.getRawValue();
+
+    const questionType = formQuestionValues.type?.code;
+    const questionStatus = formQuestionValues.status?.code;
+    const questionInstituteId = formQuestionValues.instituteId?.code;
+    const questionSubjectId = formQuestionValues.subjectId?.code;
+    const questionDifficultyLevel = formQuestionValues.difficultyLevel?.code;
+    const questionRelatedTopicIds = formQuestionValues.relatedTopicIds?.map((topic) => topic.code);
+
+    const updatedQuestion = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IQuestion>({
+      ...(this._questionState ?? {}),
+      ...formQuestionValues,
+      id: this._questionState?.id,
+      instituteId: questionInstituteId,
+      subjectId: questionSubjectId,
+      relatedTopicIds: questionRelatedTopicIds ?? [],
+      type: questionType ?? EQuestionType.MULTIPLE_CHOICE,
+      status: questionStatus ?? EQuestionStatus.PENDING_REVIEW,
+      difficultyLevel: questionDifficultyLevel ?? EQuestionDifficultyLevel.MEDIUM,
+    });
+
+    return updatedQuestion;
+  }
+
+  private _createQuestion(question: IQuestion): void {
+    this._questionsService.create(question).subscribe({
+      next: (question) => {
+        this._questionsState.add(question);
+        this._toastService.open({ type: 'success', message: 'Questão criada com sucesso.' });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+        this._toastService.open({
+          type: 'error',
+          message: 'Erro ao tentar criar uma nova questão. Verifique os detalhes no console.',
+        });
+      },
+    });
+  }
+
+  private _updateQuestion(question: IQuestion): void {
+    this._questionsService.updateById(question).subscribe({
+      next: (question) => {
+        this._questionsState.update(question);
+        this._toastService.open({ type: 'success', message: 'Questão atualizada com sucesso.' });
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error);
+        this._toastService.open({
+          type: 'error',
+          message: 'Erro ao tentar atualizar a questão. Verifique os detalhes no console.',
+        });
+      },
+    });
   }
 }
