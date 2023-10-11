@@ -4,12 +4,12 @@
       <div class="topics bold">
         Matéria: <span>{{ question.subjectId | findSubject }}</span>
       </div>
-      <div class="topics bold">
+      <!-- <div class="topics bold">
         Tópicos:
         <span *ngFor="let topic of question.relatedTopicIds; last as isLast">
           {{ topic | findRelatedTopic }}{{ isLast ? '' : ', ' }}
         </span>
-      </div>
+      </div> -->
     </div>
 
     <h1 class="title" markdown katex [inline]="true" [data]="question | statementToMarkdown"></h1>

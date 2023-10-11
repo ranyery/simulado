@@ -174,9 +174,9 @@ export class QuestionCrudPage implements OnInit {
       const selectedSubject = this.subjectOptions.find(
         (s) => s.code === this._questionState.subjectId
       );
-      const selectedSubjectIds = this.relatedTopicOptions.filter((t) =>
-        this._questionState.relatedTopicIds.includes(t.code)
-      );
+      // const selectedSubjectIds = this.relatedTopicOptions.filter((t) =>
+      //   this._questionState.relatedTopicIds.includes(t.code)
+      // );
       const selectedInstitute = this.instituteOptions.find(
         (i) => i.code === this._questionState.instituteId
       );
@@ -189,7 +189,7 @@ export class QuestionCrudPage implements OnInit {
       this.formQuestion.controls['year'].setValue(this._questionState.year);
       this.formQuestion.controls['difficultyLevel'].setValue(questionDifficultyLevel);
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
-      this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
+      // this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
       this.formQuestion.controls['answerOptions'].setValue(this._questionState.answerOptions);
       this.formQuestion.controls['rightAnswer'].setValue(this._questionState.rightAnswer);
@@ -225,7 +225,6 @@ export class QuestionCrudPage implements OnInit {
   }
 
   private _composeQuestionFromFormValues(): IQuestion {
-    debugger;
     const formQuestionValues = this.formQuestion.getRawValue();
 
     const questionType = formQuestionValues.type?.code;

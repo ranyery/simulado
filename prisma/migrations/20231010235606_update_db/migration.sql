@@ -16,7 +16,7 @@ CREATE TYPE "EQuestionType" AS ENUM ('MULTIPLE_CHOICE', 'TRUE_OR_FALSE', 'FILL_I
 -- CreateTable
 CREATE TABLE "users" (
     "id" STRING NOT NULL,
-    "email" STRING NOT NULL,
+    "user_email" STRING NOT NULL,
     "password" STRING NOT NULL,
     "roles" "EUserRole"[] DEFAULT ARRAY['USER']::"EUserRole"[],
     "status" "EUserStatus" NOT NULL DEFAULT 'PENDING_CONFIRMATION',
@@ -76,12 +76,36 @@ CREATE TABLE "questions" (
     "year" INT4 NOT NULL DEFAULT 0,
     "instituteId" STRING NOT NULL,
     "subjectId" STRING NOT NULL,
-    "relatedTopicIds" STRING[] DEFAULT ARRAY[]::STRING[],
+    "topicIds" STRING[] DEFAULT ARRAY[]::STRING[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "questions_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "QuestionToTopic" (
+    "id" STRING NOT NULL,
+    "questionId" STRING NOT NULL,
+    "topicId" STRING NOT NULL,
+
+    CONSTRAINT "QuestionToTopic_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
-CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+CREATE UNIQUE INDEX "users_user_email_key" ON "users"("user_email");
+
+-- AddForeignKey
+ALTER TABLE "topics" ADD CONSTRAINT "topics_subjectId_fkey" FOREIGN KEY ("subjectId") REFERENCES "subjects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "questions" ADD CONSTRAINT "questions_instituteId_fkey" FOREIGN KEY ("instituteId") REFERENCES "institutes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "questions" ADD CONSTRAINT "questions_subjectId_fkey" FOREIGN KEY ("subjectId") REFERENCES "subjects"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "QuestionToTopic" ADD CONSTRAINT "QuestionToTopic_questionId_fkey" FOREIGN KEY ("questionId") REFERENCES "questions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "QuestionToTopic" ADD CONSTRAINT "QuestionToTopic_topicId_fkey" FOREIGN KEY ("topicId") REFERENCES "topics"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

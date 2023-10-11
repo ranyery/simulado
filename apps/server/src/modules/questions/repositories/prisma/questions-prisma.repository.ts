@@ -11,7 +11,12 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async findAll(): Promise<IQuestion[]> {
-    return this._prismaService.question.findMany();
+    return this._prismaService.question.findMany({
+      // include: {
+      //   subject: { select: { id: true, name: true } },
+      //   institute: { select: { id: true, name: true } },
+      // },
+    });
   }
 
   async findById(id: string): Promise<IQuestion | null> {

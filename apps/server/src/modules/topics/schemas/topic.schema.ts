@@ -6,9 +6,9 @@ export const TopicSchema = z.object({
   name: z.string().trim(),
   description: z.string().trim().optional().default(''),
   status: z.nativeEnum(ETopicStatus),
+  subjectId: z.string().trim().cuid(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  subjectId: z.string().trim().cuid(),
 }) satisfies z.ZodType<ITopic>;
 
 // Usar como referência de dados ENVIADOS para o Front-End

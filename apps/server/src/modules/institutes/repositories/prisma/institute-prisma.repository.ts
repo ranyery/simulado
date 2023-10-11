@@ -11,20 +11,27 @@ export class InstitutePrismaRepository implements IInstitutesRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async create(data: CreateInstituteRequestDTO): Promise<IInstitute> {
-    return this._prismaService.institute.create({ data });
+    return this._prismaService.institute.create({ data, include: { questions: true } });
   }
 
   async findAll(): Promise<IInstitute[]> {
-    return this._prismaService.institute.findMany({ orderBy: { createdAt: 'desc' } });
+    return this._prismaService.institute.findMany({
+      include: { questions: true },
+      orderBy: { createdAt: 'desc' },
+    });
   }
 
   async findById(id: string): Promise<IInstitute | null> {
-    return this._prismaService.institute.findUnique({ where: { id } });
+    return this._prismaService.institute.findUnique({
+      where: { id },
+      include: { questions: true },
+    });
   }
 
   async updateById(id: string, data: PartialInstituteRequestDTO): Promise<IInstitute | null> {
     return this._prismaService.institute.update({
       where: { id },
+      include: { questions: true },
       data: { ...data, updatedAt: new Date() },
     });
   }
