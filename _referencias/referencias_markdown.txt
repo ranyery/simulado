@@ -1,2 +1,11 @@
 Imagem centralizada:
 <br><br><center><img src='http://localhost:4200/assets/images/pyramid.png' alt='Imagem do enunciado'></center><br>
+
+Equação centralizada: => usar dois $
+$$\\sum_{i=1}^n(x_i^2 - \\overline{x}^2)$$
+
+https://garciparedes.me/ng-katex/
+
+$expression$ => Expressão             => $x ^ 2 + 5$
+$$expression$$ => Expressão display   => $$\\sum_{i=1}^n(x_i^2 - \\overline{x}^2)$$
+\$ => Scape do símbolo                => \\\\$

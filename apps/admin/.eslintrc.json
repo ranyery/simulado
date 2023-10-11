@@ -23,7 +23,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": ["app", "if"],
+            "prefix": ["app", "if", "katex"],
             "style": "camelCase"
           }
         ],

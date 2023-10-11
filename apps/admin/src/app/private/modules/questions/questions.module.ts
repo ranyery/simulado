@@ -18,6 +18,7 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { RichImageModule } from '../../../shared/components/rich-image/rich-image.module';
 import { PermissionsDirectivesModule } from '../../../shared/directives/permissions/permissions-directives.module';
+import { KatexModule } from '../../../shared/modules/katex/katex.module';
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
 import { QuestionCrudPage } from './pages/question-crud/question-crud.page';
 import { QuestionListPage } from './pages/question-list/question-list.page';
@@ -53,6 +54,7 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     RadioButtonModule,
     CheckboxModule,
     RichImageModule,
+    KatexModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
 })
