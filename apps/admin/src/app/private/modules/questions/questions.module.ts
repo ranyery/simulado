@@ -16,6 +16,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
+import { RichImageModule } from '../../../shared/components/rich-image/rich-image.module';
 import { PermissionsDirectivesModule } from '../../../shared/directives/permissions/permissions-directives.module';
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
 import { QuestionCrudPage } from './pages/question-crud/question-crud.page';
@@ -23,7 +24,6 @@ import { QuestionListPage } from './pages/question-list/question-list.page';
 import { FindInstitutePipe } from './pipes/find-institute.pipe';
 import { FindRelatedTopicPipe } from './pipes/find-related-topics.pipe';
 import { FindSubjectPipe } from './pipes/find-subject.pipe';
-import { StatementToMarkdownPipe } from './pipes/statement-to-markdown.pipe';
 import { QuestionsRoutingModule } from './questions-routing.module';
 
 @NgModule({
@@ -32,7 +32,6 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     FindSubjectPipe,
     FindRelatedTopicPipe,
     FindInstitutePipe,
-    StatementToMarkdownPipe,
     QuestionCrudPage,
     QuestionPreviewComponent,
   ],
@@ -53,6 +52,7 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     InputNumberModule,
     RadioButtonModule,
     CheckboxModule,
+    RichImageModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
   ],
 })

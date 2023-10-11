@@ -24,14 +24,6 @@
     .title {
       font-size: 20px;
       font-weight: 400;
-
-      &::ng-deep {
-        img {
-          background-color: #fff;
-          padding: 16px;
-          border-radius: 8px;
-        }
-      }
     }
 
     .answers {

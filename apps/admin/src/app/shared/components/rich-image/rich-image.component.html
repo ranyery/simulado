@@ -1,0 +1,5 @@
+<picture class="rich-image">
+  <span class="rich-image__title" *ngIf="title">{{ title }}</span>
+  <p-image [src]="imageUrl" [alt]="alt" [width]="width" [preview]="true"></p-image>
+  <span class="rich-image__subtitle" *ngIf="subtitle">{{ subtitle }}</span>
+</picture>

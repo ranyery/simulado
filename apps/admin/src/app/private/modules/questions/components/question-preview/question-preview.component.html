@@ -12,7 +12,29 @@
       </div> -->
     </div>
 
-    <h1 class="title" markdown katex [inline]="true" [data]="question | statementToMarkdown"></h1>
+    <h1 class="title">
+      <strong *ngIf="question.instituteId">
+        ({{
+          (question.instituteId | findInstitute) + (!!question.year ? ' - ' + question.year : '')
+        }})
+      </strong>
+      <ng-container *ngFor="let part of contentParts">
+        <markdown
+          *ngIf="part.type === 'markdown'; else other"
+          katex
+          [inline]="true"
+          [data]="part.text">
+        </markdown>
+        <ng-template #other>
+          <ng-container *ngIf="part.type === 'image'; else simpleText">
+            <app-rich-image [src]="part.text"></app-rich-image>
+          </ng-container>
+          <ng-template #simpleText>
+            {{ part.text }}
+          </ng-template>
+        </ng-template>
+      </ng-container>
+    </h1>
     <form class="answers" [formGroup]="form">
       <ng-container *ngFor="let answer of question.answerOptions; index as i">
         <label [ngClass]="{ selected: question.rightAnswer === i }">

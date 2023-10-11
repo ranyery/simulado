@@ -1,0 +1,23 @@
+.rich-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    display: block;
+  }
+
+  &__subtitle {
+    display: block;
+  }
+
+  // Custom component
+  p-image::ng-deep {
+    .p-image-preview,
+    .p-image-preview-container {
+      padding: 8px;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+  }
+}
