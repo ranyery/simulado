@@ -27,3 +27,4 @@
 [ ] Validar pontos ontem tem => '.name ==', pois a validação pode não estar correto
 [X] Trocar Exam para institute => Criar entidade Instituição
 [ ] Criar página de 'Reporte um erro' => https://blogdoenem.com.br/reporte-um-erro/
+[ ] Criar component que recebe markdown e rederiza dentro de uma tag span com as diretivas de markdown
