@@ -22,7 +22,7 @@ export class QuestionsController {
 
   @Get()
   async getAll() {
-    // TODO: Adicionar lógica de paginação => 'top', 'skip', etc
+    // TODO: Adicionar lógica de paginação => 'top', 'skip' e outros
     return await this._findAllQuestionsUseCase.execute();
   }
 

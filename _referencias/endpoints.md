@@ -54,8 +54,6 @@
 
 ---
 
-<!-- 1. [x] `POST /auth/register`: Registra um novo usuário no sistema. -->
-
 2. [x] `POST /auth/login`: Inicia uma sessão de autenticação para o usuário.
 3. `POST /auth/logout`: Encerra a sessão de autenticação atual.
 4. `POST /auth/refresh-token`: Gera um novo token de acesso com base em um token de atualização.
