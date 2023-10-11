@@ -39,6 +39,7 @@
     "@nestjs/platform-express": "^10.0.2",
     "@nrwl/angular": "^16.6.0",
     "@prisma/client": "^5.4.1",
+    "@vercel/analytics": "^1.1.0",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.0",
     "jwt-decode": "^3.1.2",

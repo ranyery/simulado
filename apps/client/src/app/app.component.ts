@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { inject as injectVercelAnalytics } from '@vercel/analytics';
 import { PrimeNGConfig } from 'primeng/api';
 
 import { environment } from '../environments/environment';
@@ -18,6 +19,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this._disableUndesiredBehaviors();
     this._primeNGConfig.ripple = true;
+
+    if (environment.production) {
+      injectVercelAnalytics();
+    }
   }
 
   private _disableUndesiredBehaviors() {
