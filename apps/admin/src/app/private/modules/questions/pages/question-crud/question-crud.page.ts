@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import {
   EQuestionDifficultyLevel,
   EQuestionStatus,
@@ -45,7 +46,6 @@ interface IOption {
   selector: 'app-question-crud',
   templateUrl: './question-crud.page.html',
   styleUrls: ['./question-crud.page.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class QuestionCrudPage implements OnInit {
   private readonly _router = inject(Router);
@@ -120,7 +120,10 @@ export class QuestionCrudPage implements OnInit {
       [Validators.required]
     ),
     instituteId: new FormControl<IOption | undefined>(undefined, [Validators.required]),
-    year: new FormControl<number | undefined>(undefined),
+    year: new FormControl<number | undefined>(undefined, [
+      Validators.min(0),
+      Validators.max(new Date().getFullYear()),
+    ]),
     difficultyLevel: new FormControl<IQuestionDifficultyLevel | undefined>(
       {
         value: this.questionDifficultyLevels.find((q) => q.code === EQuestionDifficultyLevel.EASY),
@@ -138,6 +141,21 @@ export class QuestionCrudPage implements OnInit {
       [Validators.required]
     ),
   });
+
+  public editorConfig: AngularEditorConfig = {
+    editable: true,
+    height: '150px',
+    sanitize: false,
+    defaultParagraphSeparator: 'p',
+    placeholder: 'Preencha o enunciado da questão...',
+    // uploadUrl: 'v1/image',
+    // upload: (file: File) => { ... }
+    toolbarHiddenButtons: [
+      ['heading', 'fontName'],
+      ['fontSize', 'customClasses', 'insertHorizontalRule'],
+    ],
+    rawPaste: true,
+  };
 
   constructor() {
     const state = this._router.getCurrentNavigation()?.extras.state;

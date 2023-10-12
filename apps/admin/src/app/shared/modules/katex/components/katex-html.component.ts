@@ -6,24 +6,26 @@ import { KatexService } from '../service/katex.service';
 
 @Component({
   selector: 'app-katex-html',
-  template: `<span [innerHTML]="allHtml"></span>`,
+  template: `<span [ngStyle]="{ 'font-size': fontSize }" [innerHTML]="allHtml"></span>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KatexHtmlComponent {
   private readonly _domSanitizer = inject(DomSanitizer);
   private readonly _katexService = inject(KatexService);
 
-  public allHtml: SafeHtml = '';
-
-  private _html: string = '';
-  private _segments: Segment[] = [];
-
-  @Input() set html(html: string) {
+  @Input({ required: false }) fontSize: string = '16px';
+  @Input({ required: true })
+  set html(html: string) {
     if (html !== this._html) {
       this._html = html;
       this._updateAllHtml();
     }
   }
+
+  public allHtml: SafeHtml = '';
+
+  private _html: string = '';
+  private _segments: Segment[] = [];
 
   private _updateAllHtml() {
     if (!this._html) {

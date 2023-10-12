@@ -1,5 +1,10 @@
-Imagem centralizada:
-<br><br><center><img src='http://localhost:4200/assets/images/pyramid.png' alt='Imagem do enunciado'></center><br>
+Imagem:
+<img
+  src="http://localhost:4200/assets/images/pyramid.png"
+  alt="olá"
+  title="Esse é um título"
+  subtitle="Esse é um subtítulo"
+>
 
 Equação centralizada: => usar dois $
 $$\\sum_{i=1}^n(x_i^2 - \\overline{x}^2)$$

@@ -4,7 +4,7 @@ import { Segment, extractMath } from 'extract-math';
 @Component({
   selector: 'app-katex-paragraph',
   template: `
-    <p>
+    <p [ngStyle]="{ 'font-size': fontSize }">
       <ng-container *ngFor="let segment of segments">
         <app-katex
           *ngIf="segment.math; else text"
@@ -22,6 +22,7 @@ export class KatexParagraphComponent {
 
   private _paragraph: string = '';
 
+  @Input({ required: false }) fontSize: string = '16px';
   @Input() set paragraph(paragraph: string) {
     if (paragraph !== this._paragraph) {
       this._paragraph = paragraph;

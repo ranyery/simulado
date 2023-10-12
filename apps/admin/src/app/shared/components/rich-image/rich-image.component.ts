@@ -14,7 +14,7 @@ export class RichImageComponent {
     this.imageUrl = hasProtocol ? value : `${environment.baseUrl}/assets/images/${value}`;
   }
 
-  @Input({ required: false }) alt: string = '';
+  @Input({ required: false }) alt?: string = '';
   @Input({ required: false }) width?: string;
   @Input({ required: false }) title?: string;
   @Input({ required: false }) subtitle?: string;

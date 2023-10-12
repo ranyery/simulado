@@ -4,18 +4,13 @@
       <div class="topics bold">
         Matéria: <span>{{ question.subjectId | findSubject }}</span>
       </div>
-      <!-- TODO: Atualizar a busca de tópicos e refatorar aqui -->
+      <!-- TODO: Atualizar a busca de tópicos para refatorar aqui -->
       <!-- <div class="topics bold">
         Tópicos:
         <span *ngFor="let topic of question.relatedTopicIds; last as isLast">
           {{ topic | findRelatedTopic }}{{ isLast ? '' : ', ' }}
         </span>
       </div> -->
-    </div>
-
-    <div>
-      <app-katex-html [html]="html"></app-katex-html>
-      <app-katex-paragraph [paragraph]="paragraph"></app-katex-paragraph>
     </div>
 
     <h1 class="title">
@@ -25,29 +20,29 @@
         }})
       </strong>
       <ng-container *ngFor="let part of contentParts">
-        <markdown
-          *ngIf="part.type === 'markdown'; else other"
-          katex
-          [inline]="true"
-          [data]="part.text">
-        </markdown>
-        <ng-template #other>
-          <ng-container *ngIf="part.type === 'image'; else simpleText">
-            <app-rich-image [src]="part.text"></app-rich-image>
-          </ng-container>
-          <ng-template #simpleText>
-            {{ part.text }}
-          </ng-template>
+        <ng-container *ngIf="part.type === 'image'; else simpleHtml">
+          <app-rich-image
+            *ngIf="part.src"
+            [src]="part.src"
+            [alt]="part.alt"
+            [title]="part.title"
+            [subtitle]="part.subtitle">
+          </app-rich-image>
+        </ng-container>
+        <ng-template #simpleHtml>
+          <app-katex-html *ngIf="part.content" [html]="part.content" fontSize="20px">
+          </app-katex-html>
         </ng-template>
       </ng-container>
     </h1>
+
     <form class="answers" [formGroup]="form">
       <ng-container *ngFor="let answer of question.answerOptions; index as i">
         <label [ngClass]="{ selected: question.rightAnswer === i }">
           <p-radioButton inputId="{{ i }}" [value]="i" formControlName="selectedAnswer">
           </p-radioButton>
           <span class="bold">{{ upperLetters[i] }}.</span>
-          <span>{{ answer }}</span>
+          <app-katex-html [html]="answer"></app-katex-html>
         </label>
       </ng-container>
     </form>

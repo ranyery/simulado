@@ -4,13 +4,19 @@ import { KatexOptions } from 'katex';
 @Component({
   selector: 'app-katex',
   template: `
-    <span katex [equation]="equation" [options]="options" (someError)="hasError($event)"></span>
+    <span
+      katex
+      [equation]="equation"
+      [options]="options"
+      [ngStyle]="{ 'font-size': fontSize }"
+      (someError)="hasError($event)"></span>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class KatexComponent {
   @Input({ required: true }) equation: string = '';
   @Input({ required: false }) options?: KatexOptions;
+  @Input({ required: false }) fontSize: string = '16px';
 
   @Output() someError = new EventEmitter<unknown>();
 

@@ -1,51 +1,39 @@
 import { Injectable } from '@angular/core';
 
-type ContentType = 'text' | 'image' | 'markdown';
+type ContentType = 'text' | 'image';
 export interface IContent {
-  text: string;
   type: ContentType;
+  content?: string;
+  src?: string;
+  alt?: string;
+  title?: string;
+  subtitle?: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {
   constructor() {}
 
-  public processAndCategorize(text: string): IContent[] {
-    const substrings = text.split('|'); // Padronização para identificar onde começa e termina o markdown
-    const markdownRegex = /\$.*?\$/g; // O texto em questão começa e finaliza com o caractere '$'
-    const imageRegex = /(<img[^>]*>)/; // Identifica se há uma imagem
+  public processHTMLTextWithImageTags(html: string): IContent[] {
+    const regex = /(<img[^>]*>)/g;
+    const parts = html.split(regex);
     const result: IContent[] = [];
 
-    for (const str of substrings) {
-      const isMarkdown = markdownRegex.test(str);
-      const hasImage = imageRegex.test(str);
-
-      if (isMarkdown) {
-        const textScriptsized = str.replace('$', '$\\scriptsize ');
-        result.push({ text: textScriptsized, type: 'markdown' });
-        continue;
+    for (const part of parts) {
+      if (part.includes('<img')) {
+        result.push({
+          type: 'image',
+          src: part.match(/src=["'](.*?)["']/)?.[1],
+          alt: part.match(/alt=["'](.*?)["']/)?.[1],
+          title: part.match(/title=["'](.*?)["']/)?.[1],
+          subtitle: part.match(/subtitle=["'](.*?)["']/)?.[1],
+        });
+      } else {
+        result.push({
+          type: 'text',
+          content: part,
+        });
       }
-
-      if (hasImage) {
-        const parts = str.split(imageRegex);
-
-        for (const part of parts) {
-          const isImage = imageRegex.test(part);
-
-          if (isImage) {
-            // TODO: Criar algo meu para identificar as imagens
-            const sourceRegex = /src=['"](.*?)['"]/;
-            result.push({ text: part.match(sourceRegex)?.[1] ?? '', type: 'image' });
-            continue;
-          }
-
-          result.push({ text: part, type: 'text' });
-        }
-
-        continue;
-      }
-
-      result.push({ text: str, type: 'text' });
     }
 
     return result;

@@ -1,16 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MarkdownModule } from 'ngx-markdown';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
@@ -41,21 +37,18 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     QuestionsRoutingModule,
     ButtonModule,
     TableModule,
-    DynamicDialogModule,
     ReactiveFormsModule,
     InputTextModule,
-    InputTextareaModule,
+    InputNumberModule,
     DropdownModule,
     TooltipModule,
     NgStringPipesModule,
     PermissionsDirectivesModule,
     MultiSelectModule,
-    InputNumberModule,
     RadioButtonModule,
-    CheckboxModule,
     RichImageModule,
     KatexModule,
-    MarkdownModule.forRoot({ loader: HttpClient }),
+    AngularEditorModule,
   ],
 })
 export class QuestionsModule {}

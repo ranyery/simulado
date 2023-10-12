@@ -1,30 +1,24 @@
 <section class="question-crud">
-  <div class="form-question">
+  <div class="form-question w-full">
     <form class="form-question__form" [formGroup]="formQuestion">
-      <div class="flex flex-column gap-1">
-        <label class="label">Enunciado</label>
-        <textarea rows="2" cols="30" pInputTextarea formControlName="statement" [autoResize]="true">
-        </textarea>
-      </div>
+      <angular-editor formControlName="statement" [config]="editorConfig"></angular-editor>
 
-      <div formArrayName="answerOptions">
-        <div
-          class="flex flex-column gap-1"
+      <div class="flex flex-column gap-1" formArrayName="answerOptions">
+        <ng-container
           *ngFor="let answerOption of formQuestion.controls['answerOptions'].controls; index as i">
-          <label class="label">Opção {{ upperLetters[i] }}:</label>
           <div class="grid-wrapper">
-            <input pInputText [formControlName]="i" />
+            <input pInputText [formControlName]="i" placeholder="Alternativa {{upperLetters[i]}}" />
             <p-button
-              icon="pi pi-check"
               (click)="setRightAnswer(i)"
-              styleClass="{{ formQuestion.controls['rightAnswer'].value === i ? 'p-button-success' : 'p-button-secondary opacity-20' }}">
+              styleClass="w-full {{ formQuestion.controls['rightAnswer'].value === i ? 'p-button-success' : 'p-button-secondary opacity-30' }}">
+              {{ upperLetters[i] }}
             </p-button>
           </div>
-        </div>
+        </ng-container>
       </div>
 
       <div class="flex flex-column gap-1">
-        <label class="label">Explicação para a resposta correta</label>
+        <label class="label">Explicação para a resposta correta (opcional)</label>
         <input pInputText id="explanation" formControlName="explanation" />
       </div>
 
@@ -75,8 +69,9 @@
         </div>
 
         <div class="flex flex-column gap-1 year">
-          <label class="label">Ano</label>
-          <p-inputNumber styleClass="w-full" formControlName="year" [min]="0"></p-inputNumber>
+          <label class="label">Ano (opcional)</label>
+          <p-inputNumber styleClass="w-full" formControlName="year" [useGrouping]="false" [min]="0">
+          </p-inputNumber>
         </div>
 
         <div class="flex flex-column gap-1 type">
