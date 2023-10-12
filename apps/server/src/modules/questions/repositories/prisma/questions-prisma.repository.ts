@@ -12,7 +12,7 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
 
   async findAll(query: IQueryParams): Promise<IQuestion[]> {
     return this._prismaService.question.findMany({
-      take: query.take,
+      take: query.top,
       skip: query.skip,
       where: { statement: { contains: query.search, mode: 'insensitive' } },
       orderBy: { createdAt: query.orderBy as 'asc' | 'desc' },

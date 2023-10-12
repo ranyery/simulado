@@ -62,7 +62,7 @@ export class QuestionListPage implements OnInit, OnDestroy {
 
     this._questionsService
       .getAll({
-        take: this._pageSize,
+        top: this._pageSize,
         skip: (this._currentPage - 1) * this._pageSize,
         search: this._searchTerm,
         orderBy: this._orderBy,

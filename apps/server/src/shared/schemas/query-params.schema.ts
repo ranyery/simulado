@@ -1,18 +1,18 @@
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'nestjs-zod/z';
 
-const MIN_TAKE_VALUE = 0;
-const DEFAULT_TAKE_VALUE = 20;
-const MAX_TAKE_VALUE = 100;
+const MIN_TOP_VALUE = 0;
+const DEFAULT_TOP_VALUE = 20;
+const MAX_TOP_VALUE = 100;
 
 const DEFAULT_SKIP_VALUE = 0;
 
-const transformTake = (value: string) => {
+const transformTop = (value: string) => {
   const parsedValue = parseInt(value, 10);
-  if (!isNaN(parsedValue) && parsedValue >= MIN_TAKE_VALUE && parsedValue <= MAX_TAKE_VALUE) {
+  if (!isNaN(parsedValue) && parsedValue >= MIN_TOP_VALUE && parsedValue <= MAX_TOP_VALUE) {
     return parsedValue;
   }
-  return DEFAULT_TAKE_VALUE;
+  return DEFAULT_TOP_VALUE;
 };
 
 const transformSkip = (value: string) => {
@@ -33,7 +33,7 @@ const transformOrderBy = (order: string) => {
 
 const QueryParamsSchema = z.object({
   search: z.string().trim().toLowerCase().optional(),
-  take: z.string().trim().optional().default('20').transform(transformTake),
+  top: z.string().trim().optional().default('20').transform(transformTop),
   skip: z.string().trim().optional().default('0').transform(transformSkip),
   orderBy: z.string().trim().toLowerCase().optional().default('asc').transform(transformOrderBy),
 });
