@@ -106,7 +106,8 @@ export class QuestionCrudPage implements OnInit {
     answerOptions: new FormArray(
       Array(5)
         .fill(null)
-        .map(() => new FormControl<string | undefined>(undefined, [Validators.required]))
+        .map(() => new FormControl<string | undefined>(undefined)),
+      [Validators.minLength(2), Validators.minLength(5)]
     ),
     rightAnswer: new FormControl<number | undefined>(undefined, Validators.required),
     explanation: new FormControl<string | undefined>(undefined),
@@ -209,7 +210,7 @@ export class QuestionCrudPage implements OnInit {
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
       // this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
-      this.formQuestion.controls['answerOptions'].setValue(this._questionState.answerOptions);
+      this.formQuestion.controls['answerOptions'].patchValue(this._questionState.answerOptions);
       this.formQuestion.controls['rightAnswer'].setValue(this._questionState.rightAnswer);
     }
   }
@@ -234,7 +235,7 @@ export class QuestionCrudPage implements OnInit {
           ? this._createQuestion(question)
           : this._updateQuestion(question);
       },
-      () => this.cancel()
+      () => {}
     );
   }
 
@@ -251,6 +252,7 @@ export class QuestionCrudPage implements OnInit {
     const questionSubjectId = formQuestionValues.subjectId?.code;
     const questionDifficultyLevel = formQuestionValues.difficultyLevel?.code;
     const questionRelatedTopicIds = formQuestionValues.relatedTopicIds?.map((topic) => topic.code);
+    const questionAnswerOptions = formQuestionValues.answerOptions.filter((a) => a !== null);
 
     const updatedQuestion = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IQuestion>({
       ...(this._questionState ?? {}),
@@ -261,6 +263,7 @@ export class QuestionCrudPage implements OnInit {
       type: questionType ?? EQuestionType.MULTIPLE_CHOICE,
       status: questionStatus ?? EQuestionStatus.PENDING_REVIEW,
       difficultyLevel: questionDifficultyLevel ?? EQuestionDifficultyLevel.MEDIUM,
+      answerOptions: questionAnswerOptions,
     });
 
     return updatedQuestion;
@@ -271,6 +274,7 @@ export class QuestionCrudPage implements OnInit {
       next: (question) => {
         this._questionsState.add(question);
         this._toastService.open({ type: 'success', message: 'Questão criada com sucesso.' });
+        this.formQuestion.reset();
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);
@@ -287,6 +291,7 @@ export class QuestionCrudPage implements OnInit {
       next: (question) => {
         this._questionsState.update(question);
         this._toastService.open({ type: 'success', message: 'Questão atualizada com sucesso.' });
+        this.formQuestion.reset();
       },
       error: (error: HttpErrorResponse) => {
         console.error(error);

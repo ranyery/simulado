@@ -2,13 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 16px;
 
-  &__title {
-    display: block;
-  }
-
+  &__title,
   &__subtitle {
-    display: block;
+    font-size: 16px;
   }
 
   // Custom component
