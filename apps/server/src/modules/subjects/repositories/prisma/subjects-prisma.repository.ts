@@ -13,6 +13,7 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
   async findAll(): Promise<ISubject[]> {
     return this._prismaService.subject.findMany({
       include: { topics: true, questions: true },
+      orderBy: { createdAt: 'asc' },
     });
   }
 

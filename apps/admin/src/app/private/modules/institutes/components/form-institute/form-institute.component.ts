@@ -45,7 +45,7 @@ export class FormInstituteComponent implements OnInit {
     name: new FormControl<string | undefined>(''),
     status: new FormControl<IInstituteStatus | undefined>({
       value: this.instituteStatus.find(
-        (institute) => institute.name === EInstituteStatus.PENDING_REVIEW
+        (institute) => institute.code === EInstituteStatus.PENDING_REVIEW
       ),
       disabled: !this._userRolesService.isAdmin(),
     }),

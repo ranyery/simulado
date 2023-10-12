@@ -52,7 +52,7 @@ export class FormTopicComponent implements OnInit {
     name: new FormControl<string>('', [Validators.required]),
     description: new FormControl<string | undefined>(undefined),
     status: new FormControl<ITopicStatus | undefined>({
-      value: this.topicStatus.find((topic) => topic.name === ETopicStatus.PENDING_REVIEW),
+      value: this.topicStatus.find((topic) => topic.code === ETopicStatus.PENDING_REVIEW),
       disabled: !this._userRolesService.isAdmin(),
     }),
     subjectId: new FormControl<ISubjectOption | undefined>(undefined, [Validators.required]),

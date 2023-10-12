@@ -43,7 +43,7 @@ export class FormSubjectComponent implements OnInit {
     id: new FormControl<string | undefined>(undefined),
     name: new FormControl<string>('', [Validators.required]),
     status: new FormControl<ISubjectStatus | undefined>({
-      value: this.subjectStatus.find((subject) => subject.name === ESubjectStatus.PENDING_REVIEW),
+      value: this.subjectStatus.find((subject) => subject.code === ESubjectStatus.PENDING_REVIEW),
       disabled: !this._userRolesService.isAdmin(),
     }),
     description: new FormControl<string | undefined>(undefined),

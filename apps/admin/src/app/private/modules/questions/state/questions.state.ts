@@ -6,8 +6,17 @@ import { BaseState } from '../../../../shared/classes/base.state';
 @Injectable({ providedIn: 'root' })
 export class QuestionsState implements BaseState<IQuestion> {
   private _questions: IQuestion[] = [];
+  private _isSynced: boolean = false;
 
   constructor() {}
+
+  public get isSynced(): boolean {
+    return this._isSynced;
+  }
+
+  public set isSynced(value: boolean) {
+    this._isSynced = value;
+  }
 
   public add(question: IQuestion): void {
     this._questions = [...this._questions, question];
@@ -33,7 +42,7 @@ export class QuestionsState implements BaseState<IQuestion> {
   }
 
   public getAll(): IQuestion[] {
-    return this._questions;
+    return [...this._questions];
   }
 
   public isEmpty(): boolean {

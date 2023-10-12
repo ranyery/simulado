@@ -37,15 +37,16 @@ export class QuestionListPage implements OnInit, OnDestroy {
   private _pTableBodyWrapper: HTMLDivElement | null = null;
   private _subscription = new Subscription();
 
-  public questions: IQuestion[] = [];
-  public isLoading: boolean = true;
-  public hasError: boolean = false;
+  public questions: IQuestion[] = [...this._questionsState.getAll()];
 
   private readonly _pageSize: number = 20;
-  private _currentPage: number = 1;
-  private _hasMoreItems: boolean = true;
+  private _currentPage: number = Math.floor(this.questions.length / this._pageSize) + 1;
+  private _hasMoreItems: boolean = this.questions.length % this._pageSize === 0;
   private _orderBy: 'asc' | 'desc' = 'asc';
   private _searchTerm?: string;
+
+  public isLoading: boolean = true;
+  public hasError: boolean = false;
 
   constructor() {}
 
@@ -54,14 +55,10 @@ export class QuestionListPage implements OnInit, OnDestroy {
   }
 
   private _fetchQuestions(): void {
-    if (!this._hasMoreItems) {
-      this.questions = this._questionsState.getAll();
+    if (this._questionsState.isSynced) {
       this.isLoading = false;
       return;
     }
-
-    this.isLoading = true;
-    this.hasError = false;
 
     this._questionsService
       .getAll({
@@ -79,6 +76,7 @@ export class QuestionListPage implements OnInit, OnDestroy {
           this.hasError = false;
           this._currentPage += 1;
           this._hasMoreItems = questions.length === this._pageSize;
+          this._questionsState.isSynced = !this._hasMoreItems;
 
           if (!this._pTableBodyWrapper) this._tryListenTableBodyScroll();
           this._toastService.open({ type: 'success', message: 'Carregamento finalizado!' });

@@ -11,7 +11,9 @@ export class TopicsPrismaRepository implements ITopicsRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
   async findAll(): Promise<ITopic[]> {
-    return this._prismaService.topic.findMany();
+    return this._prismaService.topic.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
   }
 
   async findById(id: string): Promise<ITopic | null> {

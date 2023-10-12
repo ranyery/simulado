@@ -1,12 +1,12 @@
 <div class="form-topic">
   <form class="form-topic__form" [formGroup]="form">
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Nome</label>
-      <input pInputText id="name" formControlName="name" />
+      <label class="label">Nome</label>
+      <input pInputText formControlName="name" />
     </div>
 
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Status</label>
+      <label class="label">Status</label>
       <p-dropdown
         formControlName="status"
         [options]="topicStatus"
@@ -17,7 +17,7 @@
     </div>
 
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Matéria relacionada</label>
+      <label class="label">Matéria relacionada</label>
       <p-dropdown
         formControlName="subjectId"
         [options]="subjectOptions"
@@ -28,7 +28,7 @@
     </div>
 
     <div class="flex flex-column gap-1">
-      <label class="label" htmlFor="name">Descrição</label>
+      <label class="label">Descrição</label>
       <textarea rows="5" cols="50" pInputTextarea [autoResize]="true" formControlName="description">
       </textarea>
     </div>

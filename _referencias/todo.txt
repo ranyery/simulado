@@ -1,7 +1,7 @@
 [ ] Adicionar author na entidade Subject (disciplina) para rastrear quem foi o responsável pela criação
 [ ] Se o usuário que está criando for ADMIN, então ele pode deixar o status como "Aprovado", caso contrário o status deve ficar como "pendente de aprovação"
 [ ] Criar uma classe base para a storage local e de seção
-[ ] ADICIONAR FUNÇÃO "refresh-token" no front-end
+[-] ADICIONAR FUNÇÃO "refresh-token" no front-end
 [-] *Adicionar nome na entidade usuário* => A informação será importante para o envio e recebimento de e-mails para quando a aplicação for liberada para o público
 
 [X] Se a "Disciplina" tiver "Tópico" associado, não pode ser excluída do banco
@@ -19,13 +19,13 @@
 [X] Salvar todos os emails no banco em minusculo
 [ ] Criar um script para sempre bater na api de tópicos e gerar um arquivo json estático atualizado dentro da pasta assets
 [ ] Criar diretiva canArchive
-[ ] remover htmlFor dos formulários, pois não precisam ser acessíveis
+[X] remover htmlFor dos formulários, pois não precisam ser acessíveis
 [ ] adicionar endpoints de roles
-[ ] Validar possibilidade de simplificar ainda mais a entidade question
-[ ] remover o admin do ar
+[X] Validar possibilidade de simplificar ainda mais a entidade question
+[-] remover o admin do ar
 [ ] simplificar relacionamentos das entidades => pode ser algo mais simples e buscar local de acordo com o id mesmo
-[ ] Validar pontos ontem tem => '.name ==', pois a validação pode não estar correto
+[X] Validar pontos ontem tem => '.name ==', pois a validação pode não estar correto
 [X] Trocar Exam para institute => Criar entidade Instituição
 [ ] Criar página de 'Reporte um erro' => https://blogdoenem.com.br/reporte-um-erro/
-[ ] Criar component que recebe markdown e rederiza dentro de uma tag span com as diretivas de markdown
-[ ] Adicionar validação no input do ano no formulário de cadastro de Questões
+[X] Criar component que recebe markdown e renderiza dentro de uma tag span com as diretivas de markdown
+[X] Adicionar validação no input do ano no formulário de cadastro de Questões
