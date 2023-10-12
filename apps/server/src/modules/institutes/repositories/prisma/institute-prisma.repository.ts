@@ -17,7 +17,7 @@ export class InstitutePrismaRepository implements IInstitutesRepository {
   async findAll(): Promise<IInstitute[]> {
     return this._prismaService.institute.findMany({
       include: { questions: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { acronym: 'asc' },
     });
   }
 

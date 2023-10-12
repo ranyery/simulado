@@ -1,4 +1,4 @@
-import { IQuestion } from '@libs/shared/domain';
+import { IQueryParams, IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { IQuestionsRepository } from '../repositories/questions.repository';
@@ -7,7 +7,7 @@ import { IQuestionsRepository } from '../repositories/questions.repository';
 export class FindAllQuestionsUseCase {
   constructor(private readonly _questionsRepository: IQuestionsRepository) {}
 
-  async execute(): Promise<IQuestion[]> {
-    return await this._questionsRepository.findAll();
+  async execute(query: IQueryParams): Promise<IQuestion[]> {
+    return await this._questionsRepository.findAll(query);
   }
 }

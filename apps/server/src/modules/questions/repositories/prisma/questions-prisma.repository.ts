@@ -1,4 +1,4 @@
-import { IQuestion } from '@libs/shared/domain';
+import { IQueryParams, IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
@@ -10,8 +10,12 @@ import { IQuestionsRepository } from '../questions.repository';
 export class QuestionsPrismaRepository implements IQuestionsRepository {
   constructor(private readonly _prismaService: PrismaService) {}
 
-  async findAll(): Promise<IQuestion[]> {
+  async findAll(query: IQueryParams): Promise<IQuestion[]> {
     return this._prismaService.question.findMany({
+      take: query.take,
+      skip: query.skip,
+      where: { statement: { contains: query.search, mode: 'insensitive' } },
+      orderBy: { createdAt: query.orderBy as 'asc' | 'desc' },
       // include: {
       //   subject: { select: { id: true, name: true } },
       //   institute: { select: { id: true, name: true } },

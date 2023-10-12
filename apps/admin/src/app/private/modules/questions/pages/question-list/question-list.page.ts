@@ -1,10 +1,18 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IQuestion } from '@libs/shared/domain';
 import { Table } from 'primeng/table';
-import { finalize } from 'rxjs';
+import { finalize, fromEvent, Subscription, throttleTime } from 'rxjs';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../../shared/services/toast.service';
@@ -21,7 +29,7 @@ export const enum EQuestionActions {
   templateUrl: './question-list.page.html',
   styleUrls: ['./question-list.page.scss'],
 })
-export class QuestionListPage implements OnInit {
+export class QuestionListPage implements OnInit, AfterViewInit, OnDestroy {
   private readonly _toastService = inject(ToastService);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _router = inject(Router);
@@ -33,16 +41,44 @@ export class QuestionListPage implements OnInit {
   private readonly _questionsState = inject(QuestionsState);
 
   @ViewChild('pTable')
-  private readonly _pTable?: Table;
+  private readonly _pTable?: ElementRef<Table>;
+  private _pTableBodyWrapper: HTMLDivElement | null = null;
+  private _subscription = new Subscription();
 
   public questions: IQuestion[] = [];
   public isLoading: boolean = true;
   public hasError: boolean = false;
 
+  private readonly _pageSize: number = 20;
+  private _currentPage: number = 1;
+  private _hasMoreItems: boolean = true;
+
   constructor() {}
 
   ngOnInit(): void {
     this._fetchAllQuestions();
+  }
+
+  ngAfterViewInit(): void {
+    this._pTableBodyWrapper = document.querySelector<HTMLDivElement>('.p-datatable-wrapper');
+    if (!this._pTableBodyWrapper) return;
+
+    this._subscription = fromEvent(this._pTableBodyWrapper, 'scroll')
+      .pipe(throttleTime(300))
+      .subscribe(() => {
+        if (this.isLoading || !this._hasMoreItems) {
+          return;
+        }
+
+        const currentScrollPosition = this._pTableBodyWrapper?.scrollTop ?? 0;
+        const totalHeightContent = this._pTableBodyWrapper?.scrollWidth ?? 0;
+
+        if (currentScrollPosition >= totalHeightContent * 0.7) {
+          // Handle
+          // this.isLoading = true;
+          console.log('Carregando...');
+        }
+      });
   }
 
   private _fetchAllQuestions(): void {
@@ -110,10 +146,14 @@ export class QuestionListPage implements OnInit {
   }
 
   public clearFilterTable(): void {
-    this._pTable?.clear();
+    this._pTable?.nativeElement.clear();
   }
 
   public applyFilterGlobal(event: Event, value: string): void {
-    this._pTable?.filterGlobal((event.target as HTMLInputElement).value, value);
+    this._pTable?.nativeElement.filterGlobal((event.target as HTMLInputElement).value, value);
+  }
+
+  ngOnDestroy(): void {
+    this._subscription.unsubscribe();
   }
 }

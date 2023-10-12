@@ -1,7 +1,8 @@
 import { EUserRole } from '@libs/shared/domain';
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 
 import { Auth } from '../../shared/decorators/auth.decorator';
+import { QueryParamsRequestDTO } from '../../shared/schemas/query-params.schema';
 import { CreateQuestionRequestDTO } from './schemas/create-question.schema';
 import { PartialQuestionRequestDTO } from './schemas/partial-question.schema';
 import { CreateQuestionUseCase } from './useCases/create-question.usecase';
@@ -21,9 +22,8 @@ export class QuestionsController {
   ) {}
 
   @Get()
-  async getAll() {
-    // TODO: Adicionar lógica de paginação => 'top', 'skip' e outros
-    return await this._findAllQuestionsUseCase.execute();
+  async getAll(@Query() query: QueryParamsRequestDTO) {
+    return await this._findAllQuestionsUseCase.execute(query);
   }
 
   @Get('/:id')
