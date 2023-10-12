@@ -33,7 +33,7 @@ export class QuestionsState implements BaseState<IQuestion> {
   }
 
   public getAll(): IQuestion[] {
-    return [...this._questions];
+    return this._questions;
   }
 
   public isEmpty(): boolean {

@@ -1,14 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IQuestion } from '@libs/shared/domain';
 import { Table } from 'primeng/table';
@@ -29,7 +21,7 @@ export const enum EQuestionActions {
   templateUrl: './question-list.page.html',
   styleUrls: ['./question-list.page.scss'],
 })
-export class QuestionListPage implements OnInit, AfterViewInit, OnDestroy {
+export class QuestionListPage implements OnInit, OnDestroy {
   private readonly _toastService = inject(ToastService);
   private readonly _confirmDialogService = inject(ConfirmDialogService);
   private readonly _router = inject(Router);
@@ -52,37 +44,17 @@ export class QuestionListPage implements OnInit, AfterViewInit, OnDestroy {
   private readonly _pageSize: number = 20;
   private _currentPage: number = 1;
   private _hasMoreItems: boolean = true;
+  private _orderBy: 'asc' | 'desc' = 'asc';
+  private _searchTerm?: string;
 
   constructor() {}
 
   ngOnInit(): void {
-    this._fetchAllQuestions();
+    this._fetchQuestions();
   }
 
-  ngAfterViewInit(): void {
-    this._pTableBodyWrapper = document.querySelector<HTMLDivElement>('.p-datatable-wrapper');
-    if (!this._pTableBodyWrapper) return;
-
-    this._subscription = fromEvent(this._pTableBodyWrapper, 'scroll')
-      .pipe(throttleTime(300))
-      .subscribe(() => {
-        if (this.isLoading || !this._hasMoreItems) {
-          return;
-        }
-
-        const currentScrollPosition = this._pTableBodyWrapper?.scrollTop ?? 0;
-        const totalHeightContent = this._pTableBodyWrapper?.scrollWidth ?? 0;
-
-        if (currentScrollPosition >= totalHeightContent * 0.7) {
-          // Handle
-          // this.isLoading = true;
-          console.log('Carregando...');
-        }
-      });
-  }
-
-  private _fetchAllQuestions(): void {
-    if (!this._questionsState.isEmpty()) {
+  private _fetchQuestions(): void {
+    if (!this._hasMoreItems) {
       this.questions = this._questionsState.getAll();
       this.isLoading = false;
       return;
@@ -92,15 +64,46 @@ export class QuestionListPage implements OnInit, AfterViewInit, OnDestroy {
     this.hasError = false;
 
     this._questionsService
-      .getAll()
+      .getAll({
+        take: this._pageSize,
+        skip: (this._currentPage - 1) * this._pageSize,
+        search: this._searchTerm,
+        orderBy: this._orderBy,
+      })
       .pipe(finalize(() => (this.isLoading = false)))
       .subscribe({
         next: (questions) => {
-          this.questions = questions;
-          this._questionsState.addAll(questions);
+          this.questions = [...this.questions, ...questions];
+          this._questionsState.addAll(this.questions);
+
           this.hasError = false;
+          this._currentPage += 1;
+          this._hasMoreItems = questions.length === this._pageSize;
+
+          if (!this._pTableBodyWrapper) this._tryListenTableBodyScroll();
+          this._toastService.open({ type: 'success', message: 'Carregamento finalizado!' });
         },
         error: () => (this.hasError = true),
+      });
+  }
+
+  private _tryListenTableBodyScroll(): void {
+    this._pTableBodyWrapper = document.querySelector('.p-datatable-wrapper');
+    if (!this._pTableBodyWrapper) return;
+
+    this._subscription = fromEvent(this._pTableBodyWrapper, 'scroll')
+      .pipe(throttleTime(200))
+      .subscribe(() => {
+        if (this.isLoading || !this._hasMoreItems) {
+          return;
+        }
+
+        const currentScrollPosition = this._pTableBodyWrapper?.scrollTop ?? 0;
+        const totalHeightContent = this._pTableBodyWrapper?.scrollHeight ?? 0;
+
+        if (currentScrollPosition >= totalHeightContent * 0.5) {
+          this._fetchQuestions();
+        }
       });
   }
 
