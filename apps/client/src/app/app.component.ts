@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { inject as injectVercelAnalytics } from '@vercel/analytics';
 import { PrimeNGConfig } from 'primeng/api';
+import { fromEvent, merge } from 'rxjs';
 
 import { environment } from '../environments/environment';
 
@@ -10,28 +11,35 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private _renderer: Renderer2,
-    private _elementRef: ElementRef,
-    private _primeNGConfig: PrimeNGConfig
-  ) {}
-
-  ngOnInit(): void {
-    this._disableUndesiredBehaviors();
-    this._primeNGConfig.ripple = true;
-
+  constructor(private _primeNGConfig: PrimeNGConfig) {
     if (environment.production) {
       injectVercelAnalytics();
+
+      merge(
+        fromEvent(document, 'contextmenu'),
+        fromEvent(document, 'dragstart'),
+        fromEvent(document, 'selectstart')
+      ).subscribe((event: Event) => event.preventDefault());
     }
   }
 
-  private _disableUndesiredBehaviors() {
-    if (!environment.production) return;
+  ngOnInit(): void {
+    this._primeNGConfig.ripple = true;
+  }
 
-    const appRootElement = this._elementRef.nativeElement;
-
-    this._renderer.setAttribute(appRootElement, 'oncontextmenu', 'return false');
-    this._renderer.setAttribute(appRootElement, 'ondragstart', 'return false');
-    this._renderer.setAttribute(appRootElement, 'onselectstart', 'return false');
+  @HostListener('window:keydown', ['$event'])
+  onKeydown(event: KeyboardEvent) {
+    if (environment.production) {
+      // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + Shift + C, Ctrl + U
+      if (
+        event.code === 'F12' ||
+        (event.ctrlKey && event.shiftKey && event.key === 'I') ||
+        (event.ctrlKey && event.shiftKey && event.key === 'J') ||
+        (event.ctrlKey && event.shiftKey && event.key === 'C') ||
+        (event.ctrlKey && event.key === 'u')
+      ) {
+        event.preventDefault();
+      }
+    }
   }
 }
