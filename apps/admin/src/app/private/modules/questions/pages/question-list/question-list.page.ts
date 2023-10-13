@@ -60,6 +60,7 @@ export class QuestionListPage implements OnInit, OnDestroy {
       return;
     }
 
+    this.isLoading = true;
     this._questionsService
       .getAll({
         top: this._pageSize,
@@ -79,7 +80,6 @@ export class QuestionListPage implements OnInit, OnDestroy {
           this._questionsState.isSynced = !this._hasMoreItems;
 
           if (!this._pTableBodyWrapper) this._tryListenTableBodyScroll();
-          this._toastService.open({ type: 'success', message: 'Carregamento finalizado!' });
         },
         error: () => (this.hasError = true),
       });
@@ -99,7 +99,7 @@ export class QuestionListPage implements OnInit, OnDestroy {
         const currentScrollPosition = this._pTableBodyWrapper?.scrollTop ?? 0;
         const totalHeightContent = this._pTableBodyWrapper?.scrollHeight ?? 0;
 
-        if (currentScrollPosition >= totalHeightContent * 0.5) {
+        if (currentScrollPosition >= totalHeightContent * 0.4) {
           this._fetchQuestions();
         }
       });
