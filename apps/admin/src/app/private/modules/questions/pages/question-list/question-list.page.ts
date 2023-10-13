@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IQuestion } from '@libs/shared/domain';
 import { Table } from 'primeng/table';
@@ -33,7 +33,7 @@ export class QuestionListPage implements OnInit, OnDestroy {
   private readonly _questionsState = inject(QuestionsState);
 
   @ViewChild('pTable')
-  private readonly _pTable?: ElementRef<Table>;
+  private readonly _pTable?: Table;
   private _pTableBodyWrapper: HTMLDivElement | null = null;
   private _subscription = new Subscription();
 
@@ -146,12 +146,8 @@ export class QuestionListPage implements OnInit, OnDestroy {
     });
   }
 
-  public clearFilterTable(): void {
-    this._pTable?.nativeElement.clear();
-  }
-
   public applyFilterGlobal(event: Event, value: string): void {
-    this._pTable?.nativeElement.filterGlobal((event.target as HTMLInputElement).value, value);
+    this._pTable?.filterGlobal((event.target as HTMLInputElement).value, value);
   }
 
   ngOnDestroy(): void {

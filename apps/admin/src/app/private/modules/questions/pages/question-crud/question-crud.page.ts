@@ -128,16 +128,21 @@ export class QuestionCrudPage implements OnInit {
     difficultyLevel: new FormControl<IQuestionDifficultyLevel | undefined>(
       {
         value: this.questionDifficultyLevels.find((q) => q.code === EQuestionDifficultyLevel.EASY),
-        disabled: false,
+        disabled: true,
       },
       [Validators.required]
     ),
-    subjectId: new FormControl<IOption | undefined>(undefined, [Validators.required]),
-    relatedTopicIds: new FormControl<IOption[] | undefined>(undefined, [Validators.required]),
+    subjectId: new FormControl<IOption | undefined>({ value: undefined, disabled: true }, [
+      Validators.required,
+    ]),
+    relatedTopicIds: new FormControl<IOption[] | undefined>({ value: undefined, disabled: true }, [
+      Validators.required,
+    ]),
     status: new FormControl<IQuestionStatus | undefined>(
       {
         value: this.questionStatus.find((q) => q.code === EQuestionStatus.PENDING_REVIEW),
         disabled: !this._userRolesService.isAdmin(),
+        // disabled: true,
       },
       [Validators.required]
     ),
@@ -177,6 +182,8 @@ export class QuestionCrudPage implements OnInit {
     this.formQuestion.valueChanges.subscribe(() => {
       this.question = this._composeQuestionFromFormValues();
     });
+
+    this.formQuestion.controls['relatedTopicIds'].setValue(this.relatedTopicOptions);
 
     if (this._actionType === EQuestionActions.CREATE) {
       this.formQuestion.controls['instituteId'].setValue(this.instituteOptions[0]);

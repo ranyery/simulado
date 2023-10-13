@@ -154,10 +154,6 @@ export class InstitutesPage implements OnInit {
     });
   }
 
-  public clearFilterTable(): void {
-    this._pTable?.clear();
-  }
-
   public applyFilterGlobal(event: Event, value: string): void {
     this._pTable?.filterGlobal((event.target as HTMLInputElement).value, value);
   }
