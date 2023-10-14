@@ -33,10 +33,7 @@
 
     <form class="question__answers" [formGroup]="form">
       <ng-container *ngFor="let answer of question.answerOptions; index as i">
-        <label
-          [ngClass]="{
-            'question__answers--selected': form.controls['indexSelectedAnswer'].value === i
-          }">
+        <label [ngClass]="{ selected: form.controls['indexSelectedAnswer'].value === i }">
           <p-radioButton inputId="{{ i }}" [value]="i" formControlName="indexSelectedAnswer">
           </p-radioButton>
           <span class="bold">{{ upperLetters[i] }}.</span>

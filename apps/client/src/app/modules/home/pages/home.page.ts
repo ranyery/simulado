@@ -23,7 +23,7 @@ export class HomePage implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     this._questionsService
-      .getById('clnmugcrp002ewmt81s5mtycu')
+      .getById('clnqjt7fo0001l708jqqco095')
       .pipe(delay(1000))
       .subscribe({
         next: (question) => {
