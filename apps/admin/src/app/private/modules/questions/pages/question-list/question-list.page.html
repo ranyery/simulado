@@ -39,7 +39,7 @@
         <th pSortableColumn="instituteId" pResizableColumn>
           Instituto <p-sortIcon field="instituteId"></p-sortIcon>
         </th>
-        <th pSortableColumn="type" pResizableColumn>Tipo <p-sortIcon field="type"></p-sortIcon></th>
+        <!-- <th pSortableColumn="type" pResizableColumn>Tipo <p-sortIcon field="type"></p-sortIcon></th> -->
         <th pSortableColumn="difficultyLevel" pResizableColumn>
           Dificuldade <p-sortIcon field="difficultyLevel"></p-sortIcon>
         </th>
@@ -66,12 +66,12 @@
         </td>
         <td class="overflow">{{ question.statement | shorten: 30 : '...' }}</td>
         <td class="overflow">{{ question.instituteId | findInstitute }}</td>
-        <td class="overflow">{{ question.type }}</td>
+        <!-- <td class="overflow">{{ question.type }}</td> -->
         <td class="overflow">{{ question.difficultyLevel }}</td>
         <td class="overflow">{{ question.subjectId | findSubject }}</td>
         <td class="overflow">
-          <span *ngFor="let topicId of question.relatedTopicIds; last as isLast">
-            {{ topicId | findRelatedTopic }}{{ isLast ? '' : ', ' }}
+          <span *ngFor="let topicId of question.topicIds; last as isLast">
+            {{ topicId | findTopic }}{{ isLast ? '' : ', ' }}
           </span>
         </td>
         <td class="overflow">{{ question.status }}</td>

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ITopic } from '@simulado/domain';
 
+import topics from './../../../assets/data/json/topics.json';
+
 @Injectable({ providedIn: 'root' })
 export class TopicsState {
-  private _subjects: ITopic[] = [];
+  private _subjects: ITopic[] = topics as ITopic[];
 
   constructor() {}
 

@@ -7,8 +7,8 @@
       <!-- TODO: Atualizar a busca de tópicos para refatorar aqui -->
       <!-- <div class="topics bold">
         Tópicos:
-        <span *ngFor="let topic of question.relatedTopicIds; last as isLast">
-          {{ topic | findRelatedTopic }}{{ isLast ? '' : ', ' }}
+        <span *ngFor="let topicId of question.topicIds; last as isLast">
+          {{ topicId | findTopic }}{{ isLast ? '' : ', ' }}
         </span>
       </div> -->
     </div>

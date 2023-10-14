@@ -1,7 +1,5 @@
 // Entidade Instituto => ENEM, FUVEST, FATEC, etc
 
-import { IQuestion } from './question.interface';
-
 export interface IInstitute {
   id: string;
   acronym: string; // Sigla do Instituto => FATEC, FUVEST, UFABC
@@ -11,7 +9,7 @@ export interface IInstitute {
   // foundedYear: number; // Ano de fundação da instituição
   // logo: string; // Link para a imagem do logotipo da instituição
   status: string | EInstituteStatus; // Indica se a matéria está ativa, inativa, pendente de revisão, etc.
-  questions: IQuestion[];
+  // questions: IQuestion[];
   createdAt: string | Date; // A data foi ADICIONADA no sistema
   updatedAt: string | Date; // A data foi ATUALIZADA no sistema
 }

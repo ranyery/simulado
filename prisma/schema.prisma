@@ -51,23 +51,23 @@ model Subject {
   status      ECommonStatus @default(PENDING_REVIEW)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
-  topics      Topic[]
-  questions   Question[]
+  // topics      Topic[]
+  // questions   Question[]
 
   @@map("subjects")
 }
 
 // npx prisma migrate dev --name create-topics => 25/09/2023 22:56:34
 model Topic {
-  id          String            @id @default(cuid())
+  id          String        @id @default(cuid())
   name        String
-  description String            @default("")
-  status      ECommonStatus     @default(PENDING_REVIEW)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @default(now())
+  description String        @default("")
+  status      ECommonStatus @default(PENDING_REVIEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
   subjectId   String
-  subject     Subject           @relation(fields: [subjectId], references: [id])
-  questions   QuestionToTopic[]
+  // subject     Subject           @relation(fields: [subjectId], references: [id])
+  // questions   QuestionToTopic[]
 
   @@map("topics")
 }
@@ -80,7 +80,7 @@ model Institute {
   status    ECommonStatus @default(PENDING_REVIEW)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @default(now())
-  questions Question[]
+  // questions Question[]
 
   @@map("institutes")
 }
@@ -110,21 +110,22 @@ model Question {
   year            Int                      @default(0)
   instituteId     String
   subjectId       String
+  topicIds        String[]
   createdAt       DateTime                 @default(now())
   updatedAt       DateTime                 @default(now())
-  institute       Institute                @relation(fields: [instituteId], references: [id])
-  subject         Subject                  @relation(fields: [subjectId], references: [id])
-  topics          QuestionToTopic[]
+  // institute       Institute                @relation(fields: [instituteId], references: [id])
+  // subject         Subject                  @relation(fields: [subjectId], references: [id])
+  // topics          QuestionToTopic[]
 
   @@map("questions")
 }
 
-model QuestionToTopic {
-  id         String   @id @default(cuid())
-  question   Question @relation(fields: [questionId], references: [id])
-  questionId String
-  topic      Topic    @relation(fields: [topicId], references: [id])
-  topicId    String
-}
+// model QuestionToTopic {
+//   id         String   @id @default(cuid())
+//   question   Question @relation(fields: [questionId], references: [id])
+//   questionId String
+//   topic      Topic    @relation(fields: [topicId], references: [id])
+//   topicId    String
+// }
 
 // npx prisma studio

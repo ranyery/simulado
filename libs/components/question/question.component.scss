@@ -25,6 +25,10 @@
     background-color: #393a42;
     row-gap: 8px;
 
+    .selected {
+      border: 1px solid #3b82f6;
+    }
+
     label {
       display: flex;
       align-items: baseline;
@@ -34,10 +38,6 @@
       background-color: #25262e;
       cursor: pointer;
       gap: 8px;
-
-      &.selected {
-        border: 1px solid #3b82f6;
-      }
     }
   }
 

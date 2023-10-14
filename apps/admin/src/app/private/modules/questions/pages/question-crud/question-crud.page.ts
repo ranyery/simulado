@@ -94,7 +94,7 @@ export class QuestionCrudPage implements OnInit {
     .getAll()
     .map<IOption>((institute) => ({ name: institute.acronym, code: institute.id }));
 
-  public relatedTopicOptions: IOption[] = this._topicsState
+  public topicOptions: IOption[] = this._topicsState
     .getAll()
     .map<IOption>((topic) => ({ name: topic.name, code: topic.id }));
 
@@ -133,7 +133,7 @@ export class QuestionCrudPage implements OnInit {
     subjectId: new FormControl<IOption | undefined>({ value: undefined, disabled: true }, [
       Validators.required,
     ]),
-    relatedTopicIds: new FormControl<IOption[] | undefined>({ value: undefined, disabled: true }, [
+    topicIds: new FormControl<IOption[] | undefined>({ value: undefined, disabled: true }, [
       Validators.required,
     ]),
     status: new FormControl<IQuestionStatus | undefined>(
@@ -181,7 +181,7 @@ export class QuestionCrudPage implements OnInit {
       this.question = this._composeQuestionFromFormValues();
     });
 
-    this.formQuestion.controls['relatedTopicIds'].setValue(this.relatedTopicOptions);
+    this.formQuestion.controls['topicIds'].setValue(this.topicOptions);
 
     if (this._actionType === EQuestionActions.CREATE) {
       this.formQuestion.controls['instituteId'].setValue(this.instituteOptions[0]);
@@ -198,8 +198,8 @@ export class QuestionCrudPage implements OnInit {
       const selectedSubject = this.subjectOptions.find(
         (s) => s.code === this._questionState.subjectId
       );
-      // const selectedSubjectIds = this.relatedTopicOptions.filter((t) =>
-      //   this._questionState.relatedTopicIds.includes(t.code)
+      // const selectedSubjectIds = this.topicOptions.filter((t) =>
+      //   this._questionState.topicIds.includes(t.code)
       // );
       const selectedInstitute = this.instituteOptions.find(
         (i) => i.code === this._questionState.instituteId
@@ -213,7 +213,7 @@ export class QuestionCrudPage implements OnInit {
       this.formQuestion.controls['year'].setValue(this._questionState.year);
       this.formQuestion.controls['difficultyLevel'].setValue(questionDifficultyLevel);
       this.formQuestion.controls['subjectId'].setValue(selectedSubject);
-      // this.formQuestion.controls['relatedTopicIds'].setValue(selectedSubjectIds);
+      // this.formQuestion.controls['topicIds'].setValue(selectedSubjectIds);
       this.formQuestion.controls['status'].setValue(questionStatus);
       this.formQuestion.controls['answerOptions'].patchValue(this._questionState.answerOptions);
       this.formQuestion.controls['rightAnswer'].setValue(this._questionState.rightAnswer);
@@ -256,7 +256,7 @@ export class QuestionCrudPage implements OnInit {
     const questionInstituteId = formQuestionValues.instituteId?.code;
     const questionSubjectId = formQuestionValues.subjectId?.code;
     const questionDifficultyLevel = formQuestionValues.difficultyLevel?.code;
-    const questionRelatedTopicIds = formQuestionValues.relatedTopicIds?.map((topic) => topic.code);
+    const questionTopicIds = formQuestionValues.topicIds?.map((topic) => topic.code);
     const questionAnswerOptions = formQuestionValues.answerOptions.filter((a) => a !== null);
 
     const updatedQuestion = this._utilsService.removeNullOrUndefinedOrEmptyProperties<IQuestion>({
@@ -264,7 +264,7 @@ export class QuestionCrudPage implements OnInit {
       ...formQuestionValues,
       instituteId: questionInstituteId,
       subjectId: questionSubjectId,
-      relatedTopicIds: questionRelatedTopicIds ?? [],
+      topicIds: questionTopicIds ?? [],
       type: questionType ?? EQuestionType.MULTIPLE_CHOICE,
       status: questionStatus ?? EQuestionStatus.PENDING_REVIEW,
       difficultyLevel: questionDifficultyLevel ?? EQuestionDifficultyLevel.MEDIUM,

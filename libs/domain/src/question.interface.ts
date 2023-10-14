@@ -11,6 +11,7 @@ export interface IQuestion {
   year?: number;
   difficultyLevel: string | EQuestionDifficultyLevel;
   subjectId: string; // ISubject => A matéria à qual a questão está relacionada (matemática, história, etc.)
+  topicIds: string[]; // ITopic => Os tópicos que a questão está relacionada (Equação do 1º grau, Lógica, etc)
   status: string | EQuestionStatus; // Indica se a questão está ativa, inativa, pendente de revisão, etc.
   // authorId: string; // O autor da questão, se você desejar rastrear quem criou a questão.
   createdAt: string | Date; // A data foi ADICIONADA no sistema

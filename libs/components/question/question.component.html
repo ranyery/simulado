@@ -2,8 +2,8 @@
   <ng-container *ngIf="question; else skeleton">
     <div class="question__topics bold">
       Tópicos:
-      <span *ngFor="let topic of topics; last as isLast">
-        {{ topic }}{{ isLast ? '' : ', ' }}
+      <span *ngFor="let topicId of question.topicIds; last as isLast">
+        {{ topicId | findTopic }}{{ isLast ? '' : ', ' }}
       </span>
     </div>
 

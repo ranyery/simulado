@@ -1,0 +1,457 @@
+[
+  {
+    "id": "clnmtopp5000zwmt8znhm3fe2",
+    "acronym": "ACAFE SC",
+    "name": "Associação Catarinense das Fundações Educacionais",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:52:37.509Z"
+  },
+  {
+    "id": "clnmu54dg0025wmt8rvc6eshf",
+    "acronym": "EFOA MG",
+    "name": "Universidade Federal de Alfenas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.044Z"
+  },
+  {
+    "id": "clnmu5538002cwmt8of7lun3y",
+    "acronym": "ENEM",
+    "name": "Exame Nacional do Ensino Médio",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.973Z"
+  },
+  {
+    "id": "clnmu50fm0013wmt85mxalfth",
+    "acronym": "ESCS DF",
+    "name": "Escola Superior de Ciências da Saúde",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:17.939Z"
+  },
+  {
+    "id": "clnmu538s001uwmt8imhb2af5",
+    "acronym": "ESPM SP",
+    "name": "Escola Superior de Propaganda e Marketing",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.581Z"
+  },
+  {
+    "id": "clnmtnoe6000vwmt8wvpc50fp",
+    "acronym": "FASM",
+    "name": "Faculdade Santa Marcelina",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:51:49.164Z"
+  },
+  {
+    "id": "clnmto2w8000xwmt87yse2el2",
+    "acronym": "FATEC SP",
+    "name": "Faculdade de Tecnologia de São Paulo",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:52:07.956Z"
+  },
+  {
+    "id": "clnmu54ku0027wmt84cs5snd8",
+    "acronym": "FGV",
+    "name": "Fundação Getulio Vargas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.311Z"
+  },
+  {
+    "id": "clnmtowlo0010wmt8i8bhi794",
+    "acronym": "FMABC SP",
+    "name": "Faculdade de Medicina do ABC",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:52:46.477Z"
+  },
+  {
+    "id": "clnmu53g7001wwmt8wtnipyvd",
+    "acronym": "FMTM MG",
+    "name": "Faculdade de Medicina do Triangulo Mineiro",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.847Z"
+  },
+  {
+    "id": "clnmu53uw0020wmt846548vfu",
+    "acronym": "FURG RS",
+    "name": "Universidade Federal do Rio Grande",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.377Z"
+  },
+  {
+    "id": "clnmu54zi002bwmt8o26dqp68",
+    "acronym": "FUVEST SP",
+    "name": "Fundação Universitária para o Vestibular",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.839Z"
+  },
+  {
+    "id": "clnmu51d5001cwmt8ajepcsae",
+    "acronym": "IBMEC SP",
+    "name": "Instituto Brasileiro de Mercado de Capitais",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.145Z"
+  },
+  {
+    "id": "clnmtmjea000rwmt8546w8fr7",
+    "acronym": "IFGO",
+    "name": "Instituto Federal de Goiás",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:50:56.030Z"
+  },
+  {
+    "id": "clnmtm9rq000qwmt8bj2qfo4b",
+    "acronym": "IFRS",
+    "name": "Instituto Federal do Rio Grande do Sul",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:50:43.574Z"
+  },
+  {
+    "id": "clnmtl5m1000mwmt8694dvv7m",
+    "acronym": "INEP",
+    "name": "Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:49:51.510Z"
+  },
+  {
+    "id": "clnms12520000wmt8dpk33y12",
+    "acronym": "Mackenzie SP",
+    "name": "Universidade Presbiteriana Mackenzie",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:06:14.275Z"
+  },
+  {
+    "id": "clnmtnhj9000uwmt8zhrbr19c",
+    "acronym": "POLI-USP",
+    "name": "Escola Politécnica da Universidade de São Paulo",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:51:40.294Z"
+  },
+  {
+    "id": "clnmtmuiq000swmt8knv0l3uj",
+    "acronym": "PUC Campinas",
+    "name": "Pontifícia Universidade Católica de Campinas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:51:10.466Z"
+  },
+  {
+    "id": "clnmu54vv002awmt83dwlf40z",
+    "acronym": "PUC MG",
+    "name": "Pontifícia Universidade Católica de Minas Gerais",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.708Z"
+  },
+  {
+    "id": "clnmth9os000jwmt8bw2wvk35",
+    "acronym": "PUC PR",
+    "name": "Pontifícia Universidade Católica do Paraná",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:46:50.170Z"
+  },
+  {
+    "id": "clnmu50je0014wmt8tswxo4jr",
+    "acronym": "PUC RJ",
+    "name": "Pontifícia Universidade Católica do Rio de Janeiro",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.074Z"
+  },
+  {
+    "id": "clnmu51200019wmt8c2wnlgto",
+    "acronym": "PUC SP",
+    "name": "Pontifícia Universidade Católica de São Paulo",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.745Z"
+  },
+  {
+    "id": "clnmu52ac001lwmt8qvabr7kk",
+    "acronym": "UCS RS",
+    "name": "Universidade de Caxias do Sul",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.341Z"
+  },
+  {
+    "id": "clnmu526t001kwmt8fh5vtk9q",
+    "acronym": "UDESC SC",
+    "name": "Universidade do Estado de Santa Catarina",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.213Z"
+  },
+  {
+    "id": "clnmu51og001fwmt84ocrn2g1",
+    "acronym": "UECE",
+    "name": "Universidade Estadual do Ceará",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.553Z"
+  },
+  {
+    "id": "clnmtnvl0000wwmt88pwt6ebc",
+    "acronym": "UEFS BA",
+    "name": "Universidade Estadual de Feira de Santana",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:51:58.501Z"
+  },
+  {
+    "id": "clnmu53ju001xwmt8n25c9075",
+    "acronym": "UEG GO",
+    "name": "Universidade Estadual de Goiás",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.978Z"
+  },
+  {
+    "id": "clnmu52fl001mwmt8hex097er",
+    "acronym": "UEL PR",
+    "name": "Universidade Estadual de Londrina",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.529Z"
+  },
+  {
+    "id": "clnmu53ck001vwmt858izpdk9",
+    "acronym": "UEPB",
+    "name": "Universidade Estadual da Paraíba",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.716Z"
+  },
+  {
+    "id": "clnmu54h40026wmt8c40k7n4b",
+    "acronym": "UERJ",
+    "name": "Universidade do Estado do Rio de Janeiro",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.177Z"
+  },
+  {
+    "id": "clnmtln29000owmt8gji69i7h",
+    "acronym": "UFAL",
+    "name": "Universidade Federal de Alagoas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:50:14.128Z"
+  },
+  {
+    "id": "clnmu52mu001owmt8pj1hpcww",
+    "acronym": "UFAM",
+    "name": "Universidade Federal do Amazonas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.791Z"
+  },
+  {
+    "id": "clnmu531g001swmt8jrwkdv16",
+    "acronym": "UFC CE",
+    "name": "Universidade Federal do Ceará",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.317Z"
+  },
+  {
+    "id": "clnmu50yd0018wmt8dmvl892c",
+    "acronym": "UFCG PB",
+    "name": "A Universidade Federal de Campina Grande",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.614Z"
+  },
+  {
+    "id": "clnmu50up0017wmt8u8yo94zj",
+    "acronym": "UFES",
+    "name": "Universidade Federal do Espírito Santo",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.482Z"
+  },
+  {
+    "id": "clnmu52xu001rwmt8tvsn8zsx",
+    "acronym": "UFF RJ",
+    "name": "Universidade Federal Fluminense",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.186Z"
+  },
+  {
+    "id": "clnmu5235001jwmt89d73s5an",
+    "acronym": "UFG GO",
+    "name": "Universidade Federal de Goiás",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.082Z"
+  },
+  {
+    "id": "clnmu51kv001ewmt81d665gam",
+    "acronym": "UFGD MS",
+    "name": "Universidade Federal da Grande Dourados",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.424Z"
+  },
+  {
+    "id": "clnmu52u6001qwmt8nk7s59a4",
+    "acronym": "UFJF MG",
+    "name": "Universidade Federal de Juiz de Fora",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.054Z"
+  },
+  {
+    "id": "clnmu51zf001iwmt89zpzjyi6",
+    "acronym": "UFLA MG",
+    "name": "Universidade Federal de Lavras",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.947Z"
+  },
+  {
+    "id": "clnmu549u0024wmt836jy6kjw",
+    "acronym": "UFMG",
+    "name": "Universidade Federal de Minas Gerais",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.914Z"
+  },
+  {
+    "id": "clnmu52qj001pwmt8vagul3fd",
+    "acronym": "UFMS",
+    "name": "Universidade Federal de Mato Grosso do Sul",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.923Z"
+  },
+  {
+    "id": "clnmu54640023wmt8i7ikxis5",
+    "acronym": "UFOP MG",
+    "name": "Universidade Federal de Ouro Preto",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.780Z"
+  },
+  {
+    "id": "clnmu52j9001nwmt89dj5m6tb",
+    "acronym": "UFPel RS",
+    "name": "Universidade Federal de Pelotas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:20.661Z"
+  },
+  {
+    "id": "clnmtlesi000nwmt8nzktwjsj",
+    "acronym": "UFRGS",
+    "name": "Universidade Federal do Rio Grande do Sul",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:50:03.427Z"
+  },
+  {
+    "id": "clnmu51s5001gwmt8yl6ukf31",
+    "acronym": "UFRN",
+    "name": "Universidade Federal do Rio Grande do Norte",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.685Z"
+  },
+  {
+    "id": "clnmu50qs0016wmt89t6xapil",
+    "acronym": "UFRR",
+    "name": "Universidade Federal de Roraima",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.340Z"
+  },
+  {
+    "id": "clnmu54290022wmt8gy4cm9gb",
+    "acronym": "UFRRJ",
+    "name": "Universidade Federal Rural do Rio de Janeiro",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.641Z"
+  },
+  {
+    "id": "clnmu51vs001hwmt8iolz8kn5",
+    "acronym": "UFSCar SP",
+    "name": "Universidade Federal de São Carlos",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.816Z"
+  },
+  {
+    "id": "clnmu50bp0012wmt85t76vaye",
+    "acronym": "UFT TO",
+    "name": "Universidade Federal do Tocantins",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:17.778Z"
+  },
+  {
+    "id": "clnmu519e001bwmt8vuajz25k",
+    "acronym": "UFTM",
+    "name": "Universidade Federal do Triângulo Mineiro",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.010Z"
+  },
+  {
+    "id": "clnmu54s20029wmt81ww4j5av",
+    "acronym": "UFU MG",
+    "name": "Universidade Federal de Uberlândia",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.571Z"
+  },
+  {
+    "id": "clnmu40kw0011wmt8fgvypf89",
+    "acronym": "UNEB BA",
+    "name": "Universidade do Estado da Bahia",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:04:30.977Z"
+  },
+  {
+    "id": "clnmu53yn0021wmt8rrtrp9io",
+    "acronym": "UNESP SP",
+    "name": "Universidade Estadual Paulista",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.511Z"
+  },
+  {
+    "id": "clnmtlzn7000pwmt8hvjhd3uc",
+    "acronym": "UNICAMP SP",
+    "name": "Universidade Estadual de Campinas",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:50:30.433Z"
+  },
+  {
+    "id": "clnmtn9i4000twmt8zaw0xvub",
+    "acronym": "UNICASTELO SP",
+    "name": "Universidade Camilo Castelo Branco",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:51:29.866Z"
+  },
+  {
+    "id": "clnmtobc5000ywmt8g39dimjj",
+    "acronym": "UNIFACS BA",
+    "name": "Universidade Salvador",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T06:52:18.918Z"
+  },
+  {
+    "id": "clnmu515q001awmt8issekofh",
+    "acronym": "UNIFESP SP",
+    "name": "Universidade Federal de São Paulo",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.878Z"
+  },
+  {
+    "id": "clnmu53r9001zwmt838y81b19",
+    "acronym": "UNIFICADO RJ",
+    "name": "Colégio Unificado",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.246Z"
+  },
+  {
+    "id": "clnmu54oh0028wmt8ue957evs",
+    "acronym": "UNIFOR CE",
+    "name": "Universidade de Fortaleza",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:23.442Z"
+  },
+  {
+    "id": "clnmu5354001twmt8pay0la2x",
+    "acronym": "UNIMONTES MG",
+    "name": "Universidade Estadual de Montes Claros",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:21.448Z"
+  },
+  {
+    "id": "clnmu51gt001dwmt8r84d9uhi",
+    "acronym": "UNIOESTE PR",
+    "name": "Universidade Estadual do Oeste do Paraná",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:19.278Z"
+  },
+  {
+    "id": "clnmu50n10015wmt8evjf77zu",
+    "acronym": "UNIR RO",
+    "name": "Universidade Federal de Rondônia",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:18.206Z"
+  },
+  {
+    "id": "clnmu53nl001ywmt8kituqe2a",
+    "acronym": "UNIRIO RJ",
+    "name": "Universidade Federal do Estado do Rio de Janeiro",
+    "status": "PENDING_REVIEW",
+    "createdAt": "2023-10-12T07:05:22.113Z"
+  }
+]

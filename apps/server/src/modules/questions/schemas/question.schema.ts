@@ -17,6 +17,7 @@ export const QuestionSchema = z.object({
   year: z.number().gte(0).optional().default(0),
   difficultyLevel: z.nativeEnum(EQuestionDifficultyLevel),
   subjectId: z.string().trim().cuid(),
+  topicIds: z.string().trim().cuid().array(),
   status: z.nativeEnum(EQuestionStatus),
   createdAt: z.date(),
   updatedAt: z.date(),

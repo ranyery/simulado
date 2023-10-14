@@ -14,7 +14,15 @@ export class QuestionsPrismaRepository implements IQuestionsRepository {
     return this._prismaService.question.findMany({
       take: query.top,
       skip: query.skip,
-      where: { statement: { contains: query.search, mode: 'insensitive' } },
+      where: {
+        statement: { contains: query.search, mode: 'insensitive' },
+      },
+      // where: {
+      //   AND: {
+      //     statement: { contains: query.search, mode: 'insensitive' },
+      //     status: 'PENDING_REVIEW',
+      //   },
+      // },
       orderBy: { createdAt: query.orderBy as 'asc' | 'desc' },
       // include: {
       //   subject: { select: { id: true, name: true } },

@@ -12,7 +12,7 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
 
   async findAll(): Promise<ISubject[]> {
     return this._prismaService.subject.findMany({
-      include: { topics: true, questions: true },
+      // include: { topics: true, questions: true },
       orderBy: { createdAt: 'asc' },
     });
   }
@@ -20,18 +20,21 @@ export class SubjectsPrismaRepository implements ISubjectsRepository {
   async findById(id: string): Promise<ISubject | null> {
     return this._prismaService.subject.findUnique({
       where: { id },
-      include: { topics: true, questions: true },
+      // include: { topics: true, questions: true },
     });
   }
 
   async create(data: CreateSubjectRequestDTO): Promise<ISubject> {
-    return this._prismaService.subject.create({ data, include: { topics: true, questions: true } });
+    return this._prismaService.subject.create({
+      data,
+      // include: { topics: true, questions: true }
+    });
   }
 
   async updateById(id: string, data: PartialSubjectRequestDTO): Promise<ISubject | null> {
     return this._prismaService.subject.update({
       where: { id },
-      include: { topics: true, questions: true },
+      // include: { topics: true, questions: true },
       data: { ...data, updatedAt: new Date() },
     });
   }
