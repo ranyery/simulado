@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { RichImageModule } from '@simulado/components';
 import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -12,7 +13,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 
-import { RichImageModule } from '../../../shared/components/rich-image/rich-image.module';
 import { PermissionsDirectivesModule } from '../../../shared/directives/permissions/permissions-directives.module';
 import { KatexModule } from '../../../shared/modules/katex/katex.module';
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';

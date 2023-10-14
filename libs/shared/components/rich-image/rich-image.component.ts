@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { environment } from '../../../../environments/environment';
-
 @Component({
   selector: 'app-rich-image',
   templateUrl: './rich-image.component.html',
@@ -11,7 +9,7 @@ import { environment } from '../../../../environments/environment';
 export class RichImageComponent {
   @Input({ required: true }) set src(value: string) {
     const hasProtocol = /https?:/.test(value);
-    this.imageUrl = hasProtocol ? value : `${environment.baseUrl}/assets/images/${value}`;
+    this.imageUrl = hasProtocol ? value : `./assets/images/${value}`;
   }
 
   @Input({ required: false }) alt?: string = '';
