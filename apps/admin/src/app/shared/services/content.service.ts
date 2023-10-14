@@ -33,10 +33,7 @@ export class ContentService {
           subtitle: part.match(/\bsubtitle=["'](.*?)["']/)?.[1],
         });
       } else {
-        result.push({
-          type: 'text',
-          content: part,
-        });
+        result.push({ type: 'text', content: part });
       }
     }
 

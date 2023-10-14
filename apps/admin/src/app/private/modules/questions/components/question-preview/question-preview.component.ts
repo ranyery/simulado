@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   Input,
   OnChanges,
   OnInit,
@@ -9,8 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IQuestion } from '@libs/shared/domain';
-
-import { ContentService, IContent } from '../../../../../shared/services/content.service';
+import { IContent, processHTMLTextWithImageTags } from '@libs/shared/utils';
 
 @Component({
   selector: 'app-question-preview',
@@ -21,7 +19,6 @@ import { ContentService, IContent } from '../../../../../shared/services/content
 export class QuestionPreviewComponent implements OnInit, OnChanges {
   @Input({ required: true }) question!: IQuestion;
 
-  private readonly _contentService = inject(ContentService);
   public contentParts: IContent[] = [];
 
   public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
@@ -30,14 +27,12 @@ export class QuestionPreviewComponent implements OnInit, OnChanges {
   });
 
   ngOnInit(): void {
-    this.contentParts = this._contentService.processHTMLTextWithImageTags(this.question.statement);
+    this.contentParts = processHTMLTextWithImageTags(this.question.statement);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['question'].currentValue) {
-      this.contentParts = this._contentService.processHTMLTextWithImageTags(
-        changes['question'].currentValue.statement
-      );
+      this.contentParts = processHTMLTextWithImageTags(changes['question'].currentValue.statement);
     }
   }
 }
