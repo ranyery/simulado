@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import katex, { KatexOptions } from 'katex';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class KatexService {
   constructor() {}
 

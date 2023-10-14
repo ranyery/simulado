@@ -13,7 +13,13 @@ async function bootstrap() {
   app.getHttpAdapter().getInstance().disable('x-powered-by');
 
   const origins: string[] = environment.production
-    ? ['https://www.simulado.gratis', 'https://admin.simulado.gratis']
+    ? [
+        'https://simulado.gratis',
+        'https://www.simulado.gratis',
+        'https://app.simulado.gratis',
+        'https://enem.simulado.gratis',
+        'https://admin.simulado.gratis',
+      ]
     : ['http://localhost:4200'];
 
   app.enableCors({

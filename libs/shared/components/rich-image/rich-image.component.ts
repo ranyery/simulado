@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class RichImageComponent {
   @Input({ required: true }) set src(value: string) {
     const hasProtocol = /https?:/.test(value);
-    this.imageUrl = hasProtocol ? value : `./assets/images/${value}`;
+    this.imageUrl = hasProtocol ? value : `assets/images/${value}`;
   }
 
   @Input({ required: false }) alt?: string = '';
