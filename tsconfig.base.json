@@ -20,10 +20,10 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-      "@simulado/components": ["libs/shared/components/_index.ts"],
-      "@simulado/domain": ["libs/shared/domain/_index.ts"],
-      "@simulado/services": ["libs/shared/services/_index.ts"],
-      "@simulado/utils": ["libs/shared/utils/_index.ts"]
+      "@simulado/components": ["libs/components/_index.ts"],
+      "@simulado/domain": ["libs/domain/_index.ts"],
+      "@simulado/services": ["libs/services/_index.ts"],
+      "@simulado/utils": ["libs/utils/_index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
