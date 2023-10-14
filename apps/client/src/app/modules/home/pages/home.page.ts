@@ -31,7 +31,7 @@ export class HomePage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this._questionsService.getById('clnmvkg4i002iwmt8mz7lfiuv').subscribe({
+    this._questionsService.getById('clnmugcrp002ewmt81s5mtycu').subscribe({
       next: (question) => {
         this.question = question;
         this.contentParts = this._contentService.processHTMLTextWithImageTags(question.statement);
