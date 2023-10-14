@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 16px;
 
   &__title,
   &__subtitle {
@@ -13,8 +12,7 @@
   p-image::ng-deep {
     .p-image-preview,
     .p-image-preview-container {
-      padding: 8px;
-      border-radius: 4px;
+      padding: 4px;
       background-color: #fff;
     }
   }

@@ -1,5 +1,16 @@
-<picture class="rich-image">
+<picture
+  class="rich-image"
+  [ngStyle]="{
+    margin: title && subtitle ? '16px' : '',
+    'margin-top': title && !subtitle ? '16px' : '',
+    'margin-bottom': !title && subtitle ? '16px' : ''
+  }">
   <span class="rich-image__title" *ngIf="title">{{ title }}</span>
-  <p-image [src]="imageUrl" [alt]="alt" [width]="width" [preview]="true"></p-image>
+  <p-image
+    [alt]="alt"
+    [src]="imageUrl"
+    [preview]="true"
+    [imageStyle]="{ 'max-width': width, width: '100%' }">
+  </p-image>
   <span class="rich-image__subtitle" *ngIf="subtitle">{{ subtitle }}</span>
 </picture>
