@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { IQuestion } from '@libs/shared/domain';
+import { IContent, processHTMLTextWithImageTags } from '@libs/shared/utils';
 
 import { QuestionsService } from '../services/questions.service';
 
@@ -18,6 +19,7 @@ export class HomePage implements OnInit {
   private readonly _questionsService = inject(QuestionsService);
 
   public question?: IQuestion;
+  public contentParts: IContent[] = [];
   public showList: boolean = true;
 
   public readonly items = Array.from({ length: 65 }).fill(0);
@@ -44,6 +46,7 @@ export class HomePage implements OnInit {
     this._questionsService.getById('clnmvkg4i002iwmt8mz7lfiuv').subscribe({
       next: (question) => {
         this.question = question;
+        this.contentParts = processHTMLTextWithImageTags(this.question.statement);
       },
       error: () => {},
     });

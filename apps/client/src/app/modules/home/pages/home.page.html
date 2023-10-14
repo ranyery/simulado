@@ -16,10 +16,29 @@
           {{ topic }}{{ isLast ? '' : ', ' }}
         </span>
       </div>
-      <div class="title">
-        Uma função f(x) é tal que f(2) = 0,4 e f(3) = -0,6. Admitindo que para x entre 2 e 3 o
-        gráfico seja um segmento de reta, podemos afirmar que o valor de k, tal que f(k) = 0, é:
-      </div>
+      <h1 class="title" *ngIf="question">
+        <strong *ngIf="question.instituteId">
+          <!-- ({{
+            (question.instituteId | findInstitute) + (!!question.year ? ' - ' + question.year : '')
+          }}) -->
+        </strong>
+        <ng-container *ngFor="let part of contentParts">
+          <ng-container *ngIf="part.type === 'image'; else simpleHtml">
+            <app-rich-image
+              *ngIf="part.src"
+              [src]="part.src"
+              [alt]="part.alt"
+              [width]="part.width"
+              [title]="part.title"
+              [subtitle]="part.subtitle">
+            </app-rich-image>
+          </ng-container>
+          <ng-template #simpleHtml>
+            <app-katex-html *ngIf="part.content" [html]="part.content" fontSize="20px">
+            </app-katex-html>
+          </ng-template>
+        </ng-container>
+      </h1>
       <form class="answers" [formGroup]="form">
         <ng-container *ngFor="let answer of answers; index as i">
           <label

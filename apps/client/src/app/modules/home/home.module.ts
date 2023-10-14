@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { KatexModule, RichImageModule } from '@simulado/components';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 
@@ -17,6 +18,8 @@ import { HomePage } from './pages/home.page';
     RadioButtonModule,
     ButtonModule,
     QuestionFeedbackModule,
+    RichImageModule,
+    KatexModule,
   ],
 })
 export class HomeModule {}
