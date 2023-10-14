@@ -1,0 +1,76 @@
+<article class="question">
+  <ng-container *ngIf="question; else skeleton">
+    <div class="question__topics bold">
+      Tópicos:
+      <span *ngFor="let topic of topics; last as isLast">
+        {{ topic }}{{ isLast ? '' : ', ' }}
+      </span>
+    </div>
+
+    <h1 class="question__title">
+      <strong>
+        ({{
+          (question.instituteId | findInstitute) + (!!question.year ? ' - ' + question.year : '')
+        }})
+      </strong>
+      <ng-container *ngFor="let part of contentParts">
+        <ng-container *ngIf="part.type === 'image'; else simpleHtml">
+          <app-rich-image
+            *ngIf="part.src"
+            [src]="part.src"
+            [alt]="part.alt"
+            [width]="part.width"
+            [title]="part.title"
+            [subtitle]="part.subtitle">
+          </app-rich-image>
+        </ng-container>
+        <ng-template #simpleHtml>
+          <app-katex-html *ngIf="part.content" [html]="part.content" fontSize="20px">
+          </app-katex-html>
+        </ng-template>
+      </ng-container>
+    </h1>
+
+    <form class="question__answers" [formGroup]="form">
+      <ng-container *ngFor="let answer of question.answerOptions; index as i">
+        <label
+          [ngClass]="{
+            'question__answers--selected': form.controls['indexSelectedAnswer'].value === i
+          }">
+          <p-radioButton inputId="{{ i }}" [value]="i" formControlName="indexSelectedAnswer">
+          </p-radioButton>
+          <span class="bold">{{ upperLetters[i] }}.</span>
+          <app-katex-html [html]="answer"></app-katex-html>
+        </label>
+      </ng-container>
+    </form>
+
+    <p-button
+      styleClass="p-button-secondary"
+      label="Show Answer"
+      [loading]="isLoading"
+      (onClick)="load()">
+      <i *ngIf="!isLoading" class="icon pi pi-eye"></i>
+    </p-button>
+  </ng-container>
+
+  <ng-template #skeleton>
+    <p-skeleton height="19px" [style]="{ 'background-color': '#393a42' }"></p-skeleton>
+    <h1 style="display: flex; flex-direction: column; gap: 4px">
+      <ng-container *ngFor="let value of [97, 87, 92]">
+        <p-skeleton [width]="value + '%'" height="21px" [style]="{ 'background-color': '#393a42' }">
+        </p-skeleton>
+      </ng-container>
+    </h1>
+    <form class="question__answers">
+      <ng-container *ngFor="let answer of [].constructor(5)">
+        <p-skeleton
+          height="45px"
+          [style]="{ 'background-color': '#25262e', border: '1px solid #ffffff33' }">
+        </p-skeleton>
+      </ng-container>
+    </form>
+    <p-skeleton width="154px" height="40px" [style]="{ 'background-color': '#393a42' }">
+    </p-skeleton>
+  </ng-template>
+</article>

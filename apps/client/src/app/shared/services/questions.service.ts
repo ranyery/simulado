@@ -4,7 +4,7 @@ import { IQueryParams, IQuestion } from '@simulado/domain';
 import { generateQueryParams } from '@simulado/utils';
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class QuestionsService {
