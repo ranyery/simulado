@@ -5,6 +5,7 @@ import { KatexModule, RichImageModule } from '@simulado/components';
 import { QuestionPipesModule } from '@simulado/pipes';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { SkeletonModule } from 'primeng/skeleton';
 
 import { QuestionFeedbackModule } from '../../shared/components/question-feedback/question-feedback.module';
 import { HomeRoutingModule } from './home-routing.module';
@@ -22,6 +23,7 @@ import { HomePage } from './pages/home.page';
     RichImageModule,
     KatexModule,
     QuestionPipesModule,
+    SkeletonModule,
   ],
 })
 export class HomeModule {}

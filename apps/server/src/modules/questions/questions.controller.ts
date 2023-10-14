@@ -5,6 +5,7 @@ import { Auth } from '../../shared/decorators/auth.decorator';
 import { QueryParamsRequestDTO } from '../../shared/schemas/query-params.schema';
 import { CreateQuestionRequestDTO } from './schemas/create-question.schema';
 import { PartialQuestionRequestDTO } from './schemas/partial-question.schema';
+import { QuestionResponseDTO } from './schemas/question.schema';
 import { CreateQuestionUseCase } from './useCases/create-question.usecase';
 import { DeleteQuestionByIdUseCase } from './useCases/delete-question-by-id.usecase';
 import { FindAllQuestionsUseCase } from './useCases/find-all-questions.usecase';
@@ -23,12 +24,16 @@ export class QuestionsController {
 
   @Get()
   async getAll(@Query() query: QueryParamsRequestDTO) {
-    return await this._findAllQuestionsUseCase.execute(query);
+    const questions = await this._findAllQuestionsUseCase.execute(query);
+    const questionsDTO = questions.map((question) => QuestionResponseDTO.parse(question));
+    return questionsDTO;
   }
 
   @Get('/:id')
   async getById(@Param('id') id: string) {
-    return await this._findQuestionByIdUseCase.execute(id);
+    const question = await this._findQuestionByIdUseCase.execute(id);
+    const questionDTO = QuestionResponseDTO.parse(question);
+    return questionDTO;
   }
 
   @Post()

@@ -20,7 +20,7 @@ export class HomePage implements OnInit {
 
   public readonly items = Array.from({ length: 65 }).fill(0);
 
-  public isLoading: boolean = false;
+  public isLoading: boolean = true;
   public readonly upperLetters: string[] = ['A', 'B', 'C', 'D', 'E'];
   public topics: string[] = ['Matemática Financeira', 'Regra de três', 'Equação de 1º grau'];
 
@@ -31,10 +31,12 @@ export class HomePage implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this._questionsService.getById('clnmugcrp002ewmt81s5mtycu').subscribe({
       next: (question) => {
-        this.question = question;
         this.contentParts = this._contentService.processHTMLTextWithImageTags(question.statement);
+        this.question = question;
+        this.isLoading = false;
       },
       error: () => {},
     });

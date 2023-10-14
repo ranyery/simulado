@@ -21,3 +21,6 @@ export const QuestionSchema = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
 }) satisfies z.ZodType<IQuestion>;
+
+// Usar como referência de dados ENVIADOS para o Front-End
+export const QuestionResponseDTO = QuestionSchema.omit({ createdAt: true, updatedAt: true });
