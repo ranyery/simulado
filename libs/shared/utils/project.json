@@ -1,16 +1,7 @@
 {
   "name": "utils",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/utils/src",
+  "sourceRoot": "libs/shared/utils",
   "projectType": "library",
-  "targets": {
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/shared/utils/**/*.ts"]
-      }
-    }
-  },
   "tags": ["scope:shared", "type:utils"]
 }
