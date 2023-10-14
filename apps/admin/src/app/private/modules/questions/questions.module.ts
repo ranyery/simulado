@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { KatexModule, RichImageModule } from '@simulado/components';
+import { QuestionPipesModule } from '@simulado/pipes';
 import { NgStringPipesModule } from 'ngx-pipes';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
@@ -17,20 +18,10 @@ import { PermissionsDirectivesModule } from '../../../shared/directives/permissi
 import { QuestionPreviewComponent } from './components/question-preview/question-preview.component';
 import { QuestionCrudPage } from './pages/question-crud/question-crud.page';
 import { QuestionListPage } from './pages/question-list/question-list.page';
-import { FindInstitutePipe } from './pipes/find-institute.pipe';
-import { FindRelatedTopicPipe } from './pipes/find-related-topics.pipe';
-import { FindSubjectPipe } from './pipes/find-subject.pipe';
 import { QuestionsRoutingModule } from './questions-routing.module';
 
 @NgModule({
-  declarations: [
-    QuestionListPage,
-    FindSubjectPipe,
-    FindRelatedTopicPipe,
-    FindInstitutePipe,
-    QuestionCrudPage,
-    QuestionPreviewComponent,
-  ],
+  declarations: [QuestionListPage, QuestionCrudPage, QuestionPreviewComponent],
   imports: [
     CommonModule,
     QuestionsRoutingModule,
@@ -48,6 +39,7 @@ import { QuestionsRoutingModule } from './questions-routing.module';
     RichImageModule,
     KatexModule,
     AngularEditorModule,
+    QuestionPipesModule,
   ],
 })
 export class QuestionsModule {}

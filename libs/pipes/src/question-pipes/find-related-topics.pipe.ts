@@ -1,6 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
-
-import { TopicsState } from '../../topics/state/topics.state';
+import { TopicsState } from '@simulado/services';
 
 @Pipe({ name: 'findRelatedTopic' })
 export class FindRelatedTopicPipe implements PipeTransform {

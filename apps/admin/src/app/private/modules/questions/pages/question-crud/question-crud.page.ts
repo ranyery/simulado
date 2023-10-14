@@ -10,14 +10,12 @@ import {
   EQuestionType,
   IQuestion,
 } from '@simulado/domain';
+import { InstitutesState, SubjectsState, TopicsState } from '@simulado/services';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../../shared/services/toast.service';
 import { UserRolesService } from '../../../../../shared/services/user-roles.service';
 import { UtilsService } from '../../../../../shared/services/utils.service';
-import { InstitutesState } from '../../../institutes/state/institutes.state';
-import { SubjectsState } from '../../../subjects/state/subjects.state';
-import { TopicsState } from '../../../topics/state/topics.state';
 import { QuestionsService } from '../../services/questions.service';
 import { QuestionsState } from '../../state/questions.state';
 import { EQuestionActions } from '../question-list/question-list.page';

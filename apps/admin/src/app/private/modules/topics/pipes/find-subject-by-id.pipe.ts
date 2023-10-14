@@ -1,6 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
-
-import { SubjectsState } from '../../subjects/state/subjects.state';
+import { SubjectsState } from '@simulado/services';
 
 @Pipe({ name: 'findSubjectById' })
 export class FindSubjectByIdPipe implements PipeTransform {

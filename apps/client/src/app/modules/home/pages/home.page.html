@@ -18,9 +18,8 @@
       </div>
       <h1 class="title" *ngIf="question">
         <strong *ngIf="question.instituteId">
-          <!-- ({{
-            (question.instituteId | findInstitute) + (!!question.year ? ' - ' + question.year : '')
-          }}) -->
+          ({{ (question.instituteId | findInstitute) + (!!question.year ? ' - ' + question.year :'')
+          }})
         </strong>
         <ng-container *ngFor="let part of contentParts">
           <ng-container *ngIf="part.type === 'image'; else simpleHtml">

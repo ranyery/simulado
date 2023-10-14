@@ -22,6 +22,7 @@
     "paths": {
       "@simulado/components": ["libs/components/_index.ts"],
       "@simulado/domain": ["libs/domain/_index.ts"],
+      "@simulado/pipes": ["libs/pipes/_index.ts"],
       "@simulado/services": ["libs/services/_index.ts"],
       "@simulado/utils": ["libs/utils/_index.ts"]
     }

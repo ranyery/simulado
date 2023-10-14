@@ -2,6 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ISubject, ITopic } from '@simulado/domain';
+import { SubjectsState, TopicsState } from '@simulado/services';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, forkJoin, iif, of, switchMap } from 'rxjs';
@@ -9,10 +10,8 @@ import { finalize, forkJoin, iif, of, switchMap } from 'rxjs';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { SubjectsService } from '../../subjects/services/subjects.service';
-import { SubjectsState } from '../../subjects/state/subjects.state';
 import { FormTopicComponent } from '../components/form-topic/form-topic.component';
 import { TopicsService } from '../services/topics.service';
-import { TopicsState } from '../state/topics.state';
 
 export const enum ETopicActions {
   CREATE = 'CREATE',

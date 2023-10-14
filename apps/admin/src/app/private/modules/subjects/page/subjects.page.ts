@@ -2,6 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ISubject } from '@simulado/domain';
+import { SubjectsState } from '@simulado/services';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
@@ -10,7 +11,6 @@ import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog
 import { ToastService } from '../../../../shared/services/toast.service';
 import { FormSubjectComponent } from '../components/form-subject/form-subject.component';
 import { SubjectsService } from '../services/subjects.service';
-import { SubjectsState } from '../state/subjects.state';
 
 export const enum ESubjectActions {
   CREATE = 'CREATE',

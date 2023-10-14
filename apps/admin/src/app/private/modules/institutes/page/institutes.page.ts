@@ -6,11 +6,11 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Table } from 'primeng/table';
 import { finalize, switchMap } from 'rxjs';
 
+import { InstitutesState } from '@simulado/services';
 import { ConfirmDialogService } from '../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { FormInstituteComponent } from '../components/form-institute/form-institute.component';
 import { InstitutesService } from '../services/institutes.service';
-import { InstitutesState } from '../state/institutes.state';
 
 export const enum EInstituteActions {
   CREATE = 'CREATE',

@@ -1,6 +1,5 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
-
-import { InstitutesState } from '../../institutes/state/institutes.state';
+import { InstitutesState } from '@simulado/services';
 
 @Pipe({ name: 'findInstitute' })
 export class FindInstitutePipe implements PipeTransform {
