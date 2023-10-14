@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { IQuestion } from '@libs/shared/domain';
+
+import { QuestionsService } from '../services/questions.service';
 
 interface IAnswer {
   id: string;
@@ -12,6 +15,9 @@ interface IAnswer {
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  private readonly _questionsService = inject(QuestionsService);
+
+  public question?: IQuestion;
   public showList: boolean = true;
 
   public readonly items = Array.from({ length: 65 }).fill(0);
@@ -35,6 +41,12 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.topics = ['Matemática Financeira', 'Regra de três', 'Equação de 1º grau'];
+    this._questionsService.getById('clnmvkg4i002iwmt8mz7lfiuv').subscribe({
+      next: (question) => {
+        this.question = question;
+      },
+      error: () => {},
+    });
   }
 
   public load(): void {
