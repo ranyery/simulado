@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ISubject } from '@libs/shared/domain';
+import { ISubject } from '@simulado/domain';
 
 @Injectable({ providedIn: 'root' })
 export class SubjectsState {

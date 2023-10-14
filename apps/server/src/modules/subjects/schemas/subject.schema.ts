@@ -1,4 +1,4 @@
-import { ESubjectStatus, ISubject } from '@libs/shared/domain';
+import { ESubjectStatus, ISubject } from '@simulado/domain';
 import { z } from 'nestjs-zod/z';
 import { QuestionSchema } from '../../questions/schemas/question.schema';
 import { TopicSchema } from '../../topics/schemas/topic.schema';

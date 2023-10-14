@@ -1,5 +1,5 @@
-import { IQueryParams, IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { IQueryParams, IQuestion } from '@simulado/domain';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
 import { CreateQuestionRequestDTO } from '../../schemas/create-question.schema';

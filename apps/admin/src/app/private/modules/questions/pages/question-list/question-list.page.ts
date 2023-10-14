@@ -2,7 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IQuestion } from '@libs/shared/domain';
+import { IQuestion } from '@simulado/domain';
 import { Table } from 'primeng/table';
 import { finalize, fromEvent, Subscription, throttleTime } from 'rxjs';
 

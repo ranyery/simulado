@@ -1,5 +1,5 @@
-import { IQuestion } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { IQuestion } from '@simulado/domain';
 
 import { IQuestionsRepository } from '../repositories/questions.repository';
 

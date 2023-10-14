@@ -1,5 +1,5 @@
-import { EUserRole } from '@libs/shared/domain';
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { EUserRole } from '@simulado/domain';
 
 import { Auth } from '../../shared/decorators/auth.decorator';
 import { CreateUserRequestDTO, CreateUserResponseDTO } from './schemas/create-user.schema';

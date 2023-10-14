@@ -1,5 +1,5 @@
-import { IQueryParams, IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { IQueryParams, IQuestion } from '@simulado/domain';
 
 import { IQuestionsRepository } from '../repositories/questions.repository';
 

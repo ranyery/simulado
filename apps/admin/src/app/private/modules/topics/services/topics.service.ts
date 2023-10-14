@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ITopic } from '@libs/shared/domain';
+import { ITopic } from '@simulado/domain';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../environments/environment';

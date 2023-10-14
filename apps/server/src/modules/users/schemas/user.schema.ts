@@ -1,4 +1,4 @@
-import { EUserRole, EUserStatus, IUser } from '@libs/shared/domain';
+import { EUserRole, EUserStatus, IUser } from '@simulado/domain';
 import { z } from 'nestjs-zod/z';
 
 export const UserSchema = z.object({

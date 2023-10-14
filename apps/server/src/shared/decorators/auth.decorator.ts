@@ -1,5 +1,5 @@
-import { EUserRole } from '@libs/shared/domain';
 import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
+import { EUserRole } from '@simulado/domain';
 
 import { AuthGuard } from '../guards/auth.guard';
 import { RolesGuard } from '../guards/roles.guard';

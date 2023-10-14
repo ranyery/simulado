@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IQuestion } from '@libs/shared/domain';
+import { IQuestion } from '@simulado/domain';
 
 import { BaseState } from '../../../../shared/classes/base.state';
 

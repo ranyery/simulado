@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IQuestion } from '@libs/shared/domain';
+import { IQuestion } from '@simulado/domain';
 import { ContentService, IContent } from '@simulado/services';
 
 import { QuestionsService } from '../services/questions.service';

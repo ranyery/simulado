@@ -1,5 +1,5 @@
-import { IUser } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { IUser } from '@simulado/domain';
 
 import { IUsersRepository } from '../repositories/users.repository';
 

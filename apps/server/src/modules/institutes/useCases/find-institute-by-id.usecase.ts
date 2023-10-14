@@ -1,5 +1,5 @@
-import { IInstitute } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { IInstitute } from '@simulado/domain';
 
 import { IInstitutesRepository } from '../repositories/institutes.repository';
 

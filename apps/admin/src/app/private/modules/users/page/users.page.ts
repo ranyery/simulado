@@ -1,6 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { IUser } from '@libs/shared/domain';
+import { IUser } from '@simulado/domain';
 import { Table } from 'primeng/table';
 import { finalize } from 'rxjs';
 

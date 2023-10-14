@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '@libs/shared/domain';
+import { IUser } from '@simulado/domain';
 
 @Injectable({ providedIn: 'root' })
 export class UsersState {

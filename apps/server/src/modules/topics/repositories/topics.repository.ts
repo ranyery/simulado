@@ -1,4 +1,4 @@
-import { ITopic } from '@libs/shared/domain';
+import { ITopic } from '@simulado/domain';
 
 import { CreateTopicRequestDTO } from '../schemas/create-topic.schema';
 import { PartialTopicRequestDTO } from '../schemas/partial-topic.schema';

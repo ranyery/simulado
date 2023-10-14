@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { EUserRole } from '@libs/shared/domain';
+import { EUserRole } from '@simulado/domain';
 
 import { JwtService } from './jwt.service';
 

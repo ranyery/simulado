@@ -1,5 +1,5 @@
-import { IUser } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { IUser } from '@simulado/domain';
 import { hash } from 'bcrypt';
 
 import { IUsersRepository } from '../repositories/users.repository';

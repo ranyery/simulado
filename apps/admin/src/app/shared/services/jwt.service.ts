@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { IJwt } from '@libs/shared/domain';
+import { IJwt } from '@simulado/domain';
 import jwtDecode from 'jwt-decode';
 
 import { ESessionStorage } from '../constants/session-storage.enum';

@@ -1,6 +1,6 @@
-import { IJwt } from '@libs/shared/domain';
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { IJwt } from '@simulado/domain';
 import { Request } from 'express';
 
 import { secret } from '../../modules/auth/constants/jwt';

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EEntity, EUserRole } from '@libs/shared/domain';
+import { EEntity, EUserRole } from '@simulado/domain';
 
 import { RolesGuard } from '../shared/guards/roles.guard';
 import { ShellPage } from './shell/shell.page';

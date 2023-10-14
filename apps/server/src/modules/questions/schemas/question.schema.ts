@@ -3,7 +3,7 @@ import {
   EQuestionStatus,
   EQuestionType,
   IQuestion,
-} from '@libs/shared/domain';
+} from '@simulado/domain';
 import { z } from 'nestjs-zod/z';
 
 export const QuestionSchema = z.object({

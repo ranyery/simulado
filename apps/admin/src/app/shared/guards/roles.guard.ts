@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { EUserRole } from '@libs/shared/domain';
+import { EUserRole } from '@simulado/domain';
 
 import { UserRolesService } from '../services/user-roles.service';
 

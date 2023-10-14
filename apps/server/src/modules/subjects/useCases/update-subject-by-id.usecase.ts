@@ -1,5 +1,5 @@
-import { ISubject } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ISubject } from '@simulado/domain';
 
 import { ISubjectsRepository } from '../repositories/subjects.repository';
 import { PartialSubjectRequestDTO } from '../schemas/partial-subject.schema';

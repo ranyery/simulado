@@ -1,5 +1,5 @@
-import { IUser } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { IUser } from '@simulado/domain';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
 import { CreateUserRequestDTO } from '../../schemas/create-user.schema';

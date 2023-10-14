@@ -1,6 +1,6 @@
-import { IUser } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { IUser } from '@simulado/domain';
 
 @Injectable()
 export class TokenService {

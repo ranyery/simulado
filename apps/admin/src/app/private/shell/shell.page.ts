@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { EEntity } from '@libs/shared/domain';
+import { EEntity } from '@simulado/domain';
 
 import { AuthService } from '../../shared/services/auth.service';
 import { UserRolesService } from '../../shared/services/user-roles.service';

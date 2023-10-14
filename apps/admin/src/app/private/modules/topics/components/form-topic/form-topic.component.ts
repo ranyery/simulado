@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ETopicStatus, ISubject, ITopic } from '@libs/shared/domain';
+import { ETopicStatus, ISubject, ITopic } from '@simulado/domain';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';

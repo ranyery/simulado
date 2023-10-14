@@ -9,7 +9,7 @@ import {
   EQuestionStatus,
   EQuestionType,
   IQuestion,
-} from '@libs/shared/domain';
+} from '@simulado/domain';
 
 import { ConfirmDialogService } from '../../../../../shared/services/confirm-dialog.service';
 import { ToastService } from '../../../../../shared/services/toast.service';

@@ -1,5 +1,5 @@
-import { IQuestion } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { IQuestion } from '@simulado/domain';
 
 import { IQuestionsRepository } from '../repositories/questions.repository';
 import { CreateQuestionRequestDTO } from '../schemas/create-question.schema';

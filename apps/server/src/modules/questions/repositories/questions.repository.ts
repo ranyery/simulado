@@ -1,4 +1,4 @@
-import { IQueryParams, IQuestion } from '@libs/shared/domain';
+import { IQueryParams, IQuestion } from '@simulado/domain';
 
 import { CreateQuestionRequestDTO } from '../schemas/create-question.schema';
 import { PartialQuestionRequestDTO } from '../schemas/partial-question.schema';

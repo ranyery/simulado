@@ -1,5 +1,5 @@
-import { ISubject } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { ISubject } from '@simulado/domain';
 
 import { ISubjectsRepository } from '../repositories/subjects.repository';
 import { CreateSubjectRequestDTO } from '../schemas/create-subject.schema';

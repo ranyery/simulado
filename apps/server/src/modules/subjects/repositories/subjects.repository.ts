@@ -1,4 +1,4 @@
-import { ISubject } from '@libs/shared/domain';
+import { ISubject } from '@simulado/domain';
 
 import { CreateSubjectRequestDTO } from '../schemas/create-subject.schema';
 import { PartialSubjectRequestDTO } from '../schemas/partial-subject.schema';

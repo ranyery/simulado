@@ -1,4 +1,4 @@
-import { EInstituteStatus, IInstitute } from '@libs/shared/domain';
+import { EInstituteStatus, IInstitute } from '@simulado/domain';
 import { z } from 'nestjs-zod/z';
 import { QuestionSchema } from '../../questions/schemas/question.schema';
 

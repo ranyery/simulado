@@ -1,5 +1,5 @@
-import { ITopic } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ITopic } from '@simulado/domain';
 
 import { ITopicsRepository } from '../repositories/topics.repository';
 import { PartialTopicRequestDTO } from '../schemas/partial-topic.schema';

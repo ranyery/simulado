@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IInstitute } from '@libs/shared/domain';
+import { IInstitute } from '@simulado/domain';
 
 @Injectable({ providedIn: 'root' })
 export class InstitutesState {

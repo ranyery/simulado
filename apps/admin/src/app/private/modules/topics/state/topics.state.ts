@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITopic } from '@libs/shared/domain';
+import { ITopic } from '@simulado/domain';
 
 @Injectable({ providedIn: 'root' })
 export class TopicsState {

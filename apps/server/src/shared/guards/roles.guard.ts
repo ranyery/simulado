@@ -1,6 +1,6 @@
-import { EUserRole, IJwt } from '@libs/shared/domain';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { EUserRole, IJwt } from '@simulado/domain';
 
 import { ROLES_KEY } from '../decorators/roles.decorator';
 

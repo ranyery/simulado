@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Directive, inject, Input } from '@angular/core';
-import { EUserRole } from '@libs/shared/domain';
+import { EUserRole } from '@simulado/domain';
 
 import { UserRolesService } from '../../services/user-roles.service';
 

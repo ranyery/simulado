@@ -1,4 +1,4 @@
-import { ETopicStatus, ITopic } from '@libs/shared/domain';
+import { ETopicStatus, ITopic } from '@simulado/domain';
 import { z } from 'nestjs-zod/z';
 
 export const TopicSchema = z.object({

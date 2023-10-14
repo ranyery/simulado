@@ -1,5 +1,5 @@
-import { EUserRole } from '@libs/shared/domain';
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { EUserRole } from '@simulado/domain';
 
 import { Auth } from '../../shared/decorators/auth.decorator';
 import { QueryParamsRequestDTO } from '../../shared/schemas/query-params.schema';

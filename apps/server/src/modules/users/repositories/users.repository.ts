@@ -1,4 +1,4 @@
-import { IUser } from '@libs/shared/domain';
+import { IUser } from '@simulado/domain';
 
 import { CreateUserRequestDTO } from '../schemas/create-user.schema';
 

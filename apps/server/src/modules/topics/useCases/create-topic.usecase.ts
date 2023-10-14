@@ -1,5 +1,5 @@
-import { ITopic } from '@libs/shared/domain';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ITopic } from '@simulado/domain';
 
 import { ISubjectsRepository } from '../../subjects/repositories/subjects.repository';
 import { ITopicsRepository } from '../repositories/topics.repository';

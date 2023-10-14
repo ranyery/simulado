@@ -1,4 +1,4 @@
-import { IInstitute } from '@libs/shared/domain';
+import { IInstitute } from '@simulado/domain';
 
 import { CreateInstituteRequestDTO } from '../schemas/create-institute.schema';
 import { PartialInstituteRequestDTO } from '../schemas/partial-institute.schema';

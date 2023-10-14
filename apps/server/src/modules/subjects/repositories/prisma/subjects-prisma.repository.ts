@@ -1,5 +1,5 @@
-import { ISubject } from '@libs/shared/domain';
 import { Injectable } from '@nestjs/common';
+import { ISubject } from '@simulado/domain';
 
 import { PrismaService } from '../../../../infra/database/prisma.service';
 import { CreateSubjectRequestDTO } from '../../schemas/create-subject.schema';
