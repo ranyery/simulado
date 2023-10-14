@@ -9,15 +9,16 @@
       </p-button>
     </div>
 
-    <article class="practice-test__question">
+    <article class="practice-test__question" *ngIf="question">
       <div class="topics bold">
         Tópicos:
         <span *ngFor="let topic of topics; last as isLast">
           {{ topic }}{{ isLast ? '' : ', ' }}
         </span>
       </div>
-      <h1 class="title" *ngIf="question">
-        <strong *ngIf="question.instituteId">
+
+      <h1 class="title">
+        <strong>
           ({{ (question.instituteId | findInstitute) + (!!question.year ? ' - ' + question.year :'')
           }})
         </strong>
@@ -38,21 +39,18 @@
           </ng-template>
         </ng-container>
       </h1>
+
       <form class="answers" [formGroup]="form">
-        <ng-container *ngFor="let answer of answers; index as i">
-          <label
-            [ngClass]="{ selected: form.controls['selectedAnswer'].value === answer.title }"
-            [for]="answer.id">
-            <p-radioButton
-              [inputId]="answer.id"
-              [value]="answer.title"
-              formControlName="selectedAnswer">
+        <ng-container *ngFor="let answer of question.answerOptions; index as i">
+          <label [ngClass]="{ selected: form.controls['selectedAnswer'].value === i }">
+            <p-radioButton inputId="{{ i }}" [value]="i" formControlName="selectedAnswer">
             </p-radioButton>
             <span class="bold">{{ upperLetters[i] }}.</span>
-            <span>{{ answer.title }}</span>
+            <app-katex-html [html]="answer"></app-katex-html>
           </label>
         </ng-container>
       </form>
+
       <p-button
         styleClass="p-button-secondary"
         label="Show Answer"
