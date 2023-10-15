@@ -1,7 +1,7 @@
 <div class="home-page">
   <div class="practice-test">
     <div class="practice-test__header">
-      <div>Questão: <span class="bold">7</span>/<span>65</span></div>
+      <div>Questão: <span class="bold">7</span>/<span>{{ questions.length }}</span></div>
       <p-button
         (onClick)="toggleShowList()"
         styleClass="p-button-secondary"
@@ -9,15 +9,17 @@
       </p-button>
     </div>
 
-    <app-question class="practice-test__question" [question]="question"></app-question>
+    <app-question class="practice-test__question" [question]="selectedQuestion"></app-question>
 
     <aside class="practice-test__list" [ngClass]="{'practice-test__list--hidden': !showList}">
       <div class="items">
-        <p-button
-          *ngFor="let item of items; index as i"
-          styleClass="p-button-rounded p-button-success">
-          {{ i + 1 }}
-        </p-button>
+        <ng-container *ngFor="let question of questions; index as i">
+          <p-button
+            (onClick)="updateSelectedQuestion(question.id)"
+            styleClass="p-button-rounded p-button-success">
+            {{ i + 1 }}
+          </p-button>
+        </ng-container>
       </div>
       <p-button label="Cancelar simulado" styleClass="p-button-danger"></p-button>
     </aside>
@@ -31,8 +33,5 @@
         styleClass="p-button-success">
       </p-button>
     </div>
-  </div>
-  <div class="home-page__feedback">
-    <app-question-feedback [disabled]="true" [questionId]="'XYZ'"></app-question-feedback>
   </div>
 </div>

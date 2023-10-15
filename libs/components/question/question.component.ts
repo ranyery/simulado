@@ -39,6 +39,7 @@ export class QuestionComponent implements OnInit, OnChanges {
       if (!question) return;
 
       this.contentParts = this._contentService.processHTMLTextWithImageTags(question.statement);
+      this.form.controls['indexSelectedAnswer'].setValue(undefined, { emitEvent: false });
     }
   }
 

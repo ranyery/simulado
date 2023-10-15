@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IQuestion } from '@simulado/domain';
-import { delay } from 'rxjs';
 
 import { QuestionsService } from '../../../shared/services/questions.service';
 
@@ -12,26 +11,29 @@ import { QuestionsService } from '../../../shared/services/questions.service';
 export class HomePage implements OnInit {
   private readonly _questionsService = inject(QuestionsService);
 
-  public question?: IQuestion;
-  public showList: boolean = true;
+  public questions: IQuestion[] = [];
 
+  public selectedQuestion?: IQuestion;
+  public showList: boolean = true;
   public isLoading: boolean = true;
-  public readonly items = Array.from({ length: 65 }).fill(0);
 
   constructor() {}
 
   ngOnInit(): void {
     this.isLoading = true;
-    this._questionsService
-      .getById('clnmvkg4i002iwmt8mz7lfiuv')
-      .pipe(delay(1000))
-      .subscribe({
-        next: (question) => {
-          this.question = question;
-          this.isLoading = false;
-        },
-        error: () => {},
-      });
+    this._questionsService.getAll({ top: 20, skip: 0, orderBy: 'asc' }).subscribe({
+      next: (questions) => {
+        this.questions = questions;
+        this.selectedQuestion = questions[0];
+        this.isLoading = false;
+      },
+      error: () => {},
+    });
+  }
+
+  public updateSelectedQuestion(questionId: string): void {
+    const selectedQuestion = this.questions.find((q) => q.id === questionId);
+    this.selectedQuestion = selectedQuestion;
   }
 
   public toggleShowList(): void {

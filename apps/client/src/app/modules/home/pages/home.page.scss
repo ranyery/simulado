@@ -1,17 +1,14 @@
 .home-page {
   display: grid;
   min-height: calc(100vh - 112px);
-  place-items: center;
-
-  &__feedback {
-    padding: 16px 0;
-  }
+  justify-items: center;
 }
 
 .practice-test {
   display: grid;
   width: 100%;
   max-width: 1440px;
+  height: fit-content;
   border-radius: 8px;
   margin: 16px;
   background-color: #25262e;
